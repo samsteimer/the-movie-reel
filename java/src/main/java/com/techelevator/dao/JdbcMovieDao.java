@@ -21,7 +21,7 @@ public class JdbcMovieDao implements MovieDao{
     }
 
     @Override
-    public Movie getMovieByMovieId(int movieId) {
+    public Movie getMovieByMovieId(Integer movieId) {
         Movie movie = null;
 
         String sql = "select * from movies where movie_id = ?;";
@@ -126,7 +126,7 @@ public class JdbcMovieDao implements MovieDao{
 
 
     public Movie mapRowToMovie(SqlRowSet rowSet) {
-        int movieId = rowSet.getInt("movie_id");
+        Integer movieId = rowSet.getInt("movie_id");
 
         int apiMovieId = rowSet.getInt("api_movie_id");
 
