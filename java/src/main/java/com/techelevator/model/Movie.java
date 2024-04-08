@@ -1,10 +1,14 @@
 package com.techelevator.model;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.time.LocalDate;
 
 public class Movie {
 
-    private int movieId;
+    private Integer movieId;
+    @JsonAlias("id")
     private int apiMovieId;
     private String title;
     private String posterPath;
@@ -36,7 +40,7 @@ public class Movie {
         return movieId;
     }
 
-    public void setMovieId(int movieId) {
+    public void setMovieId(Integer movieId) {
         this.movieId = movieId;
     }
 
