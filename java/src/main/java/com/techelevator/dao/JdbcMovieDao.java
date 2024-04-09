@@ -93,7 +93,7 @@ public class JdbcMovieDao implements MovieDao {
         List<Movie> moviesInUserFav = new ArrayList<>();
 
         String sql = "select * from movies join users_movies using (movie_id) where user_id = ?;";
-
+        try {
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
 
         while (results.next()) {
