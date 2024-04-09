@@ -29,7 +29,7 @@ CREATE TABLE movies (
 
 CREATE TABLE genres (
 	genre_id int UNIQUE primary key,
-	gnere_name varchar(50)
+	genre_name varchar(50)
 );
 
 CREATE TABLE reviews (
