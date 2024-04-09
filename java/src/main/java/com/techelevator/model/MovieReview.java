@@ -47,9 +47,10 @@ public class MovieReview {
         return movieId;
     }
 
-    public void setMovieId(int id) {
-        movieId = movieId;
+    public void setMovieId(int movieId) {
+        this.movieId = movieId;
     }
+
 
     public MovieReview(String movieReview, int starRating, int movieId, int userId, int reviewId) {
         this.movieReview = movieReview;
