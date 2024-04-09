@@ -1,7 +1,6 @@
 package com.techelevator.dao;
 
 import com.techelevator.model.MovieReview;
-import com.techelevator.model.RegisterUserDto;
 import com.techelevator.model.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
