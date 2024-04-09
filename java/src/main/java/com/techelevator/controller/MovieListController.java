@@ -62,7 +62,7 @@ public class MovieListController {
             if (movie == null) {
                 throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie not found.");
             } else {
-                movieListDao.addListMovie(movieList.getId(), movie.getMovieId());
+                movieListDao.addListMovie(movieList.getListId(), movie.getMovieId());
                 return movie;
             }
         } catch (DaoException e) {
@@ -81,7 +81,7 @@ public class MovieListController {
             if (movie == null) {
                 throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie not found.");
             } else {
-                movieListDao.removeListMovie(movieList.getId(), movie.getMovieId());
+                movieListDao.removeListMovie(movieList.getListId(), movie.getMovieId());
             }
         } catch (DaoException e) {
             throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Service not Available");
