@@ -14,6 +14,11 @@ public class User {
    private String password;
    @JsonIgnore
    private boolean activated;
+
+   private String firstName;
+   private String lastName;
+   private String bio;
+   private String email;
    private Set<Authority> authorities = new HashSet<>();
 
    public User() { }
@@ -72,6 +77,38 @@ public class User {
          String authority = role.contains("ROLE_") ? role : "ROLE_" + role;
          this.authorities.add(new Authority(authority));
       }
+   }
+
+   public String getFirstName() {
+      return firstName;
+   }
+
+   public void setFirstName(String firstName) {
+      this.firstName = firstName;
+   }
+
+   public String getLastName() {
+      return lastName;
+   }
+
+   public void setLastName(String lastName) {
+      this.lastName = lastName;
+   }
+
+   public String getBio() {
+      return bio;
+   }
+
+   public void setBio(String bio) {
+      this.bio = bio;
+   }
+
+   public String getEmail() {
+      return email;
+   }
+
+   public void setEmail(String email) {
+      this.email = email;
    }
 
    @Override

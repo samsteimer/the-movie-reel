@@ -20,9 +20,12 @@ public interface MovieDao {
 
     List<Movie> getMoviesByGenreId(List<Integer> genreIds);
 
+    Movie createMovie(Movie movie);
 
+    Movie updateMovie(Movie movie);
 
+    void addMovieGenre(int movieId, int genreId);
 
-
+    void removeMovieGenre(int movieId, int genreId);
 
 }

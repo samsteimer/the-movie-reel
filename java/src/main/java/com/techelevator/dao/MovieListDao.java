@@ -12,6 +12,10 @@ public interface MovieListDao {
 
     MovieList createMovieList(MovieList movieList);
 
-    MovieList updateMovieListById(int id, MovieList movieList);
+    MovieList updateMovieList(MovieList movieList);
+
+    void addListMovie(int listId, int movieId);
+
+    void removeListMovie(int listId, int movieId);
 
 }
