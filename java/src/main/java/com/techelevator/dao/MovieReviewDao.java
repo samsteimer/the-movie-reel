@@ -21,5 +21,7 @@ public interface MovieReviewDao {
     Integer createMovieReview(String review, int starRating, int movieId, int userId);
 
 
+    MovieReview getMovieReviewByMovieId(int movieId);
 
+    List<MovieReview> getMovieReviewsByMovieId(int movieId);
 }

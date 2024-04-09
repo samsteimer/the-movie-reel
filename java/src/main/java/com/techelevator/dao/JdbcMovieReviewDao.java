@@ -26,7 +26,7 @@ public class JdbcMovieReviewDao implements MovieReviewDao{
         MovieReview review = null;
 
         try {
-            String sql = "select review, star_rating, user_id, movie_id, review_id from review where movie_id = ?;";
+            String sql = "select review, star_rating, user_id, movie_id, review_id from review where review_id = ?;";
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, reviewId);
             review = mapRowToReview(results);
         } catch (CannotGetJdbcConnectionException e){
@@ -43,7 +43,7 @@ public class JdbcMovieReviewDao implements MovieReviewDao{
         List<MovieReview> review = new ArrayList<>();
 
         try {
-            String sql = "select review, star_rating, user_id, movie_id, review_id from reviews where movie_id = ?;";
+            String sql = "select review, star_rating, user_id, movie_id, review_id from reviews where review_id = ?;";
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, reviewId);
 
             while (results.next()) {
@@ -103,9 +103,8 @@ public class JdbcMovieReviewDao implements MovieReviewDao{
 
         Integer movieReviewId;
         try {
-            movieReviewId = jdbcTemplate.queryForObject(sql, int.class, movieReview.getReviewId());
-            return movieReviewId;
-
+            movieReviewId = jdbcTemplate.queryForObject(sql, int.class, movieReview.getMovieReview(), movieReview.starRating, movieReview.movieId, movieReview.movieId, movieReview.getUserId());
+                return movieReviewId;
             } catch (CannotGetJdbcConnectionException e) {
                  throw new DaoException("Unable to connect to the server or Database", e);
             } catch (DataIntegrityViolationException e) {
@@ -113,6 +112,41 @@ public class JdbcMovieReviewDao implements MovieReviewDao{
         }
     }
 
+    @Override
+    public MovieReview getMovieReviewByMovieId(int movieId) {
+        MovieReview review = null;
+
+        try {
+            String sql = "select review, star_rating, user_id, movie_id, review_id from review where movie_id = ?;";
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, movieId);
+            review = mapRowToReview(results);
+        } catch (CannotGetJdbcConnectionException e){
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e){
+            throw new DaoException("Data Integrity violation", e);
+        }
+        return review;
+    }
+
+    @Override
+    public List<MovieReview> getMovieReviewsByMovieId(int movieId) {
+
+        List<MovieReview> review = new ArrayList<>();
+
+        try {
+            String sql = "select review, star_rating, user_id, movie_id, review_id from reviews where movie_id = ?;";
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, movieId);
+
+            while (results.next()) {
+                review.add(mapRowToReview(results));
+            }
+        } catch (CannotGetJdbcConnectionException e){
+            throw new DaoException("Unable to connect to the server or database", e);
+        } catch (DataIntegrityViolationException e){
+            throw new DaoException("Data integrity violation", e);
+        }
+        return review;
+    }
 
     private MovieReview mapRowToReview(SqlRowSet rowSet){
         MovieReview review = new MovieReview();
