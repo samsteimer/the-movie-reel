@@ -15,11 +15,14 @@ import java.util.List;
 @Component
 public class JdbcMovieListDao implements MovieListDao {
 
-    @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    @Autowired
     private MovieDao movieDao;
+
+    public JdbcMovieListDao(JdbcTemplate jdbcTemplate, MovieDao movieDao) {
+        this.jdbcTemplate = jdbcTemplate;
+        this.movieDao = movieDao;
+    }
 
     @Override
     public MovieList getMovieListById(int id) {

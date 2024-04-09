@@ -18,11 +18,14 @@ import java.util.List;
 @PreAuthorize("isAuthenticated()")
 public class UserController {
 
-    @Autowired
     private MovieDao movieDao;
 
-    @Autowired
     private UserDao userDao;
+
+    public UserController(MovieDao movieDao, UserDao userDao) {
+        this.movieDao = movieDao;
+        this.userDao = userDao;
+    }
 
     @PutMapping("/profile")
     public User updateUser(User user, Principal principal) {

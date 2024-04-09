@@ -19,8 +19,6 @@ import java.util.List;
 @RestController
 @PreAuthorize("isAuthenticated()")
 @RequestMapping("/movieReview")
-
-
 public class MovieReviewController {
 
     private MovieReviewDao movieReviewDao;
@@ -46,19 +44,19 @@ public class MovieReviewController {
         }
     }
 
-    @GetMapping("movieReview/{reviewId}")
-    public List<MovieReview> getMovieReviewsById(@Valid @PathVariable("reviewId") Integer reviewId) {
-        try {
-            List<MovieReview> movieReview =  movieReviewDao.getMovieReviewsById(reviewId);
-            if (movieReview == null){
-                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie review not found");
-            } else {
-                return movieReview;
-            }
-        } catch (DaoException e){
-            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Service not available" );
-        }
-    }
+//    @GetMapping("movieReview/{reviewId}")
+//    public List<MovieReview> getMovieReviewsById(@Valid @PathVariable("reviewId") Integer reviewId) {
+//        try {
+//            List<MovieReview> movieReview =  movieReviewDao.getMovieReviewsById(reviewId);
+//            if (movieReview == null){
+//                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie review not found");
+//            } else {
+//                return movieReview;
+//            }
+//        } catch (DaoException e){
+//            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Service not available" );
+//        }
+//    }
 
     @GetMapping("movieReview/{movieId}/{userId}")
     public List<MovieReview> getMovieReviewsByUser(@Valid @PathVariable("movieId, userId") Integer movieId, Integer userId) {

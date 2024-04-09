@@ -60,7 +60,7 @@ CREATE TABLE movies_lists (
 	CONSTRAINT PK_movies_lists PRIMARY KEY (movie_id, list_id)
 );
 
-CREATE TABLE users_movies (
+CREATE TABLE dcreaties (
 	user_id int references users(user_id),
 	movie_id int references movies(movie_id),
 	CONSTRAINT PK_users_movies PRIMARY KEY (user_id, movie_id)
