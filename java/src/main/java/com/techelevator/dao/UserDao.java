@@ -18,7 +18,7 @@ public interface UserDao {
 
     User createUser(RegisterUserDto user);
 
-    User updateUserById(User user);
+    User updateUser(User user);
 
     void addFavoriteMovie(int userId, int movieId);
 
