@@ -18,11 +18,14 @@ import java.util.List;
 @RequestMapping(path = "/lists")
 public class MovieListController {
 
-    @Autowired
     private MovieListDao movieListDao;
 
-    @Autowired
     private MovieDao movieDao;
+
+    public MovieListController(MovieListDao movieListDao, MovieDao movieDao) {
+        this.movieListDao = movieListDao;
+        this.movieDao = movieDao;
+    }
 
     @PostMapping
     @PreAuthorize("hasRole('ROLE_ADMIN')")

@@ -23,20 +23,20 @@ public class Movie {
     private int runtime;
     private List<Genre> genres;
 
-    public Movie(int movieId, int apiMovieId, String title, String posterPath, String backdropPath, int imdbId,
-                 String homepage, String overview, LocalDate releaseDate, int runtime, List<Genre> genres) {
-        this.movieId = movieId;
-        this.apiMovieId = apiMovieId;
-        this.title = title;
-        this.posterPath = posterPath;
-        this.backdropPath = backdropPath;
-        this.imdbId = imdbId;
-        this.homepage = homepage;
-        this.overview = overview;
-        this.releaseDate = releaseDate;
-        this.runtime = runtime;
-        this.genres = genres;
-    }
+//    public Movie(int movieId, int apiMovieId, String title, String posterPath, String backdropPath, int imdbId,
+//                 String homepage, String overview, LocalDate releaseDate, int runtime, List<Genre> genres) {
+//        this.movieId = movieId;
+//        this.apiMovieId = apiMovieId;
+//        this.title = title;
+//        this.posterPath = posterPath;
+//        this.backdropPath = backdropPath;
+//        this.imdbId = imdbId;
+//        this.homepage = homepage;
+//        this.overview = overview;
+//        this.releaseDate = releaseDate;
+//        this.runtime = runtime;
+//        this.genres = genres;
+//    }
 
     public Movie() {
 
