@@ -3,20 +3,22 @@ package com.techelevator.controller;
 import com.techelevator.dao.MovieDao;
 import com.techelevator.dao.MovieReviewDao;
 import com.techelevator.dao.UserDao;
+import com.techelevator.exception.DaoException;
 import com.techelevator.model.Movie;
 import com.techelevator.model.MovieReview;
+import com.techelevator.model.RegisterUserDto;
+import com.techelevator.model.User;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import java.util.List;
 
 @RestController
 @PreAuthorize("isAuthenticated()")
-@RequestMapping("/api/")
+@RequestMapping("/movieReview")
 
 
 public class MovieReviewController {
@@ -32,7 +34,16 @@ public class MovieReviewController {
 
     @GetMapping("movieReview/{reviewId}")
     public MovieReview getMovieReviewById(@Valid @PathVariable("reviewId") Integer reviewId) {
-        return movieReviewDao.getMovieReviewById(reviewId);
+        try {
+            MovieReview movieReview = movieReviewDao.getMovieReviewById(reviewId);
+            if (movieReview == null){
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie review not found");
+            } else {
+                return movieReview;
+            }
+        } catch (DaoException e){
+            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Service not available");
+        }
     }
 
     @GetMapping("movieReview/{reviewId}")
@@ -49,4 +60,5 @@ public class MovieReviewController {
     public List<MovieReview> getMovieReviewByRating(@Valid @PathVariable("starRating") Integer starRating) {
         return movieReviewDao.getMovieReviewByRating(starRating);
     }
+
 }

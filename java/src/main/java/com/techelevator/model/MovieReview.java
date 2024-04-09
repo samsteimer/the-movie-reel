@@ -51,6 +51,7 @@ public class MovieReview {
         movieId = movieId;
     }
 
+
     public MovieReview(String movieReview, int starRating, int movieId, int userId, int reviewId) {
         this.movieReview = movieReview;
         this.starRating = starRating;
