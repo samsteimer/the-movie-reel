@@ -59,7 +59,7 @@ public class UserController {
     }
 
     @PutMapping("/favorites/{movieId}")
-    public Movie addFavoriteMovie(@RequestParam int movieId, Principal principal) {
+    public Movie addFavoriteMovie(@PathVariable int movieId, Principal principal) {
         User user = userDao.getUserByPrincipal(principal);
         if (user == null) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "User not found.");
@@ -78,7 +78,7 @@ public class UserController {
     }
 
     @DeleteMapping("/favorites/{movieId}")
-    public void removeFavoriteMovie(@RequestParam int movieId, Principal principal) {
+    public void removeFavoriteMovie(@PathVariable int movieId, Principal principal) {
         User user = userDao.getUserByPrincipal(principal);
         if (user == null) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "User not found.");
