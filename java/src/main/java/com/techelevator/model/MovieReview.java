@@ -47,8 +47,8 @@ public class MovieReview {
         return movieId;
     }
 
-    public void setMovieId(int id) {
-        movieId = movieId;
+    public void setMovieId(int movieId) {
+        this.movieId = movieId;
     }
 
 
