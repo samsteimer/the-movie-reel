@@ -2,12 +2,16 @@ package com.techelevator.controller;
 
 import com.techelevator.dao.MovieDao;
 import com.techelevator.dao.UserDao;
+import com.techelevator.exception.DaoException;
 import com.techelevator.model.Movie;
+import com.techelevator.services.MovieService;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -23,8 +27,11 @@ public class MovieController {
 
     private UserDao userDao;
 
-    public MovieController(MovieDao movieDao, UserDao userDao) {
+    private MovieService movieService;
+
+    public MovieController(MovieDao movieDao, MovieService movieService, UserDao userDao) {
         this.movieDao = movieDao;
+        this.movieService = movieService;
         this.userDao = userDao;
     }
 
@@ -53,6 +60,32 @@ public class MovieController {
         return movieDao.getMoviesByUserId(userId);
     }
 
+    @GetMapping ("movies/tmbd/{id}")
+    public Movie getMovieFromApiId(@Valid @PathVariable("id") int id) {
+        try {
+            Movie movie = movieService.getMovieFromApiId(id);
+            if (movie == null) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie not found");
+            } else {
+                return movie;
+            }
+        } catch (DaoException e) {
+            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Service not Available");
+        }
+    }
 
+    @GetMapping ("movies/tmbd/search/{searchInput}")
+    public Movie[] searchMoviesFromApi(@Valid @PathVariable("searchInput") String searchInput) {
+        try {
+            Movie[] movies = movieService.searchMoviesFromApi(searchInput);
+            if (movies == null) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie not found");
+            } else {
+                return movies;
+            }
+        } catch (DaoException e) {
+            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Service not Available");
+        }
+    }
 
 }
