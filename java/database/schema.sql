@@ -16,8 +16,8 @@ CREATE TABLE users (
 
 CREATE TABLE movies (
 	movie_id SERIAL primary key,
-	api_movie_id int NOT NULL UNIQUE,
-	title varchar(100),
+	api_movie_id int UNIQUE,
+	title varchar(100) NOT NULL,
 	poster_path varchar(200),
 	backdrop_path varchar(200),
 	imbd_id int,
@@ -28,22 +28,24 @@ CREATE TABLE movies (
 );
 
 CREATE TABLE genres (
-	genre_id int UNIQUE primary key,
-	gnere_name varchar(50)
+	genre_id int primary key,
+	genre_name varchar(50) UNIQUE
 );
 
 CREATE TABLE reviews (
 	review_id SERIAL primary key,
 	movie_id int references movies(movie_id),
 	user_id int references users(user_id),
-	star_rating int,
-	review varchar(1000)
+	star_rating int NOT NULL,
+	review varchar(1000) NOT NULL DEFAULT '',
+	CONSTRAINT UQ_movie_user_rating UNIQUE (movie_id, user_id),
+	CONSTRAINT CHECK_star_rating CHECK(star_rating BETWEEN 1 AND 5)
 );
 
 CREATE TABLE lists (
 	list_id SERIAL primary key,
-	list_name varchar(50),
-	description varchar(200)
+	list_name varchar(50) UNIQUE NOT NULL,
+	description varchar(200) NOT NULL DEFAULT ''
 );
 
 CREATE TABLE movies_genres (

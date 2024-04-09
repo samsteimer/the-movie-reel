@@ -5,5 +5,8 @@ INSERT INTO users (username,password_hash,role) VALUES ('admin','$2a$08$UkVvwpUL
 
 INSERT INTO movies (api_movie_id,title,overview) VALUES ('99999','Gill Bill Vol. 2', 'Gill is back and you better watch out');
 
+INSERT INTO movies (api_movie_id,title, poster_path, backdrop_path, imbd_id, homepage, overview, release_date, runtime)
+    VALUES ('99999','Gill Bill Vol. 2', 'Gill is back and you better watch out');
+
 
 COMMIT TRANSACTION;
