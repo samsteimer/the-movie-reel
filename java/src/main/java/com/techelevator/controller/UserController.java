@@ -4,7 +4,6 @@ import com.techelevator.dao.MovieDao;
 import com.techelevator.dao.UserDao;
 import com.techelevator.exception.DaoException;
 import com.techelevator.model.Movie;
-import com.techelevator.model.MovieList;
 import com.techelevator.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,6 +24,22 @@ public class UserController {
 
     @Autowired
     private UserDao userDao;
+
+    @PutMapping("/profile")
+    public User updateUser(User user, Principal principal) {
+        if (userDao.getUserByPrincipal(principal).getId() != user.getId()) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Access denied.");
+        }
+        if (user == null) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "User not found.");
+        }
+        try {
+            userDao.updateUser(user);
+            return userDao.getUserById(user.getId());
+        } catch (DaoException e) {
+            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Service not Available");
+        }
+    }
 
     @GetMapping("/favorites")
     public List<Movie> getFavoriteMovies(Principal principal) {
