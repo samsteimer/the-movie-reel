@@ -93,6 +93,25 @@ public class JdbcMovieReviewDao implements MovieReviewDao{
         return review;
     }
 
+    @Override
+    public Integer createMovieReview(String review, int starRating, int movieId, int userId) {
+        MovieReview movieReview = null;
+
+        String sql = "Insert Into review (review, star_rating, movie_id, user_id)" + "VALUES (?,?,?,?) RETURNING movie_id;";
+
+        Integer movieReviewId;
+        try {
+            movieReviewId = jdbcTemplate.queryForObject(sql, int.class, movieReview.getReviewId());
+            return movieReviewId;
+
+            } catch (CannotGetJdbcConnectionException e) {
+                 throw new DaoException("Unable to connect to the server or Database", e);
+            } catch (DataIntegrityViolationException e) {
+                 throw new DaoException("Data integrity violation", e);
+        }
+    }
+
+
     private MovieReview mapRowToReview(SqlRowSet rowSet){
         MovieReview review = new MovieReview();
         review.setMovieReview(rowSet.getString("review"));

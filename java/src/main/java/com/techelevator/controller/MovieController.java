@@ -4,8 +4,12 @@ import com.techelevator.dao.MovieDao;
 import com.techelevator.dao.UserDao;
 import com.techelevator.exception.DaoException;
 import com.techelevator.model.Movie;
+<<<<<<< HEAD
+import com.techelevator.model.MovieReview;
+=======
 import com.techelevator.services.MovieService;
 import org.springframework.http.HttpStatus;
+>>>>>>> 61ac36638f1eef78ba87191aeb87b36141e57151
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
