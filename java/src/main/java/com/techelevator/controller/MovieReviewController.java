@@ -48,17 +48,44 @@ public class MovieReviewController {
 
     @GetMapping("movieReview/{reviewId}")
     public List<MovieReview> getMovieReviewsById(@Valid @PathVariable("reviewId") Integer reviewId) {
-        return movieReviewDao.getMovieReviewsById(reviewId);
+        try {
+            List<MovieReview> movieReview =  movieReviewDao.getMovieReviewsById(reviewId);
+            if (movieReview == null){
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie review not found");
+            } else {
+                return movieReview;
+            }
+        } catch (DaoException e){
+            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Service not available" );
+        }
     }
 
     @GetMapping("movieReview/{movieId}/{userId}")
     public List<MovieReview> getMovieReviewsByUser(@Valid @PathVariable("movieId, userId") Integer movieId, Integer userId) {
-        return movieReviewDao.getMovieReviewsByUser(movieId, userId);
+       try{
+           List<MovieReview> movieReview = movieReviewDao.getMovieReviewsByUser(movieId, userId);
+           if(movieReview == null){
+               throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie review not found");
+           } else {
+               return movieReview;
+           }
+       }catch (DaoException e){
+           throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Service not available");
+       }
     }
 
     @GetMapping("movieReview/{starRating}")
     public List<MovieReview> getMovieReviewByRating(@Valid @PathVariable("starRating") Integer starRating) {
-        return movieReviewDao.getMovieReviewByRating(starRating);
+        try{
+            List<MovieReview> movieReview = movieReviewDao.getMovieReviewByRating(starRating);
+            if(movieReview == null){
+                throw  new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie review not found");
+            } else {
+                return movieReview;
+            }
+        } catch (DaoException e){
+            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Service not available");
+        }
     }
 
 }
