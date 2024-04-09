@@ -1,28 +1,25 @@
 package com.techelevator.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class MovieList {
 
-    private int id;
-    private String name;
+    private int listId;
+    private String listName;
     private String description;
 
-    public int getId() {
-        return id;
+    public int getListId() {
+        return listId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setListId(int listId) {
+        this.listId = listId;
     }
 
-    public String getName() {
-        return name;
+    public String getListName() {
+        return listName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setListName(String listName) {
+        this.listName = listName;
     }
 
     public String getDescription() {

@@ -96,7 +96,7 @@ public class JdbcUserDao implements UserDao {
     }
 
     @Override
-    public User updateUserById(User user) {
+    public User updateUser(User user) {
         String sql = "update users set first_name = ?, last_name = ?, email = ?, bio = ? where user_id = ?";
         try {
             jdbcTemplate.update(sql, user.getFirstName(), user.getLastName(), user.getEmail(), user.getBio(), user.getId());

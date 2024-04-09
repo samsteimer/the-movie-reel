@@ -3,6 +3,7 @@ package com.techelevator.model;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 public class Movie {
@@ -10,23 +11,25 @@ public class Movie {
     private Integer movieId;
     @JsonAlias("id")
     private int apiMovieId;
+    @NotNull
     private String title;
     private String posterPath;
     private String backdropPath;
     private int imdbId;
-    private String homepagePath;
+    private String homepage;
     private String overview;
     private LocalDate releaseDate;
     private int runtime;
 
-    public Movie(int movieId, int apiMovieId, String title, String posterPath, String backdropPath, int imdbId, String homepagePath, String overview, LocalDate releaseDate, int runtime) {
+    public Movie(int movieId, int apiMovieId, String title, String posterPath, String backdropPath, int imdbId,
+                 String homepage, String overview, LocalDate releaseDate, int runtime) {
         this.movieId = movieId;
         this.apiMovieId = apiMovieId;
         this.title = title;
         this.posterPath = posterPath;
         this.backdropPath = backdropPath;
         this.imdbId = imdbId;
-        this.homepagePath = homepagePath;
+        this.homepage = homepage;
         this.overview = overview;
         this.releaseDate = releaseDate;
         this.runtime = runtime;
@@ -84,12 +87,12 @@ public class Movie {
         this.imdbId = imdbId;
     }
 
-    public String getHomepagePath() {
-        return homepagePath;
+    public String getHomepage() {
+        return homepage;
     }
 
-    public void setHomepagePath(String homepagePath) {
-        this.homepagePath = homepagePath;
+    public void setHomepage(String homepage) {
+        this.homepage = homepage;
     }
 
     public String getOverview() {
