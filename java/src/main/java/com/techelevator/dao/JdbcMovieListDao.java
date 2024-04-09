@@ -80,12 +80,33 @@ public class JdbcMovieListDao implements MovieListDao {
     @Override
     public MovieList updateMovieListById(int id, MovieList movieList) {
         String sql = "update lists set list_name = ?, description = ? where list_id = ?";
-        if (movieList.getName() == null || movieList.getDescription() == null) {
-            throw new DaoException("Invalid data.");
-        }
         try {
             jdbcTemplate.update(sql, movieList.getName(), movieList.getDescription(), id);
             return getMovieListById(id);
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Could not connect.", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        }
+    }
+
+    @Override
+    public void addListMovie(int listId, int movieId) {
+        String sql = "insert into movie_lists (list_id, movie_id) values (?, ?)";
+        try {
+            jdbcTemplate.update(sql, listId, movieId);
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Could not connect.", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        }
+    }
+
+    @Override
+    public void removeListMovie(int listId, int movieId) {
+        String sql = "delete from movie_lists where list_id = ? and movie_id = ?";
+        try {
+            jdbcTemplate.update(sql, listId, movieId);
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Could not connect.", e);
         } catch (DataIntegrityViolationException e) {
