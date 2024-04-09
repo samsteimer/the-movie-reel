@@ -72,4 +72,17 @@ CREATE TABLE users_genres (
 	CONSTRAINT PK_users_genres PRIMARY KEY (user_id, genre_id)
 );
 
+
+INSERT INTO genres (genre_id, genre_name) VALUES (1, 'Thriller');
+INSERT INTO genres (genre_id, genre_name) VALUES (2, 'Sci-Fi');
+INSERT INTO genres (genre_id, genre_name) VALUES (3, 'Drama');
+INSERT INTO genres (genre_id, genre_name) VALUES (4, 'Comedy');
+INSERT INTO genres (genre_id, genre_name) VALUES (5, 'Action');
+INSERT INTO genres (genre_id, genre_name) VALUES (6, 'Documentary');
+INSERT INTO genres (genre_id, genre_name) VALUES (7, 'Romance');
+INSERT INTO genres (genre_id, genre_name) VALUES (8, 'Animated');
+INSERT INTO genres (genre_id, genre_name) VALUES (9, 'Family');
+
+
+
 COMMIT TRANSACTION;
