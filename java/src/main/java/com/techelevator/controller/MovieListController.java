@@ -7,14 +7,15 @@ import com.techelevator.model.Movie;
 import com.techelevator.model.MovieList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@CrossOrigin
-@RequestMapping(path = "/list")
+@RequestMapping(path = "/lists")
 public class MovieListController {
 
     @Autowired
@@ -22,6 +23,29 @@ public class MovieListController {
 
     @Autowired
     private MovieDao movieDao;
+
+    @PostMapping
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public MovieList createMovieList(@Valid @RequestBody MovieList movieList) {
+        try {
+            return movieListDao.createMovieList(movieList);
+        } catch (DaoException e) {
+            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Service unavailable");
+        }
+    }
+
+    @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public MovieList updateMovieList(@Valid @RequestBody MovieList movieList, @RequestParam int movieListId) {
+        if (movieList.getListId() != movieListId) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Non-matching movie list IDs");
+        }
+        try {
+            return movieListDao.updateMovieList(movieList);
+        } catch (DaoException e) {
+            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Service unavailable");
+        }
+    }
 
     @GetMapping
     public List<MovieList> getMovieListsByName(@RequestParam String name) {
@@ -37,7 +61,7 @@ public class MovieListController {
         }
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public MovieList getMovieList(@PathVariable int id) {
         try {
             MovieList movieList = movieListDao.getMovieListById(id);
@@ -70,7 +94,7 @@ public class MovieListController {
         }
     }
 
-    @DeleteMapping("/favorites/{movieId}")
+    @DeleteMapping("/{id}/movies/{movieId}")
     public void removeListMovie(@RequestParam int listId, @RequestParam int movieId) {
         MovieList movieList = movieListDao.getMovieListById(listId);
         if (movieList == null) {
