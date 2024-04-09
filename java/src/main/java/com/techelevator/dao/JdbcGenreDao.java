@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class JdbcGenreDao implements GenreDao{
+public class JdbcGenreDao implements GenreDao {
 
     private JdbcTemplate jdbcTemplate;
 
@@ -32,10 +32,9 @@ public class JdbcGenreDao implements GenreDao{
             }
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database", e);
-            }
-        return genre;
         }
-
+        return genre;
+    }
 
 
     @Override
@@ -50,7 +49,7 @@ public class JdbcGenreDao implements GenreDao{
                 Genre genre = mapRowToGenre(results);
                 listOfGenres.add(genre);
             }
-        }catch (CannotGetJdbcConnectionException e) {
+        } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database", e);
         }
         return listOfGenres;
@@ -62,12 +61,12 @@ public class JdbcGenreDao implements GenreDao{
 
         String sql = "select * from genres where genre_name ilike ?;";
         try {
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, name);
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, name);
 
-        if (results.next()) {
-            genre = mapRowToGenre(results);
-        }
-        }catch (CannotGetJdbcConnectionException e) {
+            if (results.next()) {
+                genre = mapRowToGenre(results);
+            }
+        } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database", e);
         }
         return genre;

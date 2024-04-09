@@ -1,6 +1,7 @@
 package com.techelevator.dao;
 
 import com.techelevator.exception.DaoException;
+import com.techelevator.model.Genre;
 import com.techelevator.model.Movie;
 import com.techelevator.model.MovieList;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -148,9 +149,13 @@ public class JdbcMovieDao implements MovieDao {
                     movie.getImdbId(),
                     movie.getHomepage(),
                     movie.getOverview(),
+                    movie.getReleaseDate(),
                     movie.getRuntime());
             if (movieId == null) {
                 throw new DaoException("Could not create transfer");
+            }
+            for (Genre genre : movie.getGenres()) {
+                addMovieGenre(genre.getGenreId(), movie.getMovieId());
             }
             return getMovieByMovieId(movieId);
         } catch (CannotGetJdbcConnectionException e) {
@@ -179,7 +184,12 @@ public class JdbcMovieDao implements MovieDao {
                     movie.getHomepage(),
                     movie.getOverview(),
                     movie.getRuntime(),
+                    movie.getReleaseDate(),
                     movie.getMovieId());
+            deleteMovieGenres(movie.getMovieId());
+            for (Genre genre : movie.getGenres()) {
+                addMovieGenre(genre.getGenreId(), movie.getMovieId());
+            }
             return getMovieByMovieId(movie.getMovieId());
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Could not connect.", e);
@@ -205,6 +215,17 @@ public class JdbcMovieDao implements MovieDao {
         String sql = "delete from movie_genres where genre_id = ? and movie_id = ?";
         try {
             jdbcTemplate.update(sql, genreId, movieId);
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Could not connect.", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        }
+    }
+
+    public void deleteMovieGenres(int movieId) {
+        String sql = "delete from movie_genres where movie_id = ?";
+        try {
+            jdbcTemplate.update(sql, movieId);
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Could not connect.", e);
         } catch (DataIntegrityViolationException e) {
