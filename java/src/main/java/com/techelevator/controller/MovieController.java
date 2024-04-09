@@ -4,27 +4,17 @@ import com.techelevator.dao.MovieDao;
 import com.techelevator.dao.UserDao;
 import com.techelevator.exception.DaoException;
 import com.techelevator.model.Movie;
-<<<<<<< HEAD
-import com.techelevator.model.MovieReview;
-=======
 import com.techelevator.services.MovieService;
 import org.springframework.http.HttpStatus;
->>>>>>> 61ac36638f1eef78ba87191aeb87b36141e57151
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@PreAuthorize("isAuthenticated()")
-@RequestMapping("/api/")
-
-
+@RequestMapping("/movies")
 public class MovieController {
 
     private MovieDao movieDao;
@@ -39,32 +29,93 @@ public class MovieController {
         this.userDao = userDao;
     }
 
-    @GetMapping("movies/{id}")
+    @PostMapping
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public Movie createMovie(@Valid @RequestBody Movie movie) {
+        try {
+            return movieDao.createMovie(movie);
+        } catch (DaoException e) {
+            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Service unavailable");
+        }
+    }
+
+    @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public Movie updateMovie(@Valid @RequestBody Movie movie, @PathVariable int movieId) {
+        if (movie.getMovieId() != movieId) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Non-matching movie IDs");
+        }
+        try {
+            return movieDao.updateMovie(movie);
+        } catch (DaoException e) {
+            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Service unavailable");
+        }
+    }
+
+    @GetMapping("/{id}")
     public Movie getMovieByMovieId(@Valid @PathVariable("id") Integer movieId) {
-        return movieDao.getMovieByMovieId(movieId);
+        try {
+            Movie movie = movieDao.getMovieByMovieId(movieId);
+            if (movie == null) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie not found");
+            } else {
+                return movie;
+            }
+        } catch (DaoException e) {
+            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Service not Available");
+        }
     }
 
-    @GetMapping("movies/{title}")
+    @GetMapping("/{title}")
     public Movie getMovieByTitle(@Valid @PathVariable("title") String title) {
-        return movieDao.getMovieByTitle(title);
+        try {
+            Movie movie = movieDao.getMovieByTitle(title);
+            if (movie == null) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie not found");
+            } else {
+                return movie;
+            }
+        } catch (DaoException e) {
+            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Service not Available");
+        }
     }
 
-    @GetMapping("movies/genre/{genre_id}")
+    @GetMapping("/genre/{genre_id}")
     public List<Movie> getMoviesByGenreId(@Valid @PathVariable("genre_id") int genreId) {
-        return movieDao.getMoviesByGenreId(genreId);
+        try {
+            List<Movie> movies = movieDao.getMoviesByGenreId(genreId);
+            if (movies == null) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Movies not found.");
+            } else {
+                return movies;
+            }
+        } catch (DaoException e) {
+            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Service not Available");
+        }
     }
 
-    @GetMapping ("movies/lists/{list_id}")
+    @GetMapping("/lists/{list_id}")
     public List<Movie> getMoviesByListId(@Valid @PathVariable("list_id") int listId) {
-        return movieDao.getMoviesByListId(listId);
+        try {
+            List<Movie> movies = movieDao.getMoviesByListId(listId);
+            if (movies == null) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Movies not found.");
+            } else {
+                return movies;
+            }
+        } catch (DaoException e) {
+            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Service not Available");
+        }
     }
 
-    @GetMapping ("movies/users/{user_id}")
-    public List<Movie> getMoviesByUserId(@Valid @PathVariable("user_id") int userId) {
-        return movieDao.getMoviesByUserId(userId);
-    }
+// Using /favorites
+//    @GetMapping ("movies/users/{user_id}")
+//    public List<Movie> getMoviesByUserId(@Valid @PathVariable("user_id") int userId) {
+//        return movieDao.getMoviesByUserId(userId);
+//    }
 
-    @GetMapping ("movies/tmbd/{id}")
+    @GetMapping("/tmbd/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Movie getMovieFromApiId(@Valid @PathVariable("id") int id) {
         try {
             Movie movie = movieService.getMovieFromApiId(id);
@@ -78,10 +129,11 @@ public class MovieController {
         }
     }
 
-    @GetMapping ("movies/tmbd/search/{searchInput}")
-    public Movie[] searchMoviesFromApi(@Valid @PathVariable("searchInput") String searchInput) {
+    @GetMapping("/tmbd/search")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public Movie[] searchMoviesFromApi(@Valid @RequestParam String search) {
         try {
-            Movie[] movies = movieService.searchMoviesFromApi(searchInput);
+            Movie[] movies = movieService.searchMoviesFromApi(search);
             if (movies == null) {
                 throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie not found");
             } else {

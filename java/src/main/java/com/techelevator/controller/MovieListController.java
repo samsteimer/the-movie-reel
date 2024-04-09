@@ -36,7 +36,7 @@ public class MovieListController {
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public MovieList updateMovieList(@Valid @RequestBody MovieList movieList, @RequestParam int movieListId) {
+    public MovieList updateMovieList(@Valid @RequestBody MovieList movieList, @PathVariable int movieListId) {
         if (movieList.getListId() != movieListId) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Non-matching movie list IDs");
         }
@@ -76,7 +76,7 @@ public class MovieListController {
     }
 
     @PutMapping("/{id}/movies/{movieId}")
-    public Movie addListMovie(@RequestParam int listId, @RequestParam int movieId) {
+    public Movie addListMovie(@PathVariable int listId, @PathVariable int movieId) {
         MovieList movieList = movieListDao.getMovieListById(listId);
         if (movieList == null) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "List not found.");
@@ -95,7 +95,7 @@ public class MovieListController {
     }
 
     @DeleteMapping("/{id}/movies/{movieId}")
-    public void removeListMovie(@RequestParam int listId, @RequestParam int movieId) {
+    public void removeListMovie(@PathVariable int listId, @PathVariable int movieId) {
         MovieList movieList = movieListDao.getMovieListById(listId);
         if (movieList == null) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "List not found.");

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.List;
 
 public class Movie {
 
@@ -20,9 +21,10 @@ public class Movie {
     private String overview;
     private LocalDate releaseDate;
     private int runtime;
+    private List<Genre> genres;
 
     public Movie(int movieId, int apiMovieId, String title, String posterPath, String backdropPath, int imdbId,
-                 String homepage, String overview, LocalDate releaseDate, int runtime) {
+                 String homepage, String overview, LocalDate releaseDate, int runtime, List<Genre> genres) {
         this.movieId = movieId;
         this.apiMovieId = apiMovieId;
         this.title = title;
@@ -33,6 +35,7 @@ public class Movie {
         this.overview = overview;
         this.releaseDate = releaseDate;
         this.runtime = runtime;
+        this.genres = genres;
     }
 
     public Movie() {
@@ -117,5 +120,13 @@ public class Movie {
 
     public void setRuntime(int runtime) {
         this.runtime = runtime;
+    }
+
+    public List<Genre> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(List<Genre> genres) {
+        this.genres = genres;
     }
 }
