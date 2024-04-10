@@ -14,7 +14,8 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-//@RequestMapping("/movies")
+@CrossOrigin
+@RequestMapping("/movie_info")
 public class MovieController {
 
     private MovieDao movieDao;
@@ -39,20 +40,20 @@ public class MovieController {
         }
     }
 
-    @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public Movie updateMovie(@Valid @RequestBody Movie movie, @PathVariable int movieId) {
-        if (movie.getMovieId() != movieId) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Non-matching movie IDs");
-        }
-        try {
-            return movieDao.updateMovie(movie);
-        } catch (DaoException e) {
-            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Service unavailable");
-        }
-    }
+//    @PutMapping("/{id}")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    public Movie updateMovie(@Valid @RequestBody Movie movie, @PathVariable int movieId) {
+//        if (movie.getMovieId() != movieId) {
+//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Non-matching movie IDs");
+//        }
+//        try {
+//            return movieDao.updateMovie(movie);
+//        } catch (DaoException e) {
+//            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Service unavailable");
+//        }
+//    }
 
-    @GetMapping("movie_info/{id}")
+    @GetMapping("/{id}")
     public Movie getMovieByMovieId(@Valid @PathVariable("id") Integer movieId) {
         try {
             Movie movie = movieDao.getMovieByMovieId(movieId);
@@ -66,19 +67,19 @@ public class MovieController {
         }
     }
 
-    @GetMapping("/{title}")
-    public Movie getMovieByTitle(@Valid @PathVariable("title") String title) {
-        try {
-            Movie movie = movieDao.getMovieByTitle(title);
-            if (movie == null) {
-                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie not found");
-            } else {
-                return movie;
-            }
-        } catch (DaoException e) {
-            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Service not Available");
-        }
-    }
+//    @GetMapping("/{title}")
+//    public Movie getMovieByTitle(@Valid @PathVariable("title") String title) {
+//        try {
+//            Movie movie = movieDao.getMovieByTitle(title);
+//            if (movie == null) {
+//                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie not found");
+//            } else {
+//                return movie;
+//            }
+//        } catch (DaoException e) {
+//            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Service not Available");
+//        }
+//    }
 
     @GetMapping("/genre/{genre_id}")
     public List<Movie> getMoviesByGenreId(@Valid @PathVariable("genre_id") int genreId) {
