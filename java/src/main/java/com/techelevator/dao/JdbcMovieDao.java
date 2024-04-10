@@ -169,9 +169,9 @@ public class JdbcMovieDao implements MovieDao {
             if (movieId == null) {
                 throw new DaoException("Could not create transfer");
             }
-            for (Genre genre : movie.getGenres()) {
-                addMovieGenre(genre.getGenreId(), movie.getMovieId());
-            }
+//            for (Genre genre : movie.getGenres()) {
+//                addMovieGenre(genre.getGenreId(), movie.getMovieId());
+//            }
             return getMovieByMovieId(movieId);
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Could not connect.", e);
@@ -202,9 +202,9 @@ public class JdbcMovieDao implements MovieDao {
                     movie.getReleaseDate(),
                     movie.getMovieId());
             deleteMovieGenres(movie.getMovieId());
-            for (Genre genre : movie.getGenres()) {
-                addMovieGenre(genre.getGenreId(), movie.getMovieId());
-            }
+//            for (Genre genre : movie.getGenres()) {
+//                addMovieGenre(genre.getGenreId(), movie.getMovieId());
+//            }
             return getMovieByMovieId(movie.getMovieId());
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Could not connect.", e);
@@ -252,29 +252,29 @@ public class JdbcMovieDao implements MovieDao {
         Integer movieId = rowSet.getInt("movie_id");
         int apiMovieId = rowSet.getInt("api_movie_id");
         String title = rowSet.getString("title");
-        String posterPath = rowSet.getString("poster_path");
-        String backdropPath = rowSet.getString("backdrop_path");
-        int imdbId = rowSet.getInt("imdb_id");
-        String homepage = rowSet.getString("homepage");
-        String overview = rowSet.getString("overview");
-        Date releaseDateTemp = rowSet.getDate("release_date");
-        LocalDate releaseDate = null;
-        if (releaseDateTemp != null) {
-            releaseDate = releaseDateTemp.toLocalDate();
-        }
-        int runtime = rowSet.getInt("runtime");
+////        String posterPath = rowSet.getString("poster_path");
+////        String backdropPath = rowSet.getString("backdrop_path");
+////        int imdbId = rowSet.getInt("imdb_id");
+////        String homepage = rowSet.getString("homepage");
+////        String overview = rowSet.getString("overview");
+////        Date releaseDateTemp = rowSet.getDate("release_date");
+////        LocalDate releaseDate = null;
+//        if (releaseDateTemp != null) {
+//            releaseDate = releaseDateTemp.toLocalDate();
+//        }
+//        int runtime = rowSet.getInt("runtime");
 
         Movie movie = new Movie();
         movie.setMovieId(movieId);
         movie.setApiMovieId(apiMovieId);
         movie.setTitle(title);
-        movie.setPosterPath(posterPath);
-        movie.setBackdropPath(backdropPath);
-        movie.setImdbId(imdbId);
-        movie.setHomepage(homepage);
-        movie.setOverview(overview);
-        movie.setReleaseDate(releaseDate);
-        movie.setRuntime(runtime);
+//        movie.setPosterPath(posterPath);
+//        movie.setBackdropPath(backdropPath);
+//        movie.setImdbId(imdbId);
+//        movie.setHomepage(homepage);
+//        movie.setOverview(overview);
+//        movie.setReleaseDate(releaseDate);
+//        movie.setRuntime(runtime);
 
         return movie;
     }
