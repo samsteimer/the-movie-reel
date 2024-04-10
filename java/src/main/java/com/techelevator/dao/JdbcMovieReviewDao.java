@@ -24,7 +24,8 @@ public class JdbcMovieReviewDao implements MovieReviewDao{
     @Override
     public MovieReview getMovieReviewById(int reviewId) {
         MovieReview review = null;
-
+        // Provides the option to get a single movie review using the review id of the review.
+        //TODO put in defensive code to account for null values
         try {
             String sql = "select review, star_rating, user_id, movie_id, review_id from review where review_id = ?;";
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, reviewId);
@@ -41,7 +42,8 @@ public class JdbcMovieReviewDao implements MovieReviewDao{
     public List<MovieReview> getMovieReviewsById(int reviewId) {
 
         List<MovieReview> review = new ArrayList<>();
-
+        // Provides the option to get several movie reviews using the review id of the review.
+        //TODO put in defensive code to account for null values
         try {
             String sql = "select review, star_rating, user_id, movie_id, review_id from reviews where review_id = ?;";
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, reviewId);
@@ -60,7 +62,8 @@ public class JdbcMovieReviewDao implements MovieReviewDao{
     @Override
     public List<MovieReview> getMovieReviewsByUser(int movieId, int userId) {
         List<MovieReview> review = new ArrayList<>();
-
+        // Provides a list of reviews for a specific movie from a specific user.
+        //TODO put in defensive code to account for null values
         try {
             String sql = "select review, star_rating, user_id, movie_id, review_id from reviews where movie_id = ? and userId = ?;";
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, movieId, userId);
@@ -79,7 +82,8 @@ public class JdbcMovieReviewDao implements MovieReviewDao{
     @Override
     public List<MovieReview> getMovieReviewByRating(int starRating) {
         List<MovieReview> review = new ArrayList<>();
-
+        // Provides the ability to get a list of movie reviews based on the star rating of the reviews.
+        //TODO put in defensive code to account for null values
         try {
             String sql = "select review, star_rating, user_id, movie_id, review_id from reviews where star_rating = ?;";
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, starRating);
@@ -99,7 +103,7 @@ public class JdbcMovieReviewDao implements MovieReviewDao{
     public Integer createMovieReview(String review, int starRating, int movieId, int userId) {
         MovieReview movieReview = null;
 
-        String sql = "Insert Into review (review, star_rating, movie_id, user_id)" + "VALUES (?,?,?,?) RETURNING movie_id;";
+        String sql = "Insert Into review (review, star_rating, movie_id, user_id)" + "VALUES (?,?,?,?) RETURNING review_id;";
 
         Integer movieReviewId;
         try {
@@ -115,7 +119,8 @@ public class JdbcMovieReviewDao implements MovieReviewDao{
     @Override
     public MovieReview getMovieReviewByMovieId(int movieId) {
         MovieReview review = null;
-
+        // Provides the option to get a single movie review using a movie id.
+        //TODO put in defensive code to account for null values
         try {
             String sql = "select review, star_rating, user_id, movie_id, review_id from review where movie_id = ?;";
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, movieId);
@@ -132,7 +137,8 @@ public class JdbcMovieReviewDao implements MovieReviewDao{
     public List<MovieReview> getMovieReviewsByMovieId(int movieId) {
 
         List<MovieReview> review = new ArrayList<>();
-
+        // Provides the option to get a list of movie reviews using a movie id.
+        //TODO put in defensive code to account for null values
         try {
             String sql = "select review, star_rating, user_id, movie_id, review_id from reviews where movie_id = ?;";
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, movieId);
