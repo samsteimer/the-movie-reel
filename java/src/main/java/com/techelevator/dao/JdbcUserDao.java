@@ -72,11 +72,11 @@ public class JdbcUserDao implements UserDao {
         return user;
     }
 
-    @Override
-    public User getUserByPrincipal(Principal principal) {
-        String username = principal.getName();
-        return getUserByUsername(username);
-    }
+//    @Override
+//    public User getUserByPrincipal(Principal principal) {
+//        String username = principal.getName();
+//        return getUserByUsername(username);
+//    }
 
     @Override
     public User createUser(RegisterUserDto user) {
@@ -95,52 +95,52 @@ public class JdbcUserDao implements UserDao {
         return newUser;
     }
 
-    @Override
-    public User updateUser(User user) {
-        String sql = "update users set first_name = ?, last_name = ?, email = ?, bio = ? where user_id = ?";
-        try {
-            jdbcTemplate.update(sql, user.getFirstName(), user.getLastName(), user.getEmail(), user.getBio(), user.getId());
-            return getUserById(user.getId());
-        } catch (CannotGetJdbcConnectionException e) {
-            throw new DaoException("Could not connect.", e);
-        } catch (DataIntegrityViolationException e) {
-            throw new DaoException("Data integrity violation", e);
-        }
-    }
-
-    @Override
-    public void addFavoriteMovie(int userId, int movieId) {
-        String sql = "insert into user_favorites (user_id, movie_id) values (?, ?)";
-        try {
-            jdbcTemplate.update(sql, userId, movieId);
-        } catch (CannotGetJdbcConnectionException e) {
-            throw new DaoException("Could not connect.", e);
-        } catch (DataIntegrityViolationException e) {
-            throw new DaoException("Data integrity violation", e);
-        }
-    }
-
-    @Override
-    public void removeFavoriteMovie(int userId, int movieId) {
-        String sql = "delete from user_favorites where user_id = ? and movie_id = ?";
-        try {
-            jdbcTemplate.update(sql, userId, movieId);
-        } catch (CannotGetJdbcConnectionException e) {
-            throw new DaoException("Could not connect.", e);
-        } catch (DataIntegrityViolationException e) {
-            throw new DaoException("Data integrity violation", e);
-        }
-    }
+//    @Override
+//    public User updateUser(User user) {
+//        String sql = "update users set first_name = ?, last_name = ?, email = ?, bio = ? where user_id = ?";
+//        try {
+//            jdbcTemplate.update(sql, user.getFirstName(), user.getLastName(), user.getEmail(), user.getBio(), user.getId());
+//            return getUserById(user.getId());
+//        } catch (CannotGetJdbcConnectionException e) {
+//            throw new DaoException("Could not connect.", e);
+//        } catch (DataIntegrityViolationException e) {
+//            throw new DaoException("Data integrity violation", e);
+//        }
+//    }
+//
+//    @Override
+//    public void addFavoriteMovie(int userId, int movieId) {
+//        String sql = "insert into user_favorites (user_id, movie_id) values (?, ?)";
+//        try {
+//            jdbcTemplate.update(sql, userId, movieId);
+//        } catch (CannotGetJdbcConnectionException e) {
+//            throw new DaoException("Could not connect.", e);
+//        } catch (DataIntegrityViolationException e) {
+//            throw new DaoException("Data integrity violation", e);
+//        }
+//    }
+//
+//    @Override
+//    public void removeFavoriteMovie(int userId, int movieId) {
+//        String sql = "delete from user_favorites where user_id = ? and movie_id = ?";
+//        try {
+//            jdbcTemplate.update(sql, userId, movieId);
+//        } catch (CannotGetJdbcConnectionException e) {
+//            throw new DaoException("Could not connect.", e);
+//        } catch (DataIntegrityViolationException e) {
+//            throw new DaoException("Data integrity violation", e);
+//        }
+//    }
 
     private User mapRowToUser(SqlRowSet rs) {
         User user = new User();
         user.setId(rs.getInt("user_id"));
         user.setUsername(rs.getString("username"));
         user.setPassword(rs.getString("password_hash"));
-        user.setFirstName(rs.getString("first_name"));
-        user.setLastName(rs.getString("last_name"));
-        user.setEmail(rs.getString("email"));
-        user.setBio(rs.getString("bio"));
+//        user.setFirstName(rs.getString("first_name"));
+//        user.setLastName(rs.getString("last_name"));
+//        user.setEmail(rs.getString("email"));
+//        user.setBio(rs.getString("bio"));
         user.setAuthorities(Objects.requireNonNull(rs.getString("role")));
         user.setActivated(true);
         return user;
