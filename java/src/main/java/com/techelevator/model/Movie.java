@@ -21,7 +21,7 @@ public class Movie {
     private String overview;
     private LocalDate releaseDate;
     private int runtime;
-    private List<Genre> genres;
+//    private List<Genre> genres;
 
 //    public Movie(int movieId, int apiMovieId, String title, String posterPath, String backdropPath, int imdbId,
 //                 String homepage, String overview, LocalDate releaseDate, int runtime, List<Genre> genres) {
@@ -121,12 +121,12 @@ public class Movie {
     public void setRuntime(int runtime) {
         this.runtime = runtime;
     }
-
-    public List<Genre> getGenres() {
-        return genres;
-    }
-
-    public void setGenres(List<Genre> genres) {
-        this.genres = genres;
-    }
+//
+//    public List<Genre> getGenres() {
+//        return genres;
+//    }
+//
+//    public void setGenres(List<Genre> genres) {
+//        this.genres = genres;
+//    }
 }
