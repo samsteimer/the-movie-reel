@@ -14,7 +14,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/movies")
+//@RequestMapping("/movies")
 public class MovieController {
 
     private MovieDao movieDao;
@@ -52,7 +52,7 @@ public class MovieController {
         }
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("movie_info/{id}")
     public Movie getMovieByMovieId(@Valid @PathVariable("id") Integer movieId) {
         try {
             Movie movie = movieDao.getMovieByMovieId(movieId);
