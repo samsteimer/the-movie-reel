@@ -7,10 +7,10 @@ CREATE TABLE users (
 	username varchar(50) NOT NULL UNIQUE,
 	password_hash varchar(200) NOT NULL,
 	role varchar(50) NOT NULL,
-	first_name varchar(50),
-	last_name varchar(50),
-	bio varchar(500),
-	email varchar(50),
+--	first_name varchar(50),
+--	last_name varchar(50),
+--	bio varchar(500),
+--	email varchar(50),
 	CONSTRAINT PK_user PRIMARY KEY (user_id)
 );
 
@@ -60,7 +60,7 @@ CREATE TABLE movies_lists (
 	CONSTRAINT PK_movies_lists PRIMARY KEY (movie_id, list_id)
 );
 
-CREATE TABLE dcreaties (
+CREATE TABLE users_movies (
 	user_id int references users(user_id),
 	movie_id int references movies(movie_id),
 	CONSTRAINT PK_users_movies PRIMARY KEY (user_id, movie_id)
