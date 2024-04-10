@@ -1,17 +1,29 @@
 <template>
     Movie Info View - show movie info
     {{ movie.title }}
+    
 </template>
 
 <script>
-import MovieService from '../services/MovieService';
+import movieService from '../services/MovieService';
 import MovieCard from '../components/MovieCard.vue';
 
 export default {
 
     data() {
         return {
-            movie: {}
+            movie: {
+                apiMoveId: 0,
+                title: '',
+                posterPath: '',
+                backdropPath: '',
+                imbdId: 0,
+                homepage: '',
+                overview: '',
+                releaseDate: '',
+                runtime: 0
+            }
+            
         }
     },
 
@@ -20,14 +32,13 @@ export default {
     },
 
     created() {
-        MovieService.getMovieByMovieId(this.$route.param.id).then(response => {
-            this.movie = response.data
-        })
+        let id = parseInt(this.$route.params.id);
+        movieService.getMovieByMovieId(id)
+            .then(response => {
+                this.movie = response.data;
+            })
+
     },
-
-    methods: {
-
-    }
 
 }
 

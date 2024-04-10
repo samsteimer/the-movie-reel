@@ -6,8 +6,18 @@ public class MovieReview {
     public int starRating;
     public int movieId;
     public int userId;
+    public int reviewId;
 
-    public MovieReview(){}
+    public MovieReview() {
+    }
+
+    public MovieReview(String movieReview, int starRating, int movieId, int userId, int reviewId) {
+        this.movieReview = movieReview;
+        this.starRating = starRating;
+        this.movieId = movieId;
+        this.userId = userId;
+        this.reviewId = reviewId;
+    }
 
     public int getUserId() {
         return userId;
@@ -24,8 +34,6 @@ public class MovieReview {
     public void setReviewId(int reviewId) {
         this.reviewId = reviewId;
     }
-
-    public int reviewId;
 
     public String getMovieReview() {
         return movieReview;
@@ -49,14 +57,5 @@ public class MovieReview {
 
     public void setMovieId(int movieId) {
         this.movieId = movieId;
-    }
-
-
-    public MovieReview(String movieReview, int starRating, int movieId, int userId, int reviewId) {
-        this.movieReview = movieReview;
-        this.starRating = starRating;
-        this.movieId = movieId;
-        this.userId = userId;
-        this.reviewId = reviewId;
     }
 }
