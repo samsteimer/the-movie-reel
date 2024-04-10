@@ -99,7 +99,7 @@ public class JdbcMovieReviewDao implements MovieReviewDao{
     public Integer createMovieReview(String review, int starRating, int movieId, int userId) {
         MovieReview movieReview = null;
 
-        String sql = "Insert Into review (review, star_rating, movie_id, user_id)" + "VALUES (?,?,?,?) RETURNING movie_id;";
+        String sql = "Insert Into review (review, star_rating, movie_id, user_id)" + "VALUES (?,?,?,?) RETURNING review_id;";
 
         Integer movieReviewId;
         try {
