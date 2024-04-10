@@ -11,15 +11,7 @@ import MovieService from '../services/MovieService';
 export default {
     props: ['movie'],
 
-    data() {
-        return {
 
-        }
-    },
-
-    methods: {
-
-    }
 }
 
 

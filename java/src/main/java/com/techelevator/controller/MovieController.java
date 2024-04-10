@@ -116,7 +116,7 @@ public class MovieController {
 //    }
 
     @GetMapping("/tmbd/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Movie getMovieFromApiId(@Valid @PathVariable("id") int id) {
         try {
             Movie movie = movieService.getMovieFromApiId(id);
@@ -131,7 +131,7 @@ public class MovieController {
     }
 
     @GetMapping("/tmbd/search")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Movie[] searchMoviesFromApi(@Valid @RequestParam String search) {
         try {
             Movie[] movies = movieService.searchMoviesFromApi(search);
