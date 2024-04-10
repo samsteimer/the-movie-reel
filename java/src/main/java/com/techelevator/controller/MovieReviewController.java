@@ -21,9 +21,9 @@ import java.util.List;
 @RequestMapping("/movieReview")
 public class MovieReviewController {
 
-    private MovieReviewDao movieReviewDao;
+    private final MovieReviewDao movieReviewDao;
 
-    private UserDao userDao;
+    private final UserDao userDao;
 
     public MovieReviewController(MovieReviewDao movieReviewDao, UserDao userDao) {
         this.movieReviewDao = movieReviewDao;
@@ -34,12 +34,12 @@ public class MovieReviewController {
     public MovieReview getMovieReviewById(@Valid @PathVariable("reviewId") Integer reviewId) {
         try {
             MovieReview movieReview = movieReviewDao.getMovieReviewById(reviewId);
-            if (movieReview == null){
+            if (movieReview == null) {
                 throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie review not found");
             } else {
                 return movieReview;
             }
-        } catch (DaoException e){
+        } catch (DaoException e) {
             throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Service not available");
         }
     }
@@ -60,28 +60,28 @@ public class MovieReviewController {
 
     @GetMapping("movieReview/{movieId}/{userId}")
     public List<MovieReview> getMovieReviewsByUser(@Valid @PathVariable("movieId, userId") Integer movieId, Integer userId) {
-       try{
-           List<MovieReview> movieReview = movieReviewDao.getMovieReviewsByUser(movieId, userId);
-           if(movieReview == null){
-               throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie review not found");
-           } else {
-               return movieReview;
-           }
-       }catch (DaoException e){
-           throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Service not available");
-       }
+        try {
+            List<MovieReview> movieReview = movieReviewDao.getMovieReviewsByUser(movieId, userId);
+            if (movieReview == null) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie review not found");
+            } else {
+                return movieReview;
+            }
+        } catch (DaoException e) {
+            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Service not available");
+        }
     }
 
     @GetMapping("movieReview/{starRating}")
     public List<MovieReview> getMovieReviewByRating(@Valid @PathVariable("starRating") Integer starRating) {
-        try{
+        try {
             List<MovieReview> movieReview = movieReviewDao.getMovieReviewByRating(starRating);
-            if(movieReview == null){
-                throw  new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie review not found");
+            if (movieReview == null) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie review not found");
             } else {
                 return movieReview;
             }
-        } catch (DaoException e){
+        } catch (DaoException e) {
             throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Service not available");
         }
     }
