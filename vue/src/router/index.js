@@ -6,6 +6,12 @@ import HomeView from '../views/HomeView.vue';
 import LoginView from '../views/LoginView.vue';
 import LogoutView from '../views/LogoutView.vue';
 import RegisterView from '../views/RegisterView.vue';
+import GenreView from '../views/GenreView.vue';
+import NowShowingView from '../views/NowShowingView.vue';
+import MovieInfoView from '../views/MovieInfo.vue';
+import AdminView from '../views/AdminView.vue';
+import ProfileView from '../views/ProfileView.vue';
+import WatchListView from '../views/WatchListView.vue';
 
 /**
  * The Vue Router is used to "direct" the browser to render a specific view component
@@ -21,7 +27,7 @@ const routes = [
     name: 'home',
     component: HomeView,
     meta: {
-      requiresAuth: true
+      requiresAuth: false
     }
   },
   {
@@ -44,6 +50,54 @@ const routes = [
     path: "/register",
     name: "register",
     component: RegisterView,
+    meta: {
+      requiresAuth: false
+    }
+  },
+  {
+    path: "/genres",
+    name: "Genres",
+    component: GenreView,
+    meta: {
+      requiresAuth: false
+    }
+  },
+  {
+    path: "/now_showing",
+    name: "NowShowing",
+    component: NowShowingView,
+    meta: {
+      requiresAuth: false
+    }
+  },
+  {
+    path: "/profile",
+    name: "Profile",
+    component: ProfileView,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: "/profile/watch_list",
+    name: "WatchList",
+    component: WatchListView,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: "/admin",
+    name: "Admin",
+    component: AdminView,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: "/movie_info/:id",
+    name: "MovieInfo",
+    component: MovieInfoView,
     meta: {
       requiresAuth: false
     }
