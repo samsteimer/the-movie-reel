@@ -4,13 +4,13 @@ import com.techelevator.dao.MovieDao;
 import com.techelevator.dao.UserDao;
 import com.techelevator.exception.DaoException;
 import com.techelevator.model.Movie;
-import com.techelevator.model.MovieApiDto;
 import com.techelevator.model.MovieList;
 import com.techelevator.services.MovieService;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import com.techelevator.model.MovieApiDto;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -117,8 +117,8 @@ public class MovieController {
 //        return movieDao.getMoviesByUserId(userId);
 //    }
 
-    @GetMapping("/tmbd/{api_movie_id}")
-//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/tmdb/{api_movie_id}")
+
     public MovieApiDto getMovieFromApiId(@Valid @PathVariable("api_movie_id") int id) {
         try {
             MovieApiDto movie = movieService.getMovieFromApiId(id);
@@ -132,11 +132,11 @@ public class MovieController {
         }
     }
 
-    @GetMapping("/tmbd/search")
+    @GetMapping("/tmdb/search/{input}")
 //    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public MovieApiDto[] searchMoviesFromApi(@Valid @RequestParam String search) {
+    public MovieListApiDto searchMoviesFromApi(@Valid @PathVariable("input") String input) {
         try {
-            MovieApiDto[] movies = movieService.searchMoviesFromApi(search);
+            MovieListApiDto movies = movieService.searchMoviesFromApi(input);
             if (movies == null) {
                 throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie not found");
             } else {
