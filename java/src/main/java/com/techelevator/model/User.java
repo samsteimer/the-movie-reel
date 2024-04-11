@@ -14,11 +14,9 @@ public class User {
    private String password;
    @JsonIgnore
    private boolean activated;
-
    private String firstName;
    private String lastName;
    private String bio;
-   private String email;
    private Set<Authority> authorities = new HashSet<>();
 
    public User() { }
@@ -101,14 +99,6 @@ public class User {
 
    public void setBio(String bio) {
       this.bio = bio;
-   }
-
-   public String getEmail() {
-      return email;
-   }
-
-   public void setEmail(String email) {
-      this.email = email;
    }
 
    @Override

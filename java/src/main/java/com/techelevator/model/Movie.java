@@ -1,26 +1,19 @@
 package com.techelevator.model;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
 
 public class Movie {
 
-    private Integer movieId;
+    private int movieId;
     private int apiMovieId;
     @NotNull
     private String title;
     private String posterPath;
-    private String backdropPath;
-    private int imdbId;
-    private String homepage;
     private String overview;
     private LocalDate releaseDate;
-    private int runtime;
-//    private List<Genre> genres;
+    private List<Genre> genres;
 
 //    public Movie(int movieId, int apiMovieId, String title, String posterPath, String backdropPath, int imdbId,
 //                 String homepage, String overview, LocalDate releaseDate, int runtime, List<Genre> genres) {
@@ -73,30 +66,6 @@ public class Movie {
         this.posterPath = posterPath;
     }
 
-    public String getBackdropPath() {
-        return backdropPath;
-    }
-
-    public void setBackdropPath(String backdropPath) {
-        this.backdropPath = backdropPath;
-    }
-
-    public int getImdbId() {
-        return imdbId;
-    }
-
-    public void setImdbId(int imdbId) {
-        this.imdbId = imdbId;
-    }
-
-    public String getHomepage() {
-        return homepage;
-    }
-
-    public void setHomepage(String homepage) {
-        this.homepage = homepage;
-    }
-
     public String getOverview() {
         return overview;
     }
@@ -113,19 +82,11 @@ public class Movie {
         this.releaseDate = releaseDate;
     }
 
-    public int getRuntime() {
-        return runtime;
+    public List<Genre> getGenres() {
+        return genres;
     }
 
-    public void setRuntime(int runtime) {
-        this.runtime = runtime;
+    public void setGenres(List<Genre> genres) {
+        this.genres = genres;
     }
-//
-//    public List<Genre> getGenres() {
-//        return genres;
-//    }
-//
-//    public void setGenres(List<Genre> genres) {
-//        this.genres = genres;
-//    }
 }

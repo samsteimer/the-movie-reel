@@ -7,24 +7,19 @@ CREATE TABLE users (
 	username varchar(50) NOT NULL UNIQUE,
 	password_hash varchar(200) NOT NULL,
 	role varchar(50) NOT NULL,
---	first_name varchar(50),
---	last_name varchar(50),
---	bio varchar(500),
---	email varchar(50),
+	first_name varchar(50),
+	last_name varchar(50),
+	bio varchar(500),
 	CONSTRAINT PK_user PRIMARY KEY (user_id)
 );
 
 CREATE TABLE movies (
 	movie_id SERIAL primary key,
 	api_movie_id int UNIQUE,
-	title varchar(100) NOT NULL,
+	title varchar(100) UNIQUE NOT NULL,
 	poster_path varchar(200),
-	backdrop_path varchar(200),
-	imbd_id int,
-	homepage varchar(200),
 	overview varchar(1000),
-	release_date date,
-	runtime int
+	release_date date
 );
 
 CREATE TABLE genres (
