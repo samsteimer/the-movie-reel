@@ -102,8 +102,8 @@ public class JdbcMovieReviewDao implements MovieReviewDao {
     @Override
     public Integer createMovieReview(String review, int starRating, int movieId, int userId) {
         MovieReview movieReview = null;
-
-        String sql = "Insert Into review (review, star_rating, movie_id, user_id)" + "VALUES (?,?,?,?) RETURNING review_id;";
+        //TODO review text is a required field so make sure it required on the frontend.(This is to avoid null issues)
+        String sql = "Insert Into reviews (review, star_rating, movie_id, user_id)" + "VALUES (?,?,?,?) RETURNING review_id;";
 
         Integer movieReviewId;
         try {

@@ -13,11 +13,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@PreAuthorize("isAuthenticated()")
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 @RequestMapping("/movieReview")
 public class MovieReviewController {
 
@@ -31,7 +30,7 @@ public class MovieReviewController {
     }
 
     @GetMapping("movieReview/{reviewId}")
-    public MovieReview getMovieReviewById(@Valid @PathVariable("reviewId") Integer reviewId) {
+    public MovieReview getMovieReviewById(@PathVariable("reviewId") Integer reviewId) {
         try {
             MovieReview movieReview = movieReviewDao.getMovieReviewById(reviewId);
             if (movieReview == null) {
@@ -45,7 +44,7 @@ public class MovieReviewController {
     }
 
 //    @GetMapping("movieReview/{reviewId}")
-//    public List<MovieReview> getMovieReviewsById(@Valid @PathVariable("reviewId") Integer reviewId) {
+//    public List<MovieReview> getMovieReviewsById(@PathVariable("reviewId") Integer reviewId) {
 //        try {
 //            List<MovieReview> movieReview =  movieReviewDao.getMovieReviewsById(reviewId);
 //            if (movieReview == null){
@@ -59,7 +58,7 @@ public class MovieReviewController {
 //    }
 
     @GetMapping("movieReview/{movieId}/{userId}")
-    public List<MovieReview> getMovieReviewsByUser(@Valid @PathVariable("movieId, userId") Integer movieId, Integer userId) {
+    public List<MovieReview> getMovieReviewsByUser(@PathVariable("movieId, userId") Integer movieId, Integer userId) {
         try {
             List<MovieReview> movieReview = movieReviewDao.getMovieReviewsByUser(movieId, userId);
             if (movieReview == null) {
@@ -73,7 +72,7 @@ public class MovieReviewController {
     }
 
     @GetMapping("movieReview/{starRating}")
-    public List<MovieReview> getMovieReviewByRating(@Valid @PathVariable("starRating") Integer starRating) {
+    public List<MovieReview> getMovieReviewByRating(@PathVariable("starRating") Integer starRating) {
         try {
             List<MovieReview> movieReview = movieReviewDao.getMovieReviewByRating(starRating);
             if (movieReview == null) {
