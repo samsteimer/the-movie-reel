@@ -1,17 +1,23 @@
 package com.techelevator.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
 
 public class Movie {
 
+    @JsonProperty("movie_id")
     private int movieId;
+    @JsonProperty("api_movie_id")
     private int apiMovieId;
     @NotNull
     private String title;
+    @JsonProperty("poster_path")
     private String posterPath;
     private String overview;
+    @JsonProperty("release_date")
     private LocalDate releaseDate;
     private List<Genre> genres;
 

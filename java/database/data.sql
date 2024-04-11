@@ -1,7 +1,11 @@
 BEGIN TRANSACTION;
 
+-- users
+
 INSERT INTO users (username,password_hash,role) VALUES ('user','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
 INSERT INTO users (username,password_hash,role) VALUES ('admin','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ADMIN');
+
+-- movies
 
 INSERT INTO movies (api_movie_id,title,overview) VALUES ('99999','Gill Bill Vol. 2', 'Gill is back and you better watch out');
 
@@ -50,7 +54,7 @@ INSERT INTO movies (api_movie_id, title, poster_path, overview, release_date)
      'Led by Woody, Andys toys live happily in his room until Andys birthday brings Buzz Lightyear onto the scene. Afraid of losing his place in Andys heart, Woody plots against Buzz. But when circumstances separate Buzz and Woody from their owner, the duo eventually learns to put aside their differences.',
       '1995-10-30');
 
-
+-- movie genres
 
 INSERT INTO movies_genres (movie_id, genre_id) VALUES (1, 1);
 INSERT INTO movies_genres (movie_id, genre_id) VALUES (2, 1);
@@ -63,6 +67,21 @@ INSERT INTO movies_genres (movie_id, genre_id) VALUES (8, 7);
 INSERT INTO movies_genres (movie_id, genre_id) VALUES (9, 8);
 INSERT INTO movies_genres (movie_id, genre_id) VALUES (10, 9);
 
+-- movie lists
 
+INSERT INTO lists (list_name)
+VALUES ('New Releases'), ('Now Showing');
+
+INSERT INTO movies_lists (list_id, movie_id)
+SELECT
+    (SELECT list_id FROM lists WHERE list_name = 'New Releases'),
+    movie_id
+FROM movies ORDER BY random() LIMIT 5;
+
+INSERT INTO movies_lists (list_id, movie_id)
+SELECT
+    (SELECT list_id FROM lists WHERE list_name = 'Now Showing'),
+    movie_id
+FROM movies ORDER BY random() LIMIT 5;
 
 COMMIT TRANSACTION;
