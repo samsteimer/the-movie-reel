@@ -1,8 +1,12 @@
 package com.techelevator.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class MovieList {
 
+    @JsonProperty("list_id")
     private int listId;
+    @JsonProperty("list_name")
     private String listName;
     private String description;
 

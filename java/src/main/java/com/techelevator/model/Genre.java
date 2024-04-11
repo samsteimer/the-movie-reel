@@ -1,7 +1,11 @@
 package com.techelevator.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Genre {
+    @JsonProperty("genre_id")
     private int genreId;
+    @JsonProperty("genre_name")
     private String genreName;
 
     public Genre(int genreId, String genreName) {
