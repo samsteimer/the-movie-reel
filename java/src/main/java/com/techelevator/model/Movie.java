@@ -10,7 +10,6 @@ import java.util.List;
 public class Movie {
 
     private Integer movieId;
-    @JsonAlias("id")
     private int apiMovieId;
     @NotNull
     private String title;

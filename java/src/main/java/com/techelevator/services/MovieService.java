@@ -1,7 +1,11 @@
 package com.techelevator.services;
 
 import com.techelevator.model.Movie;
+import com.techelevator.model.MovieApiDto;
+import org.jboss.logging.BasicLogger;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
@@ -17,25 +21,19 @@ public class MovieService {
 
     private final RestTemplate restTemplate = new RestTemplate();
 
-//    public MovieService() {
-//        this.movie = movie;
-//    }
 
-    //movie_id => movieId
+    public MovieApiDto getMovieFromApiId(int apiId) {
 
-    public Movie getMovieFromApiId(int apiId) {
         String url = API_BASE_URL + apiId + "?api_key=" + API_KEY;
-        Movie m = restTemplate.getForObject(url, Movie.class);
 
-        return m;
+        ResponseEntity<MovieApiDto> responseEntity = restTemplate.getForEntity(url, MovieApiDto.class);
 
+        return responseEntity.getBody();
     }
 
-    public Movie[] searchMoviesFromApi(String searchInput) {
+    public MovieApiDto[] searchMoviesFromApi(String searchInput) {
         String url = "https://api.themoviedb.org/3/search/movie?query=" + searchInput + "&include_adult=false&language=en-US&page=1&api_key=" + API_KEY;
-        Movie[] movies = restTemplate.getForObject(url, Movie[].class);
-
-        return movies;
+        return restTemplate.getForObject(url, MovieApiDto[].class);
     }
 
 
