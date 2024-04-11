@@ -3,7 +3,6 @@ package com.techelevator.dao;
 import com.techelevator.exception.DaoException;
 import com.techelevator.model.Genre;
 import com.techelevator.model.Movie;
-import com.techelevator.model.MovieList;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -21,8 +20,11 @@ public class JdbcMovieDao implements MovieDao {
 
     private JdbcTemplate jdbcTemplate;
 
-    public JdbcMovieDao(JdbcTemplate jdbcTemplate) {
+    private GenreDao genreDao;
+
+    public JdbcMovieDao(JdbcTemplate jdbcTemplate, GenreDao genreDao) {
         this.jdbcTemplate = jdbcTemplate;
+        this.genreDao = genreDao;
     }
 
     @Override
@@ -165,9 +167,9 @@ public class JdbcMovieDao implements MovieDao {
             if (movieId == null) {
                 throw new DaoException("Could not create transfer");
             }
-//            for (Genre genre : movie.getGenres()) {
-//                addMovieGenre(genre.getGenreId(), movie.getMovieId());
-//            }
+            for (Genre genre : movie.getGenres()) {
+                addMovieGenre(genre.getGenreId(), movie.getMovieId());
+            }
             return getMovieByMovieId(movieId);
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Could not connect.", e);
@@ -265,6 +267,8 @@ public class JdbcMovieDao implements MovieDao {
         if (releaseDate != null) {
             movie.setReleaseDate(releaseDate);
         }
+
+        movie.setGenres(genreDao.getGenresByMovieId(movie.getMovieId()));
 
         return movie;
     }

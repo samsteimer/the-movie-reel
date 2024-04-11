@@ -5,7 +5,6 @@ import com.techelevator.dao.MovieListDao;
 import com.techelevator.exception.DaoException;
 import com.techelevator.model.Movie;
 import com.techelevator.model.MovieList;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -79,6 +78,7 @@ public class MovieListController {
     }
 
     @PutMapping("/{id}/movies/{movieId}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Movie addListMovie(@PathVariable int listId, @PathVariable int movieId) {
         MovieList movieList = movieListDao.getMovieListById(listId);
         if (movieList == null) {
@@ -98,6 +98,7 @@ public class MovieListController {
     }
 
     @DeleteMapping("/{id}/movies/{movieId}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void removeListMovie(@PathVariable int listId, @PathVariable int movieId) {
         MovieList movieList = movieListDao.getMovieListById(listId);
         if (movieList == null) {
