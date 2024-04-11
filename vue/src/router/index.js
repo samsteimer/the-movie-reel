@@ -12,6 +12,7 @@ import MovieInfoView from '../views/MovieInfo.vue';
 import AdminView from '../views/AdminView.vue';
 import ProfileView from '../views/ProfileView.vue';
 import WatchListView from '../views/WatchListView.vue';
+import BrowseMoviesView from '../views/BrowseMoviesView.vue'
 
 /**
  * The Vue Router is used to "direct" the browser to render a specific view component
@@ -101,6 +102,16 @@ const routes = [
     meta: {
       requiresAuth: false
     }
+  },
+
+  {
+    path: "/browse",
+    name: "browse",
+    component: BrowseMoviesView,
+    meta: {
+      requiresAuth: false
+    }
+
   }
 ];
 
