@@ -14,14 +14,14 @@ public interface UserDao {
 
     User getUserByUsername(String username);
 
-//    User getUserByPrincipal(Principal principal);
-//
+    User getUserByPrincipal(Principal principal);
+
     User createUser(RegisterUserDto user);
-//
-//    User updateUser(User user);
-//
-//    void addFavoriteMovie(int userId, int movieId);
-//
-//    void removeFavoriteMovie(int userId, int movieId);
+
+    User updateUser(User user);
+
+    void addFavoriteMovie(int userId, int movieId);
+
+    void removeFavoriteMovie(int userId, int movieId);
 
 }

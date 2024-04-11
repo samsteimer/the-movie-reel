@@ -3,13 +3,17 @@
 
     <div id="nav" class="header"> 
 
-      <a href="../src/views/HomeView.vue"><img id="header-logo" src="../src/assets/LogoConcept.png" alt="HeaderLogo"></a>
+
+      <router-link to="/" id="home-link">
+  <img id="header-logo" src="../src/assets/LogoConcept.png" alt="HeaderLogo">
+</router-link>
 
       
-      <router-link id="logout-link" v-bind:to="{ name: 'logout' }">Logout</router-link>
-      <router-link id="profile-link" v-bind:to="{ name: 'Profile'}">My Profile</router-link>
-      <router-link id="watchlist-link" v-bind:to="{ name: 'WatchList'}" >My Watchlist</router-link>
-      <router-link id="browse-link" v-bind:to="{ name: 'WatchList'}">Browse Movies</router-link>   <!--Needs linked to browse movies page not created yet-->
+      <router-link id="logout-link" v-bind:to="{ name: 'logout' }" v-if="$store.state.token !=''">Logout</router-link>
+      <router-link id="login-link" v-bind:to="{ name: 'login'}" v-else>Login</router-link>
+      <router-link id="profile-link" v-bind:to="{ name: 'Profile'}" v-if="$store.state.token !=''">My Profile</router-link>
+      <router-link id="watchlist-link" v-bind:to="{ name: 'WatchList'}" v-if="$store.state.token !=''">My Watchlist</router-link>
+      <router-link id="browse-link" v-bind:to="{ name: 'browse'}" >Browse Movies</router-link>  
     </div>
 
     <router-view />
@@ -39,7 +43,7 @@ add back on to router-links after testing -->
   margin-top: 10px;
 }
 
- #home-link, #logout-link, #profile-link, #watchlist-link, #browse-link {
+  #logout-link, #profile-link, #watchlist-link, #browse-link, #login-link {
     color: white;
     margin-top: 40px;
     margin-right: 30px; 

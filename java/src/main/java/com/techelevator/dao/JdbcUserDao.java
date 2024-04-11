@@ -72,11 +72,11 @@ public class JdbcUserDao implements UserDao {
         return user;
     }
 
-//    @Override
-//    public User getUserByPrincipal(Principal principal) {
-//        String username = principal.getName();
-//        return getUserByUsername(username);
-//    }
+    @Override
+    public User getUserByPrincipal(Principal principal) {
+        String username = principal.getName();
+        return getUserByUsername(username);
+    }
 
     @Override
     public User createUser(RegisterUserDto user) {
