@@ -5,7 +5,6 @@ import com.techelevator.dao.UserDao;
 import com.techelevator.exception.DaoException;
 import com.techelevator.model.Movie;
 import com.techelevator.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -28,15 +27,16 @@ public class UserController {
     }
 
     @PutMapping("/profile")
-    public User updateUser(User user, Principal principal) {
-        if (userDao.getUserByPrincipal(principal).getId() != user.getId()) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Access denied.");
-        }
+    public User updateUser(User newUser, Principal principal) {
+        User user = userDao.getUserByPrincipal(principal);
         if (user == null) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "User not found.");
         }
+        if (userDao.getUserByPrincipal(principal).getId() != user.getId()) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Access denied.");
+        }
         try {
-            userDao.updateUser(user);
+            userDao.updateUser(newUser);
             return userDao.getUserById(user.getId());
         } catch (DaoException e) {
             throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Service not Available");
