@@ -12,15 +12,6 @@ public class MovieApiDto {
     @JsonProperty("release_date")
     private String releaseDate;
 
-    public MovieApiDto(String title, int apiMovieId, String posterPath, String overview, String releaseDate) {
-        this.title = title;
-        this.apiMovieId = apiMovieId;
-        this.posterPath = posterPath;
-        this.overview = overview;
-        this.releaseDate = releaseDate;
-    }
-
-    @JsonProperty("title")
     public String getTitle() {
         return title;
     }
@@ -29,7 +20,6 @@ public class MovieApiDto {
         this.title = title;
     }
 
-    @JsonProperty("api_movie_id")
     public int getApiMovieId() {
         return apiMovieId;
     }
@@ -38,7 +28,6 @@ public class MovieApiDto {
         this.apiMovieId = apiMovieId;
     }
 
-    @JsonProperty("poster_path")
     public String getPosterPath() {
         return posterPath;
     }
@@ -47,7 +36,6 @@ public class MovieApiDto {
         this.posterPath = posterPath;
     }
 
-    @JsonProperty("overview")
     public String getOverview() {
         return overview;
     }
@@ -56,7 +44,6 @@ public class MovieApiDto {
         this.overview = overview;
     }
 
-    @JsonProperty("release_date")
     public String getReleaseDate() {
         return releaseDate;
     }
