@@ -27,6 +27,7 @@ add back on to router-links after testing -->
 
 <style>
 
+
 #capstone-app {
   background-image: url('../src/assets/Red Background.png'); 
   background-size: cover; 
@@ -40,7 +41,6 @@ add back on to router-links after testing -->
   text-shadow: 2px 2px 5px black;
   font-weight: 700;
   font-size: x-large;
-  margin-top: 10px;
 }
 
   #logout-link, #profile-link, #watchlist-link, #browse-link, #login-link {
