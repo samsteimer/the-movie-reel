@@ -20,8 +20,6 @@ public class User {
    @JsonProperty("last_name")
    private String lastName;
    private String bio;
-
-   private String role;
    private Set<Authority> authorities = new HashSet<>();
 
    public User() { }
@@ -104,14 +102,6 @@ public class User {
 
    public void setBio(String bio) {
       this.bio = bio;
-   }
-
-   public String getRole() {
-      return role;
-   }
-
-   public void setRole(String role) {
-      this.role = role;
    }
 
    @Override
