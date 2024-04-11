@@ -151,8 +151,8 @@ public class JdbcMovieDao implements MovieDao {
             throw new DaoException("Movie already exists");
         }
 
-        String sql = "insert into movies (movie_id, api_movie_id, title, poster_path, backdrop_path, imbd_id, homepage, overview, release_date, runtime) " +
-                "values (?,?,?,?,?,?,?,?,?,?) returning movie_id";
+        String sql = "insert into movies (movie_id, api_movie_id, title, poster_path, overview, release_date) " +
+                "values (?,?,?,?,?,?) returning movie_id";
         try {
             Integer movieId = jdbcTemplate.queryForObject(
                     sql, int.class,
@@ -160,12 +160,8 @@ public class JdbcMovieDao implements MovieDao {
                     movie.getApiMovieId(),
                     movie.getTitle(),
                     movie.getPosterPath(),
-                    movie.getBackdropPath(),
-                    movie.getImdbId(),
-                    movie.getHomepage(),
                     movie.getOverview(),
-                    movie.getReleaseDate(),
-                    movie.getRuntime());
+                    movie.getReleaseDate());
             if (movieId == null) {
                 throw new DaoException("Could not create transfer");
             }
@@ -185,26 +181,21 @@ public class JdbcMovieDao implements MovieDao {
         if (movie == null) {
             throw new DaoException("Movie invalid");
         }
-        String sql = "update movies set movie_id = ?, api_movie_id = ?, title = ?, poster_path = ?, backdrop_path = ?, " +
-                "imbd_id = ?, homepage = ?, overview = ?, release_date = ?, runtime = ? " +
-                "where movie_id = ?";
+        String sql = "update movies set movie_id = ?, api_movie_id = ?, title = ?, poster_path = ?, " +
+                "overview = ?, release_date = ?, where movie_id = ?";
         try {
             jdbcTemplate.update(sql,
                     movie.getMovieId(),
                     movie.getApiMovieId(),
                     movie.getTitle(),
                     movie.getPosterPath(),
-                    movie.getBackdropPath(),
-                    movie.getImdbId(),
-                    movie.getHomepage(),
                     movie.getOverview(),
-                    movie.getRuntime(),
                     movie.getReleaseDate(),
                     movie.getMovieId());
             deleteMovieGenres(movie.getMovieId());
-//            for (Genre genre : movie.getGenres()) {
-//                addMovieGenre(genre.getGenreId(), movie.getMovieId());
-//            }
+            for (Genre genre : movie.getGenres()) {
+                addMovieGenre(genre.getGenreId(), movie.getMovieId());
+            }
             return getMovieByMovieId(movie.getMovieId());
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Could not connect.", e);
@@ -249,32 +240,31 @@ public class JdbcMovieDao implements MovieDao {
     }
 
     public Movie mapRowToMovie(SqlRowSet rowSet) {
-        Integer movieId = rowSet.getInt("movie_id");
-        int apiMovieId = rowSet.getInt("api_movie_id");
-        String title = rowSet.getString("title");
-////        String posterPath = rowSet.getString("poster_path");
-////        String backdropPath = rowSet.getString("backdrop_path");
-////        int imdbId = rowSet.getInt("imdb_id");
-////        String homepage = rowSet.getString("homepage");
-////        String overview = rowSet.getString("overview");
-////        Date releaseDateTemp = rowSet.getDate("release_date");
-////        LocalDate releaseDate = null;
-//        if (releaseDateTemp != null) {
-//            releaseDate = releaseDateTemp.toLocalDate();
-//        }
-//        int runtime = rowSet.getInt("runtime");
-
         Movie movie = new Movie();
-        movie.setMovieId(movieId);
-        movie.setApiMovieId(apiMovieId);
-        movie.setTitle(title);
-//        movie.setPosterPath(posterPath);
-//        movie.setBackdropPath(backdropPath);
-//        movie.setImdbId(imdbId);
-//        movie.setHomepage(homepage);
-//        movie.setOverview(overview);
-//        movie.setReleaseDate(releaseDate);
-//        movie.setRuntime(runtime);
+        movie.setMovieId(rowSet.getInt("movie_id"));
+
+        int apiMovieId = rowSet.getInt("api_movie_id");
+        if (apiMovieId > 0) {
+            movie.setApiMovieId(apiMovieId);
+        }
+
+        movie.setTitle(rowSet.getString("title"));
+
+        String posterPath = rowSet.getString("poster_path");
+        if (posterPath != null) {
+            movie.setPosterPath(posterPath);
+        }
+
+        String overview = rowSet.getString("overview");
+        if (overview != null) {
+            movie.setOverview(overview);
+        }
+
+        Date releaseDateTemp = rowSet.getDate("release_date");
+        LocalDate releaseDate = releaseDateTemp == null ? null : releaseDateTemp.toLocalDate();
+        if (releaseDate != null) {
+            movie.setReleaseDate(releaseDate);
+        }
 
         return movie;
     }
