@@ -28,7 +28,7 @@ public class JdbcUserDao implements UserDao {
     @Override
     public User getUserById(int userId) {
         User user = null;
-        String sql = "SELECT user_id, username, password_hash, role FROM users WHERE user_id = ?";
+        String sql = "SELECT * FROM users WHERE user_id = ?";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
             if (results.next()) {
@@ -43,7 +43,7 @@ public class JdbcUserDao implements UserDao {
     @Override
     public List<User> getUsers() {
         List<User> users = new ArrayList<>();
-        String sql = "SELECT user_id, username, password_hash, role FROM users";
+        String sql = "SELECT * FROM users";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
             while (results.next()) {
@@ -60,7 +60,7 @@ public class JdbcUserDao implements UserDao {
     public User getUserByUsername(String username) {
         if (username == null) throw new IllegalArgumentException("Username cannot be null");
         User user = null;
-        String sql = "SELECT user_id, username, password_hash, role FROM users WHERE username = LOWER(TRIM(?));";
+        String sql = "SELECT * FROM users WHERE username = LOWER(TRIM(?));";
         try {
             SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql, username);
             if (rowSet.next()) {
@@ -97,9 +97,9 @@ public class JdbcUserDao implements UserDao {
 
     @Override
     public User updateUser(User user) {
-        String sql = "update users set first_name = ?, last_name = ?, email = ?, bio = ? where user_id = ?";
+        String sql = "update users set first_name = ?, last_name = ?, bio = ? where user_id = ?";
         try {
-            jdbcTemplate.update(sql, user.getFirstName(), user.getLastName(), user.getEmail(), user.getBio(), user.getId());
+            jdbcTemplate.update(sql, user.getFirstName(), user.getLastName(), user.getBio(), user.getId());
             return getUserById(user.getId());
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Could not connect.", e);
@@ -137,12 +137,25 @@ public class JdbcUserDao implements UserDao {
         user.setId(rs.getInt("user_id"));
         user.setUsername(rs.getString("username"));
         user.setPassword(rs.getString("password_hash"));
-//        user.setFirstName(rs.getString("first_name"));
-//        user.setLastName(rs.getString("last_name"));
-//        user.setEmail(rs.getString("email"));
-//        user.setBio(rs.getString("bio"));
+
+        String firstName = rs.getString("first_name");
+        if (firstName != null) {
+            user.setFirstName(firstName);
+        }
+
+        String lastName = rs.getString("last_name");
+        if (lastName != null) {
+            user.setLastName(lastName);
+        }
+
+        String bio = rs.getString("bio");
+        if (bio != null) {
+            user.setBio(bio);
+        }
+
         user.setAuthorities(Objects.requireNonNull(rs.getString("role")));
         user.setActivated(true);
+
         return user;
     }
 }
