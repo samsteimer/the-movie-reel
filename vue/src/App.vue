@@ -49,10 +49,14 @@ add back on to router-links after testing -->
     margin-right: 30px; 
 }
 
+#logout-link:hover, #profile-link:hover, #watchlist-link:hover, #browse-link:hover, #login-link:hover {
+  font-size: 110%;
+}
+
 #header-logo {
     height: 125px;
-    margin-right: 30px;
-    
+    margin-right: 30px;  
 }
+
 
 </style>

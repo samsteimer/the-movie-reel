@@ -1,11 +1,8 @@
 <template>
-Show All Movies in Database Here
+    
+    <div id="browse-title">
+    <h1 id="head-text">Browse All Movies</h1>
+    </div>
 
 </template>
 
-
-<script>
-
-
-
-</script>
