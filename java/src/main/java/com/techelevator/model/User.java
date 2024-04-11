@@ -1,6 +1,7 @@
 package com.techelevator.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -14,7 +15,9 @@ public class User {
    private String password;
    @JsonIgnore
    private boolean activated;
+   @JsonProperty("first_name")
    private String firstName;
+   @JsonProperty("last_name")
    private String lastName;
    private String bio;
    private Set<Authority> authorities = new HashSet<>();

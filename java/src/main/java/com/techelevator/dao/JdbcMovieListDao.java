@@ -2,7 +2,6 @@ package com.techelevator.dao;
 
 import com.techelevator.exception.DaoException;
 import com.techelevator.model.MovieList;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -26,7 +25,7 @@ public class JdbcMovieListDao implements MovieListDao {
 
     @Override
     public MovieList getMovieListById(int id) {
-        String sql = "select name, description from lists where list_id = ?;";
+        String sql = "select * from lists where list_id = ?;";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
             if (results.next()) {
@@ -42,7 +41,7 @@ public class JdbcMovieListDao implements MovieListDao {
     @Override
     public List<MovieList> getMovieListsByName(String name) {
         List<MovieList> movieLists = new ArrayList<>();
-        String sql = "select name, description from lists where list_id ilike ?";
+        String sql = "select * from lists where list_name ilike ?";
         try {
             String pattern = "%" + name + "%";
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, pattern);
@@ -128,7 +127,10 @@ public class JdbcMovieListDao implements MovieListDao {
         var movieList = new MovieList();
         movieList.setListId(id);
         movieList.setListName(name);
-        movieList.setDescription(description);
+
+        if (description != null) {
+            movieList.setDescription(description);
+        }
 
         return movieList;
     }
