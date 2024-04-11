@@ -23,15 +23,24 @@ add back on to router-links after testing -->
 
 <style>
 
+#capstone-app {
+  background-image: url('../src/assets/Red Background.png'); 
+  background-size: cover; 
+  background-position: center; 
+  height: 100vh;
+}
+
 .header {
   display: flex;
   font-family: "League Spartan", sans-serif;
+  text-shadow: 2px 2px 5px black;
   font-weight: 700;
   font-size: x-large;
   margin-top: 10px;
 }
 
  #home-link, #logout-link, #profile-link, #watchlist-link, #browse-link {
+    color: white;
     margin-top: 40px;
     margin-right: 30px; 
 }
