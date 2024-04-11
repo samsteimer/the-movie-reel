@@ -1,15 +1,19 @@
 package com.techelevator.services;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import com.techelevator.model.Movie;
 import com.techelevator.model.MovieApiDto;
 import org.jboss.logging.BasicLogger;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestClientResponseException;
-import org.springframework.web.client.RestTemplate;
+
 
 import java.util.List;
 
+@RestController
 @Component
 public class MovieService {
 
@@ -17,7 +21,6 @@ public class MovieService {
 
     private static final String API_KEY = "d19868d1711164512199ca8d6fad28f0";
 
-//    private final Movie movie;
 
     private final RestTemplate restTemplate = new RestTemplate();
 
