@@ -43,6 +43,7 @@ public class MovieReviewController {
         }
     }
 
+    //TODO turn this into a request param since you are getting all of the items.
     @GetMapping("/{movieId}/reviews")
     public MovieReview getMovieReviewByMovieId(@PathVariable("movieId") Integer movieId) {
         try {
@@ -98,5 +99,7 @@ public class MovieReviewController {
             throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Service not available");
         }
     }
+
+    //TODO create a mapping for the create review
 
 }
