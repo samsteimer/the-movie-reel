@@ -116,11 +116,11 @@ public class MovieController {
 //        return movieDao.getMoviesByUserId(userId);
 //    }
 
-    @GetMapping("/tmbd/{id}")
+    @GetMapping("/tmbd/{api_movie_id}")
 //    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public Movie getMovieFromApiId(@Valid @PathVariable("id") int id) {
+    public MovieApiDto getMovieFromApiId(@Valid @PathVariable("api_movie_id") int id) {
         try {
-            Movie movie = movieService.getMovieFromApiId(id);
+            MovieApiDto movie = movieService.getMovieFromApiId(id);
             if (movie == null) {
                 throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie not found");
             } else {
@@ -133,9 +133,9 @@ public class MovieController {
 
     @GetMapping("/tmbd/search")
 //    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public Movie[] searchMoviesFromApi(@Valid @RequestParam String search) {
+    public MovieApiDto[] searchMoviesFromApi(@Valid @RequestParam String search) {
         try {
-            Movie[] movies = movieService.searchMoviesFromApi(search);
+            MovieApiDto[] movies = movieService.searchMoviesFromApi(search);
             if (movies == null) {
                 throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie not found");
             } else {
