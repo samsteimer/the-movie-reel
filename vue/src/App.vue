@@ -30,9 +30,9 @@ add back on to router-links after testing -->
 
 #capstone-app {
   background-image: url('../src/assets/Red Background.png'); 
+  background-attachment: scroll;
   background-size: cover; 
-  background-position: center; 
-  height: 100vh;
+  
 }
 
 .header {
