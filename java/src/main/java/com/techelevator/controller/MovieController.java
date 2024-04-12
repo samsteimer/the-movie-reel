@@ -36,11 +36,11 @@ public class MovieController {
     @PostMapping
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Movie createMovie(@Valid @RequestBody Movie movie) {
-        try {
+//        try {
             return movieDao.createMovie(movie);
-        } catch (DaoException e) {
-            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Service unavailable");
-        }
+//        } catch (DaoException e) {
+//            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Service unavailable");
+//        }
     }
 
 //    @PutMapping("/{id}")
