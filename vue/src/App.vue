@@ -14,6 +14,7 @@
       <router-link id="profile-link" v-bind:to="{ name: 'Profile'}" v-if="$store.state.token !=''">My Profile</router-link>
       <router-link id="watchlist-link" v-bind:to="{ name: 'WatchList'}" v-if="$store.state.token !=''">My Watchlist</router-link>
       <router-link id="browse-link" v-bind:to="{ name: 'browse'}" >Browse Movies</router-link>  
+      <router-link id="admin-link" v-bind:to="{ name: 'Admin'}" v-if="$store.state.token !=''">Admin</router-link>
     </div>
 
     <router-view />
@@ -43,13 +44,13 @@ add back on to router-links after testing -->
   font-size: x-large;
 }
 
-  #logout-link, #profile-link, #watchlist-link, #browse-link, #login-link {
+  #logout-link, #profile-link, #watchlist-link, #browse-link, #login-link, #admin-link {
     color: white;
     margin-top: 40px;
     margin-right: 30px; 
 }
 
-#logout-link:hover, #profile-link:hover, #watchlist-link:hover, #browse-link:hover, #login-link:hover {
+#logout-link:hover, #profile-link:hover, #watchlist-link:hover, #browse-link:hover, #login-link:hover, #admin-link:hover {
   font-size: 110%;
 }
 
