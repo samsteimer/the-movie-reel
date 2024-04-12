@@ -8,7 +8,7 @@ import LogoutView from '../views/LogoutView.vue';
 import RegisterView from '../views/RegisterView.vue';
 import GenreView from '../views/GenreView.vue';
 import NowShowingView from '../views/NowShowingView.vue';
-import MovieInfoView from '../views/MovieInfo.vue';
+import MovieInfoView from '../views/MovieInfoView.vue';
 import AdminView from '../views/AdminView.vue';
 import ProfileView from '../views/ProfileView.vue';
 import WatchListView from '../views/WatchListView.vue';
@@ -97,7 +97,7 @@ const routes = [
   },
   {
     path: "/movie_info/:id",
-    name: "MovieInfo",
+    name: "MovieInfoView",
     component: MovieInfoView,
     meta: {
       requiresAuth: false
