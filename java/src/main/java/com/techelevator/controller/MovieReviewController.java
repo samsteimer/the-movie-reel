@@ -16,6 +16,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 //@PreAuthorize("hasRole('ROLE_ADMIN')")
 @RequestMapping("/movies")
 public class MovieReviewController {

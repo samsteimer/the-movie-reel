@@ -119,7 +119,7 @@ public class MovieController {
 //    }
 
     @GetMapping("/tmdb/{api_movie_id}")
-
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public MovieApiDto getMovieFromApiId(@Valid @PathVariable("api_movie_id") int id) {
         try {
             MovieApiDto movie = movieService.getMovieFromApiId(id);
