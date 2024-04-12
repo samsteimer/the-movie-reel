@@ -149,16 +149,17 @@ public class JdbcMovieDao implements MovieDao {
             throw new DaoException("Movie invalid");
         }
 
+        System.out.println(movie.getMovieId());
+
         if (getMovieByMovieId(movie.getMovieId()) != null) {
             throw new DaoException("Movie already exists");
         }
 
-        String sql = "insert into movies (movie_id, api_movie_id, title, poster_path, overview, release_date) " +
-                "values (?,?,?,?,?,?) returning movie_id";
+        String sql = "insert into movies (api_movie_id, title, poster_path, overview, release_date) " +
+                "values (?,?,?,?,?) returning movie_id";
         try {
             Integer movieId = jdbcTemplate.queryForObject(
                     sql, int.class,
-                    movie.getMovieId(),
                     movie.getApiMovieId(),
                     movie.getTitle(),
                     movie.getPosterPath(),

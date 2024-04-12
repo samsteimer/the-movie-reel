@@ -20,4 +20,9 @@ export default {
   searchMoviesFromApi(input) {
     return axios.get("/movie_info/tmdb/search/" + input);
   }, // /movie_info/tmdb/search/{input} (isAdmin required)
+
+  createMovie(movie) {
+    return axios.post("/movie_info", movie);
+  }, 
+
 };
