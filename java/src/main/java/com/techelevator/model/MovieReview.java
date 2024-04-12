@@ -2,22 +2,22 @@ package com.techelevator.model;
 
 public class MovieReview {
 
-    public String movieReview;
-    public int starRating;
-    public int movieId;
-    public int userId;
-    public int reviewId;
+    private String movieReview;
+    private int starRating;
+    private int movieId;
+    private int userId;
+    private int reviewId;
 
-    public MovieReview() {
-    }
+//    public MovieReview() {
+//    }
 
-    public MovieReview(String movieReview, int starRating, int movieId, int userId, int reviewId) {
-        this.movieReview = movieReview;
-        this.starRating = starRating;
-        this.movieId = movieId;
-        this.userId = userId;
-        this.reviewId = reviewId;
-    }
+//    public MovieReview(String movieReview, int starRating, int movieId, int userId, int reviewId) {
+//        this.movieReview = movieReview;
+//        this.starRating = starRating;
+//        this.movieId = movieId;
+//        this.userId = userId;
+//        this.reviewId = reviewId;
+//    }
 
     public int getUserId() {
         return userId;

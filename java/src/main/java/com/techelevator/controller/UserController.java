@@ -33,7 +33,7 @@ public class UserController {
         if (user == null) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "User not found.");
         }
-        if (userDao.getUserByPrincipal(principal).getId() != user.getId()) {
+        if (user.getId() != newUser.getId()) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Access denied.");
         }
         try {
