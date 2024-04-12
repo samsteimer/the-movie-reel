@@ -167,8 +167,11 @@ public class JdbcMovieDao implements MovieDao {
             if (movieId == null) {
                 throw new DaoException("Could not create transfer");
             }
-            for (Genre genre : movie.getGenres()) {
-                addMovieGenre(genre.getGenreId(), movie.getMovieId());
+            List<Genre> genres = movie.getGenres();
+            if (genres != null) {
+                for (Genre genre : genres) {
+                    addMovieGenre(genre.getGenreId(), movie.getMovieId());
+                }
             }
             return getMovieByMovieId(movieId);
         } catch (CannotGetJdbcConnectionException e) {
@@ -195,8 +198,11 @@ public class JdbcMovieDao implements MovieDao {
                     movie.getReleaseDate(),
                     movie.getMovieId());
             deleteMovieGenres(movie.getMovieId());
-            for (Genre genre : movie.getGenres()) {
-                addMovieGenre(genre.getGenreId(), movie.getMovieId());
+            List<Genre> genres = movie.getGenres();
+            if (genres != null) {
+                for (Genre genre : genres) {
+                    addMovieGenre(genre.getGenreId(), movie.getMovieId());
+                }
             }
             return getMovieByMovieId(movie.getMovieId());
         } catch (CannotGetJdbcConnectionException e) {

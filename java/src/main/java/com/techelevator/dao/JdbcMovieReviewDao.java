@@ -27,7 +27,7 @@ public class JdbcMovieReviewDao implements MovieReviewDao {
         // Provides the option to get a single movie review using the review id of the review.
         //TODO put in defensive code to account for null values
         try {
-            String sql = "select review, star_rating, user_id, movie_id, review_id from review where review_id = ?;";
+            String sql = "select review, star_rating, user_id, movie_id, review_id from reviews where review_id = ?;";
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, reviewId);
             if (results.next()) {
                 review = mapRowToReview(results);
@@ -102,15 +102,18 @@ public class JdbcMovieReviewDao implements MovieReviewDao {
     }
 
     @Override
-    public Integer createMovieReview(String review, int starRating, int movieId, int userId) {
-        MovieReview movieReview = null;
+    public MovieReview createMovieReview(MovieReview movieReview) {
+
         //TODO review text is a required field so make sure it required on the frontend.(This is to avoid null issues)
         String sql = "Insert Into reviews (review, star_rating, movie_id, user_id)" + "VALUES (?,?,?,?) RETURNING review_id;";
 
         Integer movieReviewId;
         try {
-            movieReviewId = jdbcTemplate.queryForObject(sql, int.class, movieReview.getMovieReview(), movieReview.starRating, movieReview.movieId, movieReview.movieId, movieReview.getUserId());
-            return movieReviewId;
+            movieReviewId = jdbcTemplate.queryForObject(sql, int.class, movieReview.getMovieReview(), movieReview.getStarRating(), movieReview.getMovieId(), movieReview.getUserId());
+            if (movieReviewId == null) {
+                throw new DaoException("Could not create movie review");
+            }
+            return getMovieReviewById(movieReviewId);
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to the server or Database", e);
         } catch (DataIntegrityViolationException e) {
@@ -165,7 +168,7 @@ public class JdbcMovieReviewDao implements MovieReviewDao {
         // Provides the option to get a single movie review using a movie id.
         //TODO put in defensive code to account for null values
         try {
-            String sql = "select review, star_rating, user_id, movie_id, review_id from review where movie_id = ? and user_Id = ?;";
+            String sql = "select review, star_rating, user_id, movie_id, review_id from reviews where movie_id = ? and user_Id = ?;";
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, movieId, userId);
             if (results.next()) {
                 review = mapRowToReview(results);
