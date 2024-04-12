@@ -1,5 +1,8 @@
 <template>
-Show All Movies in Database Here
+    
+    <div id="browse-title">
+    <h1 id="head-text">Browse All Movies</h1>
+    </div>
 
 <h2>Genres</h2>
 <ul>
@@ -12,8 +15,8 @@ Show All Movies in Database Here
 </ul>
 </template>
 
-
 <script>
+
 import MovieService from '../services/MovieService';
 import GenreService from '../services/GenreService';
 
@@ -45,5 +48,5 @@ export default {
     }
 
 }
-
 </script>
+

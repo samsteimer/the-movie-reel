@@ -1,7 +1,7 @@
 <template>
   <div id="login">
     <form v-on:submit.prevent="login">
-      <h1 >Please Sign In</h1>
+      <h1 id="sign-in">Please Sign In</h1>
       <div role="alert" v-if="invalidCredentials">
         Invalid username and password!
       </div>
@@ -18,7 +18,7 @@
       </div>
       <button type="submit">Sign in</button>
       <p>
-      <router-link v-bind:to="{ name: 'register' }">Need an account? Sign up.</router-link></p>
+      <router-link id="need-account" v-bind:to="{ name: 'register' }">Need an account? Sign up.</router-link></p>
     </form>
   </div>
 </template>
@@ -61,10 +61,24 @@ export default {
 </script>
 
 <style scoped>
+
+#login {
+  margin-top: 50px;
+  margin-left: 75px
+}
+
+#need-account {
+  font-size: 1.3rem;
+}
 .form-input-group {
+  font-size: 1.5rem;
   margin-bottom: 1rem;
 }
 label {
-  margin-right: 0.5rem;
+  margin-right: 1rem;
+}
+
+#sign-in {
+  font-size: 2rem;
 }
 </style>
