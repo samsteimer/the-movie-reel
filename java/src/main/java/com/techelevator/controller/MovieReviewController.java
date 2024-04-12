@@ -4,20 +4,18 @@ import com.techelevator.dao.MovieDao;
 import com.techelevator.dao.MovieReviewDao;
 import com.techelevator.dao.UserDao;
 import com.techelevator.exception.DaoException;
-import com.techelevator.model.Movie;
-import com.techelevator.model.MovieReview;
-import com.techelevator.model.RegisterUserDto;
-import com.techelevator.model.User;
+import com.techelevator.model.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
 
 @RestController
 @CrossOrigin
-//@PreAuthorize("hasRole('ROLE_ADMIN')")
 @RequestMapping("/movies")
 public class MovieReviewController {
 
@@ -101,6 +99,21 @@ public class MovieReviewController {
         }
     }
 
-    //TODO create a mapping for the create review
+    @PostMapping("/reviews")
+    @PreAuthorize("isAuthenticated()")
+    public MovieReview createMovieReview(@RequestBody MovieReview movieReview, Principal principal) {
+        User user = userDao.getUserByPrincipal(principal);
+        if (user == null) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "User not found.");
+        }
+        if (user.getId() != movieReview.getUserId()) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Access denied.");
+        }
+        try {
+            return movieReviewDao.createMovieReview(movieReview);
+        } catch (DaoException e) {
+            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Service unavailable");
+        }
+    }
 
 }
