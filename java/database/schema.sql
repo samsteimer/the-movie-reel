@@ -15,7 +15,7 @@ CREATE TABLE users (
 
 CREATE TABLE movies (
 	movie_id SERIAL primary key,
-	api_movie_id int UNIQUE,
+	api_movie_id int,
 	title varchar(100) UNIQUE NOT NULL,
 	poster_path varchar(200),
 	overview varchar(1000),
