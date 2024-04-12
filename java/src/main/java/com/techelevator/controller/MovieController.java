@@ -4,8 +4,8 @@ import com.techelevator.dao.MovieDao;
 import com.techelevator.dao.UserDao;
 import com.techelevator.exception.DaoException;
 import com.techelevator.model.Movie;
-import com.techelevator.model.MovieApiDto;
 import com.techelevator.model.MovieList;
+import com.techelevator.model.MovieListApiDto;
 import com.techelevator.services.MovieService;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -135,9 +135,9 @@ public class MovieController {
 
     @GetMapping("/tmdb/search/{input}")
 //    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public MovieApiDto[] searchMoviesFromApi(@Valid @PathVariable("input") String input) {
+    public MovieListApiDto searchMoviesFromApi(@Valid @PathVariable("input") String input) {
         try {
-            MovieApiDto[] movies = movieService.searchMoviesFromApi(input);
+            MovieListApiDto movies = movieService.searchMoviesFromApi(input);
             if (movies == null) {
                 throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie not found");
             } else {

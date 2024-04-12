@@ -1,5 +1,6 @@
 package com.techelevator.services;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.techelevator.model.MovieListApiDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,11 +39,9 @@ public class MovieService {
     }
 
 
-
-
-    public MovieApiDto[] searchMoviesFromApi(String searchInput) {
+    public MovieListApiDto searchMoviesFromApi(String searchInput) {
         String url = "https://api.themoviedb.org/3/search/movie?query=" + searchInput + "&include_adult=false&language=en-US&page=1&api_key=" + API_KEY;
-        return restTemplate.getForObject(url, MovieApiDto[].class);
+        return restTemplate.getForObject(url, MovieListApiDto.class);
     }
 
 

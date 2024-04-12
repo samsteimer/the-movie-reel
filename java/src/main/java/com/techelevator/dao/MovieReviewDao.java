@@ -1,8 +1,6 @@
 package com.techelevator.dao;
 
 import com.techelevator.model.MovieReview;
-import com.techelevator.model.User;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.List;
 
@@ -14,7 +12,7 @@ public interface MovieReviewDao {
 
     List<MovieReview> getMovieReviewsById(int reviewId);
 
-    List<MovieReview> getMovieReviewsByUser(int movieId, int userId);
+    List<MovieReview> getMovieReviewsByUser(int userId);
 
     List<MovieReview> getMovieReviewByRating(int starRating);
 
@@ -24,4 +22,6 @@ public interface MovieReviewDao {
     MovieReview getMovieReviewByMovieId(int movieId);
 
     List<MovieReview> getMovieReviewsByMovieId(int movieId);
+
+    MovieReview getMovieReviewByUser(Integer movieId, int userId);
 }
