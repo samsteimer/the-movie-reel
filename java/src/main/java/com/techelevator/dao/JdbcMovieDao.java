@@ -269,8 +269,8 @@ public class JdbcMovieDao implements MovieDao {
             movie.setOverview(overview);
         }
 
-        Date releaseDateTemp = rowSet.getDate("release_date");
-        LocalDate releaseDate = releaseDateTemp == null ? null : releaseDateTemp.toLocalDate();
+        String releaseDate = rowSet.getString("release_date");
+       // String releaseDate = releaseDateTemp == null ? null : releaseDateTemp;
         if (releaseDate != null) {
             movie.setReleaseDate(releaseDate);
         }

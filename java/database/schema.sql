@@ -19,7 +19,7 @@ CREATE TABLE movies (
 	title varchar(100) UNIQUE NOT NULL,
 	poster_path varchar(200),
 	overview varchar(1000),
-	release_date date
+	release_date varchar(10)
 );
 
 CREATE TABLE genres (

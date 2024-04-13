@@ -14,11 +14,9 @@ public class Movie {
     private int apiMovieId;
     @NotNull
     private String title;
-    @JsonProperty("poster_path")
     private String posterPath;
     private String overview;
-    @JsonProperty("release_date")
-    private LocalDate releaseDate;
+    private String releaseDate;
     private List<Genre> genres;
 
 //    public Movie(int movieId, int apiMovieId, String title, String posterPath, String backdropPath, int imdbId,
@@ -80,11 +78,11 @@ public class Movie {
         this.overview = overview;
     }
 
-    public LocalDate getReleaseDate() {
+    public String getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(LocalDate releaseDate) {
+    public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
     }
 
