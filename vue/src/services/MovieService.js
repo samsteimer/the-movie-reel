@@ -25,4 +25,8 @@ export default {
     return axios.post("/movie_info", movie);
   }, 
 
+  getMovies() {
+    return axios.get("/movie");
+  }
+
 };

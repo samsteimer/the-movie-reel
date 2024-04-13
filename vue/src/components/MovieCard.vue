@@ -1,8 +1,11 @@
 <template>
     <div id="movie-card">
-    <h2>{{ getGenreNames(movies.genres) }}</h2>
-    <img id="movie-image" v-bind:src="movies.poster_path">
-    <button v-on:click="getMoreInfo">See Movie Info</button>
+        <img id="movie-image" v-bind:src="movies.poster_path">
+        <h2>{{ getGenreNames(movies.genres) }}</h2>
+        <button v-on:click="getMoreInfo">See Movie Info</button>
+    </div>
+    <div>
+    
     </div>
 </template>
 
@@ -10,10 +13,12 @@
 import MovieService from '../services/MovieService';
 
 
+
 export default {
     data() {
         return {
             movies: {
+                id: '',
                 title: '',
                 overview: '',
                 genres: [],
@@ -30,8 +35,7 @@ export default {
     methods: {
 
         getMoreInfo() {
-            console.log("ive been clicked")
-            this.$router.push( { name: 'MovieInfoView', params: {id: 1}});
+            this.$router.push( { name: 'MovieInfoView', params: {id: 8 }});
         },
 
         getGenreNames(genres) {
@@ -60,6 +64,9 @@ export default {
     display: flex;
     flex-direction: column;
     width: 200px;
+}
+#movie-car > h2 {
+    align-items: center;
 }
 
 
