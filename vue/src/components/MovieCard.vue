@@ -35,7 +35,7 @@ export default {
     methods: {
 
         getMoreInfo() {
-            this.$router.push( { name: 'MovieInfoView', params: {id: 8 }});
+            this.$router.push( { name: 'MovieInfoView', params: {id: 5 }});
         },
 
         getGenreNames(genres) {
@@ -65,8 +65,30 @@ export default {
     flex-direction: column;
     width: 200px;
 }
-#movie-car > h2 {
+#movie-card > h2 {
     align-items: center;
+}
+
+#movie-card > img {
+    border: 2px solid white;
+    border-radius: 5px;
+}
+
+#movie-card > button {
+    height: 30px;
+    border-radius: 20px;
+    color: white;
+    background-color: #ffda00;
+    border: none;
+    box-shadow: 2px 2px 5px black;
+    font-size: 1rem;
+    font-weight: 500;
+    text-shadow: 2px 2px 5px black;
+    margin-bottom: 30px;
+}
+
+#movie-card > button:hover {
+    cursor: pointer;
 }
 
 
