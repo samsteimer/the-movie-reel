@@ -10,6 +10,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
 
@@ -27,8 +28,21 @@ public class UserController {
         this.userDao = userDao;
     }
 
+    @GetMapping("/profile")
+    public User getUser(Principal principal) {
+        User user = userDao.getUserByPrincipal(principal);
+        if (user == null) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "User not found.");
+        }
+        try {
+            return userDao.getUserById(user.getId());
+        } catch (DaoException e) {
+            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Service not Available");
+        }
+    }
+
     @PutMapping("/profile")
-    public User updateUser(User newUser, Principal principal) {
+    public User updateUser(@Valid @RequestBody User newUser, Principal principal) {
         User user = userDao.getUserByPrincipal(principal);
         if (user == null) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "User not found.");
