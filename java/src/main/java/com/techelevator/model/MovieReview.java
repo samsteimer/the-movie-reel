@@ -8,16 +8,6 @@ public class MovieReview {
     private int userId;
     private int reviewId;
 
-//    public MovieReview() {
-//    }
-
-//    public MovieReview(String movieReview, int starRating, int movieId, int userId, int reviewId) {
-//        this.movieReview = movieReview;
-//        this.starRating = starRating;
-//        this.movieId = movieId;
-//        this.userId = userId;
-//        this.reviewId = reviewId;
-//    }
 
     public int getUserId() {
         return userId;
