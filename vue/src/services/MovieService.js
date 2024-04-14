@@ -25,4 +25,8 @@ export default {
     return axios.post("/movie_info", movie);
   }, 
 
+  addGenreToMovie(movie) {
+    return axios.post("/movie_info/addgenre", movie)
+  }
+
 };
