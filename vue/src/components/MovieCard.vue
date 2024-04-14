@@ -96,8 +96,7 @@ export default {
 #movie-image {
     border: 2px solid white;
     border-radius: 5px;
+    box-shadow: 2px 2px 5px black;
 }
-
-
 
 </style>
