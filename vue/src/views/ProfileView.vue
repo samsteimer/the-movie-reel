@@ -49,9 +49,7 @@ export default {
     methods: {
         submitUpdate() {
             UserService.updateUser(this.user).then(res => {
-                if (res.status == 200) {
-                    alert("User updated");
-                }
+                this.$store.commit("SET_USER", res.data);
             })
         }
     },
