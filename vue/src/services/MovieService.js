@@ -9,6 +9,10 @@ export default {
     return axios.get("/movie_info/genre/" + genreId);
   }, // "/movie_info/genre/{genre_id}"
 
+  getMoviesByGenreIds(genreIds) {
+    return axios.get("/movie_info/genre?genreIds=" + genreIds.join(","));
+  }, // "/movie_info/genre/?genreIds={genre_ids}"
+
   getMoviesByListId(listId) {
     return axios.get("/movie_info/lists/" + listId);
   }, // /movie_info/lists/{list_id}
@@ -23,10 +27,14 @@ export default {
 
   createMovie(movie) {
     return axios.post("/movie_info", movie);
-  }, 
+  },
 
   getMovies() {
     return axios.get("/movie");
+  },
+  
+  addGenreToMovie(movie) {
+    return axios.post("/movie_info/addgenre", movie)
   }
 
 };

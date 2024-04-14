@@ -8,11 +8,13 @@ import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Component
@@ -129,9 +131,10 @@ public class JdbcMovieDao implements MovieDao {
     public List<Movie> getMoviesByGenreId(List<Integer> genreIds) {
         List<Movie> moviesInGenre = new ArrayList<>();
 
-        String sql = "select * from movies join movies_genres using (movie_id) where genre_id in (?);";
+        String inSql = String.join(",", Collections.nCopies(genreIds.size(), "?"));
+        String sql = "select * from movies join movies_genres using (movie_id) where genre_id in (" + inSql + ");";
         try {
-            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, genreIds);
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, genreIds.toArray());
 
             while (results.next()) {
                 Movie movie = mapRowToMovie(results);
@@ -144,6 +147,7 @@ public class JdbcMovieDao implements MovieDao {
     }
 
     @Override
+    @Transactional
     public Movie createMovie(Movie movie) {
         if (movie == null) {
             throw new DaoException("Movie invalid");
@@ -168,12 +172,15 @@ public class JdbcMovieDao implements MovieDao {
             if (movieId == null) {
                 throw new DaoException("Could not create transfer");
             }
-            List<Genre> genres = movie.getGenres();
-            if (genres != null) {
-                for (Genre genre : genres) {
-                    addMovieGenre(genre.getGenreId(), movie.getMovieId());
-                }
-            }
+
+            movie.setMovieId(movieId);
+
+//            List<Genre> genres = movie.getGenres();
+//            if (genres != null) {
+//                for (Genre genre : genres) {
+//                    addMovieGenre(genre.getGenreId(), movie.getMovieId());
+//                }
+//            }
             return getMovieByMovieId(movieId);
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Could not connect.", e);
@@ -215,7 +222,7 @@ public class JdbcMovieDao implements MovieDao {
 
     @Override
     public void addMovieGenre(int genreId, int movieId) {
-        String sql = "insert into movie_genres (genre_id, movie_id) values (?, ?)";
+        String sql = "insert into movies_genres (genre_id, movie_id) values (?, ?)";
         try {
             jdbcTemplate.update(sql, genreId, movieId);
         } catch (CannotGetJdbcConnectionException e) {

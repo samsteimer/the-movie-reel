@@ -14,8 +14,10 @@ public class Movie {
     private int apiMovieId;
     @NotNull
     private String title;
+    @JsonProperty("poster_path")
     private String posterPath;
     private String overview;
+    @JsonProperty("release_date")
     private String releaseDate;
     private List<Genre> genres;
 
@@ -33,6 +35,10 @@ public class Movie {
 //        this.runtime = runtime;
 //        this.genres = genres;
 //    }
+
+    public Movie(int movieId) {
+        this.movieId = movieId;
+    }
 
     public Movie() {
 

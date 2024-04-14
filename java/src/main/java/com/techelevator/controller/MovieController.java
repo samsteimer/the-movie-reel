@@ -1,20 +1,21 @@
 package com.techelevator.controller;
 
+import com.techelevator.dao.GenreDao;
 import com.techelevator.dao.MovieDao;
 import com.techelevator.dao.UserDao;
 import com.techelevator.exception.DaoException;
-import com.techelevator.model.Movie;
-import com.techelevator.model.MovieList;
-import com.techelevator.model.MovieListApiDto;
+import com.techelevator.model.*;
 import com.techelevator.services.MovieService;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-import com.techelevator.model.MovieApiDto;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin
@@ -27,10 +28,13 @@ public class MovieController {
 
     private MovieService movieService;
 
-    public MovieController(MovieDao movieDao, MovieService movieService, UserDao userDao) {
+    private GenreDao genreDao;
+
+    public MovieController(MovieDao movieDao, MovieService movieService, UserDao userDao, GenreDao genreDao) {
         this.movieDao = movieDao;
         this.movieService = movieService;
         this.userDao = userDao;
+        this.genreDao = genreDao;
     }
 
     @PostMapping
@@ -41,6 +45,35 @@ public class MovieController {
 //        } catch (DaoException e) {
 //            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Service unavailable");
 //        }
+    }
+
+    @PostMapping("/addgenre")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public List<Genre> addGenreToMovie(@Valid @RequestBody Movie movie) {
+        List<Genre> genres = movie.getGenres();
+        List<Genre> fetchedGenres = new ArrayList<>();
+
+        // Fetch genres by ID from GenreDao if needed
+        for (Genre genre : genres) {
+            // Assuming getGenreById returns null if the genre does not exist
+            Genre fetchedGenre = genreDao.getGenreById(genre.getGenreId());
+            if (fetchedGenre != null) {
+                fetchedGenres.add(fetchedGenre);
+            }
+        }
+
+        // If any genres were successfully fetched, add them to the movie
+        if (!fetchedGenres.isEmpty()) {
+            int movieId = movie.getMovieId(); // Assuming you have the movie ID
+            for (Genre genre : fetchedGenres) {
+                int genreId = genre.getGenreId();
+                movieDao.addMovieGenre(genreId, movieId);
+            }
+        } else {
+
+        }
+
+        return fetchedGenres;
     }
 
 //    @PutMapping("/{id}")
@@ -98,6 +131,30 @@ public class MovieController {
         }
     }
 
+    @GetMapping("/genre")
+    public List<Movie> getMoviesByGenreIds(@RequestParam String genreIds) {
+        if (genreIds.equals("")) {
+            return new ArrayList<>();
+        }
+        try {
+            List<Integer> genreIdList = Arrays
+                    .stream(genreIds.split(","))
+                    .map(str -> Integer.valueOf(str)).collect(Collectors.toList());
+            if (genreIdList == null) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Genre list invalid.");
+            }
+            List<Movie> movies = movieDao.getMoviesByGenreId(genreIdList);
+            if (movies == null) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Movies not found.");
+            } else {
+                return movies;
+            }
+        } catch (NumberFormatException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Genres not found");
+        } catch (DaoException e) {
+            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Service not Available");
+        }
+    }
     @GetMapping("/lists/{list_id}")
     public List<Movie> getMoviesByListId(@Valid @PathVariable("list_id") int listId) {
         try {

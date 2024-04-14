@@ -8,6 +8,10 @@ public class Genre {
     @JsonProperty("genre_name")
     private String genreName;
 
+    public Genre(int genreId) {
+        this.genreId = genreId;
+    }
+
     public Genre(int genreId, String genreName) {
         this.genreId = genreId;
         this.genreName = genreName;
