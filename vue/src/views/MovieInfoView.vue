@@ -1,17 +1,15 @@
 <template>
     
-    <MovieCard/>
+    <MovieInfo/>
 </template>
 
 <script>
-import movieService from '../services/MovieService';
-import MovieCard from '../components/MovieCard.vue';
-
+import MovieInfo from '../components/MovieInfo.vue';
 export default {
 
 
     components: {
-    MovieCard
+    MovieInfo
 },
 
 

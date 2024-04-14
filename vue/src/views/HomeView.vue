@@ -4,7 +4,7 @@
 
     <div id="home-header">
     <h1 id="head-text">Help Me Find A Movie</h1>
-    <router-link id="genre-link" v-bind:to="{ name: 'Genres'}" ><img id="genre-button" src="../assets/ClickHereButton.png" alt="Click Here"></router-link>
+    <router-link id="genre-link" v-bind:to="{ name: 'Genres'}" ><img id="genre-button" src="../assets/ClickHereButton.png"></router-link>
   </div>
 
     <h2 id="featured">Featured Movies</h2>

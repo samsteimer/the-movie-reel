@@ -1,8 +1,11 @@
 <template>
     <div id="movie-card">
-    <h2>{{ getGenreNames(movies.genres) }}</h2>
-    <img id="movie-image" v-bind:src="movies.poster_path">
-    <button v-on:click="getMoreInfo">See Movie Info</button>
+        <img id="movie-image" v-bind:src="movies.poster_path">
+        <h2>{{ getGenreNames(movies.genres) }}</h2>
+        <button v-on:click="getMoreInfo">See Movie Info</button>
+    </div>
+    <div>
+    
     </div>
 </template>
 
@@ -10,10 +13,12 @@
 import MovieService from '../services/MovieService';
 
 
+
 export default {
     data() {
         return {
             movies: {
+                id: '',
                 title: '',
                 overview: '',
                 genres: [],
@@ -30,8 +35,7 @@ export default {
     methods: {
 
         getMoreInfo() {
-            console.log("ive been clicked")
-            this.$router.push( { name: 'MovieInfoView', params: {id: 1}});
+            this.$router.push( { name: 'MovieInfoView', params: {id: 5 }});
         },
 
         getGenreNames(genres) {
@@ -60,6 +64,31 @@ export default {
     display: flex;
     flex-direction: column;
     width: 200px;
+}
+#movie-card > h2 {
+    align-items: center;
+}
+
+#movie-card > img {
+    border: 2px solid white;
+    border-radius: 5px;
+}
+
+#movie-card > button {
+    height: 30px;
+    border-radius: 20px;
+    color: white;
+    background-color: #ffda00;
+    border: none;
+    box-shadow: 2px 2px 5px black;
+    font-size: 1rem;
+    font-weight: 500;
+    text-shadow: 2px 2px 5px black;
+    margin-bottom: 30px;
+}
+
+#movie-card > button:hover {
+    cursor: pointer;
 }
 
 
