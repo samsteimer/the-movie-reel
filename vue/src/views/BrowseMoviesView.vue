@@ -33,6 +33,7 @@ export default {
         return {
             genres: [],
             comedyMovies: [],
+            newReleasesMovies: [],
         }
     },
 
@@ -52,7 +53,7 @@ export default {
             MovieService.getMoviesByGenreId(comedyGenre.genre_id).then(res => {
                 this.comedyMovies = res.data;
             })
-        })
+        });
     }
 
 }
