@@ -6,7 +6,9 @@ import java.util.List;
 import java.util.Objects;
 
 import com.techelevator.exception.DaoException;
+import com.techelevator.model.Genre;
 import com.techelevator.model.RegisterUserDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -20,6 +22,9 @@ import com.techelevator.model.User;
 public class JdbcUserDao implements UserDao {
 
     private final JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    private GenreDao genreDao;
 
     public JdbcUserDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -100,7 +105,49 @@ public class JdbcUserDao implements UserDao {
         String sql = "update users set first_name = ?, last_name = ?, bio = ? where user_id = ?";
         try {
             jdbcTemplate.update(sql, user.getFirstName(), user.getLastName(), user.getBio(), user.getId());
+            deleteUserGenres(user.getId());
+            List<Genre> genres = user.getGenres();
+            if (genres != null) {
+                for (Genre genre : genres) {
+                    addUserGenre(genre.getGenreId(), user.getId());
+                }
+            }
             return getUserById(user.getId());
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Could not connect.", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        }
+    }
+
+    @Override
+    public void addUserGenre(int genreId, int userId) {
+        String sql = "insert into users_genres (genre_id, user_id) values (?, ?)";
+        try {
+            jdbcTemplate.update(sql, genreId, userId);
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Could not connect.", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        }
+    }
+
+    @Override
+    public void removeUserGenre(int genreId, int userId) {
+        String sql = "delete from users_genres where genre_id = ? and user_id = ?";
+        try {
+            jdbcTemplate.update(sql, genreId, userId);
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Could not connect.", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        }
+    }
+
+    public void deleteUserGenres(int userId) {
+        String sql = "delete from users_genres where user_id = ?";
+        try {
+            jdbcTemplate.update(sql, userId);
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Could not connect.", e);
         } catch (DataIntegrityViolationException e) {
@@ -155,6 +202,8 @@ public class JdbcUserDao implements UserDao {
 
         user.setAuthorities(Objects.requireNonNull(rs.getString("role")));
         user.setActivated(true);
+
+        user.setGenres(genreDao.getGenresByUserId(user.getId()));
 
         return user;
     }
