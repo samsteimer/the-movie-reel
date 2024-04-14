@@ -157,7 +157,7 @@ public class JdbcUserDao implements UserDao {
 
     @Override
     public void addFavoriteMovie(int userId, int movieId) {
-        String sql = "insert into user_favorites (user_id, movie_id) values (?, ?)";
+        String sql = "insert into users_movies (user_id, movie_id) values (?, ?)";
         try {
             jdbcTemplate.update(sql, userId, movieId);
         } catch (CannotGetJdbcConnectionException e) {
@@ -169,7 +169,7 @@ public class JdbcUserDao implements UserDao {
 
     @Override
     public void removeFavoriteMovie(int userId, int movieId) {
-        String sql = "delete from user_favorites where user_id = ? and movie_id = ?";
+        String sql = "delete from users_movies where user_id = ? and movie_id = ?";
         try {
             jdbcTemplate.update(sql, userId, movieId);
         } catch (CannotGetJdbcConnectionException e) {

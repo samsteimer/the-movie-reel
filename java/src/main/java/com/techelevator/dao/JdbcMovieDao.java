@@ -13,6 +13,7 @@ import java.time.LocalDate;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Component
@@ -129,9 +130,10 @@ public class JdbcMovieDao implements MovieDao {
     public List<Movie> getMoviesByGenreId(List<Integer> genreIds) {
         List<Movie> moviesInGenre = new ArrayList<>();
 
-        String sql = "select * from movies join movies_genres using (movie_id) where genre_id in (?);";
+        String inSql = String.join(",", Collections.nCopies(genreIds.size(), "?"));
+        String sql = "select * from movies join movies_genres using (movie_id) where genre_id in (" + inSql + ");";
         try {
-            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, genreIds);
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, genreIds.toArray());
 
             while (results.next()) {
                 Movie movie = mapRowToMovie(results);

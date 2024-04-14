@@ -14,7 +14,10 @@ import org.springframework.web.server.ResponseStatusException;
 import com.techelevator.model.MovieApiDto;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin
@@ -98,6 +101,30 @@ public class MovieController {
         }
     }
 
+    @GetMapping("/genre")
+    public List<Movie> getMoviesByGenreIds(@RequestParam String genreIds) {
+        if (genreIds.equals("")) {
+            return new ArrayList<>();
+        }
+        try {
+            List<Integer> genreIdList = Arrays
+                    .stream(genreIds.split(","))
+                    .map(str -> Integer.valueOf(str)).collect(Collectors.toList());
+            if (genreIdList == null) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Genre list invalid.");
+            }
+            List<Movie> movies = movieDao.getMoviesByGenreId(genreIdList);
+            if (movies == null) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Movies not found.");
+            } else {
+                return movies;
+            }
+        } catch (NumberFormatException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Genres not found");
+        } catch (DaoException e) {
+            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Service not Available");
+        }
+    }
     @GetMapping("/lists/{list_id}")
     public List<Movie> getMoviesByListId(@Valid @PathVariable("list_id") int listId) {
         try {
