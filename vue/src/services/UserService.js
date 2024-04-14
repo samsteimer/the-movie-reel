@@ -13,10 +13,10 @@ export default {
   }, // /favorites (auth required)
 
   addFavoriteMovie(movieId) {
-    return axios.put("favorites/" + movieId);
+    return axios.put("/favorites/" + movieId);
   }, // PUT /favorites/<movieId>
 
   removeFavoriteMovie(movieId) {
-    return axios.delete("favorites/" + movieId);
+    return axios.delete("/favorites/" + movieId);
   }, // DELETE /favorites/<movieId>
 };

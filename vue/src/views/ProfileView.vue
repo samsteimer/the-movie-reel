@@ -56,9 +56,8 @@ export default {
 
     created() {
         // update state object with user
-        // let {first_name, last_name, bio} = this.$store.state.user;
         let {id, username, first_name, last_name, bio, genres} = {...this.$store.state.user};
-        this.user = {id, username, first_name, last_name, bio, genres};
+        this.user = {id, username, first_name, last_name, bio, genres: genres.map(g => g.genre_id)};
 
         GenreService.getGenres().then(res => this.genres = res.data);
     }
@@ -147,6 +146,7 @@ h1 {
     border-radius: 1.5em;
     padding: 0.35em 1em;
     font-size: 1.15em;
+    cursor: pointer;
 }
 
 </style>
