@@ -3,9 +3,7 @@ package com.techelevator.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 public class User {
 
@@ -20,9 +18,14 @@ public class User {
    @JsonProperty("last_name")
    private String lastName;
    private String bio;
+   private List<Genre> genres;
    private Set<Authority> authorities = new HashSet<>();
 
    public User() { }
+
+   public User(int id) {
+      this.id = id;
+   }
 
    public User(int id, String username, String password, String authorities) {
       this.id = id;
@@ -102,6 +105,14 @@ public class User {
 
    public void setBio(String bio) {
       this.bio = bio;
+   }
+
+   public List<Genre> getGenres() {
+      return genres;
+   }
+
+   public void setGenres(List<Genre> genres) {
+      this.genres = genres;
    }
 
    @Override

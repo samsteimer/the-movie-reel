@@ -34,6 +34,10 @@ public class Movie {
 //        this.genres = genres;
 //    }
 
+    public Movie(int movieId) {
+        this.movieId = movieId;
+    }
+
     public Movie() {
 
     }

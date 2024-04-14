@@ -10,6 +10,12 @@ public class MovieList {
     private String listName;
     private String description;
 
+    public MovieList(int listId) {
+        this.listId = listId;
+    }
+
+    public MovieList() {}
+
     public int getListId() {
         return listId;
     }
