@@ -1,6 +1,9 @@
 import axios from "axios";
 
 export default {
+  getUser() {
+    return axios.get("/profile");
+  },
   updateUser(user) {
     return axios.put("/profile", user);
   }, // PUT /profile (auth required)
