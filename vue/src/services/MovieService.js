@@ -32,4 +32,9 @@ export default {
   getMovies() {
     return axios.get("/movie");
   },
+  
+  addGenreToMovie(movie) {
+    return axios.post("/movie_info/addgenre", movie)
+  }
+
 };
