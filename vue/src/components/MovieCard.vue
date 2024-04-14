@@ -11,6 +11,7 @@
 
 <script>
 import MovieService from '../services/MovieService';
+import MovieListService from '../services/MovieListService'
 
 
 
@@ -24,7 +25,7 @@ export default {
                 genres: [],
                 poster_path: '',
                 release_date: ''
-            }
+            },
         }
     },
 
@@ -47,11 +48,10 @@ export default {
     },
 
     created() {
-        MovieService.getMovieByMovieId(3
-            ).then (res => {
+        MovieService.getMovieByMovieId(10).then (res => {
             this.movies = res.data;
 
-        })
+        });
     }
 
 
