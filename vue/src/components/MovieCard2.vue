@@ -1,6 +1,6 @@
 <template>
     <div id="movie-card">
-        <img id="movie-image" :src="movie.posterPath">
+        <img id="movie-image" :src="movie.poster_path">
         <h2>{{ movie.title }}</h2>
         <slot></slot>
     </div>
