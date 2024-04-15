@@ -3,15 +3,15 @@
     <form id="profile-form">
         <div id="profile-firstname">
             <label for="input-firstname">First Name</label>
-            <input id="input-firstname" type="text" name="input-firstname" v-model="user.first_name" />
+            <input id="input-firstname" type="text" name="input-firstname" placeholder="First Name" v-model="user.first_name" />
         </div>
         <div id="profile-lastname">
             <label for="input-lastname">Last Name</label>
-            <input id="input-lastname" type="text" name="input-lastname" v-model="user.last_name" />
+            <input id="input-lastname" type="text" name="input-lastname" placeholder="Last Name" v-model="user.last_name" />
         </div>
         <div id="profile-bio">
             <label for="input-bio">Bio</label>
-            <textarea id="input-bio" name="input-bio" v-model="user.bio"></textarea>
+            <textarea id="input-bio" name="input-bio" v-model="user.bio" placeholder="Bio" ></textarea>
         </div>
         <div id="profile-genres">
             <label for="input-genres">Favorite Genres</label>

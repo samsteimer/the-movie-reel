@@ -10,11 +10,11 @@
       </div>
       <div class="form-input-group">
         <label for="username">Username</label>
-        <input type="text" id="username" v-model="user.username" required autofocus />
+        <input type="text" id="username" v-model="user.username" placeholder="Username" required autofocus />
       </div>
       <div class="form-input-group">
         <label for="password">Password</label>
-        <input type="password" id="password" v-model="user.password" required />
+        <input type="password" id="password" v-model="user.password" placeholder="Password" required />
       </div>
       <button type="submit">Sign in</button>
       <p>
@@ -66,9 +66,46 @@ export default {
 
 <style scoped>
 
+#need-account {
+  font-size: 0.95em !important;
+}
+
 #login {
-  margin-top: 50px;
-  margin-left: 75px
+  width: 40%;
+  min-width: 450px;
+  margin: 2em auto;
+  text-align: center;
+  /* margin-top: 50px;
+  margin-left: 75px */
+}
+
+#login a {
+  color: white !important;
+}
+
+#login label {
+  display: block;
+  font-size: 0.65em;
+  font-weight: 600;
+}
+
+#login input[type=text],
+#login input[type=password] {
+    margin: 0.5em;
+    width: 60%;
+    padding: 0.75em;
+    border: 2px solid #000;
+    border-radius: 0.75em;
+}
+
+#login button {
+    margin: 0.75em 0;
+    padding: 0.35em 3em;
+    background-color: #ffb62e;
+    border: none;
+    border-radius: 1.5em;
+    font-size: 1.15em;
+    cursor: pointer;
 }
 
 #need-account {
@@ -85,4 +122,5 @@ label {
 #sign-in {
   font-size: 2rem;
 }
+
 </style>
