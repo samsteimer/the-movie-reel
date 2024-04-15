@@ -11,19 +11,18 @@
             <h2>(Released: {{ movie.release_date }})</h2>
             <h3>Overview</h3>
             <p>{{ movie.overview }}</p>
-            <img id="add-button" src="../assets/AddToWatchlistButton.png">
-        </div>
-
-        
+            <button v-if="!favoriteMovieIds.includes(movie.movie_id)" @click.prevent="addFavoriteMovie(movie.movie_id)">Add to WatchList</button>
+            <button v-else @click.prevent="removeFavoriteMovie(movie.movie_id)">Remove from WatchList</button>
+            <!-- <img id="add-button" src="../assets/AddToWatchlistButton.png"> -->
+        </div>        
     </div>
-
 
 </template>
 
 
 <script>
 import MovieService from '../services/MovieService';
-
+import UserService from '../services/UserService';
 
 export default {
     data() {
@@ -34,14 +33,27 @@ export default {
                 genres: [],
                 poster_path: '',
                 release_date: ''
-            }
+            },
+            favoriteMovieIds: []
         }
     },
 
 
     methods: {
-
-
+        addFavoriteMovie(movieId) {
+            UserService.addFavoriteMovie(movieId).then(res => {
+                if (res.status == 200) {
+                    this.favoriteMovieIds.push(res.data.movie_id);
+                }
+            })
+        },
+        removeFavoriteMovie(movieId) {
+            UserService.removeFavoriteMovie(movieId).then(res => {
+                if (res.status == 200) {
+                    this.favoriteMovieIds = this.favoriteMovieIds.filter(m => m != movieId);
+                }
+            })
+        }
 
     },
 
@@ -49,6 +61,12 @@ export default {
         const movieId = this.$route.params.id
         MovieService.getMovieByMovieId(movieId).then (res => {
             this.movie = res.data;
+        });
+
+        UserService.getFavoriteMovies().then(res => {
+            if (res.data) {
+                this.favoriteMovieIds = res.data?.map(f => f.movie_id);
+            }   
         })
     }
 }
@@ -103,5 +121,14 @@ export default {
 
 }
 
+#movie-details button {
+    margin: 0.75em 0;
+    background-color: #ffb62e;
+    border: none;
+    border-radius: 1.5em;
+    padding: 0.35em 1em;
+    font-size: 1.15em;
+    cursor: pointer;
+}
 
 </style>
