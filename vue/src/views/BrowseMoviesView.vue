@@ -5,7 +5,7 @@
     </div>
 
     <div id="movie-cards">
-    <MovieCard />
+    <MovieCard v-for="movie in newReleasesMovies" :key="movie.movie_id" :movie="movie"/>
     </div>
 <!-- <h2>Genres</h2>
 <ul>
@@ -19,15 +19,17 @@
 </template>
 
 <script>
-import MovieCard from '../components/MovieCard.vue';
+// import MovieCard2 from '../components/MovieCard.vue';
 import MovieService from '../services/MovieService';
 import GenreService from '../services/GenreService';
+import MovieCard from '../components/MovieCard.vue';
+import MovieListService from '../services/MovieListService';
 
 export default {
 
     components: {
-        MovieCard
-    },
+    MovieCard
+},
 
     data() {
         return {
@@ -54,6 +56,10 @@ export default {
                 this.comedyMovies = res.data;
             })
         });
+
+        MovieListService.getMovieListMovies('New Releases').then(res => {
+      this.newReleasesMovies = res.data;
+    });
     }
 
 }

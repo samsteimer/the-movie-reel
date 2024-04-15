@@ -39,6 +39,8 @@ export default {
     },
 
 
+
+
     methods: {
         addFavoriteMovie(movieId) {
             UserService.addFavoriteMovie(movieId).then(res => {
@@ -113,13 +115,9 @@ export default {
 }
 
 #add-button {
-    width: 15rem;
+    margin-top: 15px;
 }
 
-#add-button:hover {
-    cursor: pointer;
-
-}
 
 #movie-details button {
     margin: 0.75em 0;
