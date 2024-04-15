@@ -76,7 +76,7 @@ export default {
 
 #genre-link {
   display: flex;
-  width: 350px;
+  width: 225px;
 }
 
 #home-movies {
