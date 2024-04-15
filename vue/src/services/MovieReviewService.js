@@ -1,5 +1,5 @@
 import axios from "axios";
-import MovieReviewService from "./MovieReviewService";
+//import MovieReviewService from "./MovieReviewService";
 
 export default {
 

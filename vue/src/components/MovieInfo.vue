@@ -12,6 +12,11 @@
             <h3>Overview</h3>
             <p>{{ movie.overview }}</p>
             <img id="add-button" src="../assets/AddToWatchlistButton.png">
+
+            <h2 id="Review-label">Reviews</h2>
+            <Review></Review>
+
+
         </div>
 
         
@@ -23,6 +28,8 @@
 
 <script>
 import MovieService from '../services/MovieService';
+import Review from '../components/Review.vue';
+import MovieReviewService from '../services/MovieReviewService';
 
 
 export default {
@@ -34,7 +41,8 @@ export default {
                 genres: [],
                 poster_path: '',
                 release_date: ''
-            }
+            },
+             reviews:[]
         }
     },
 
@@ -45,10 +53,20 @@ export default {
 
     },
 
+    components: {
+        Review
+    },
+
     created() {
         const movieId = this.$route.params.id
         MovieService.getMovieByMovieId(movieId).then (res => {
             this.movie = res.data;
+        });
+
+
+        const movieIdForReview = this.$route.params.id
+        MovieReviewService.getMovieReviewByMovieId(movieIdForReview).then(res=> {
+            this.reviews = res.data;
         })
     }
 }
@@ -100,6 +118,18 @@ export default {
 
 #add-button:hover {
     cursor: pointer;
+
+}
+
+h2#Review-label{
+    font-size: 70px;
+    font-weight: bold;
+    color: yellow;
+}
+
+#movie-details > img.star-rating{
+    height: 50px;
+    max-width: 100%;
 
 }
 
