@@ -5,16 +5,8 @@ export function createStore(currentToken, currentUser) {
   let store = _createStore({
     state: {
       token: currentToken || "",
-      user: currentUser || {}
-    },
-    getters: {
-      isAdmin() {
-        return (
-          this.$store.state.currentUser?.authorities?.some(
-            (role) => role.name === "ROLE_ADMIN"
-          ) || false
-        );
-      },
+      user: currentUser || {},
+      isAdmin: false,
     },
     mutations: {
       SET_AUTH_TOKEN(state, token) {
@@ -24,6 +16,7 @@ export function createStore(currentToken, currentUser) {
       },
       SET_USER(state, user) {
         state.user = user;
+        state.isAdmin = user.authorities.some((role) => role.name === "ROLE_ADMIN");
         localStorage.setItem("user", JSON.stringify(user));
       },
       LOGOUT(state) {
@@ -31,6 +24,7 @@ export function createStore(currentToken, currentUser) {
         localStorage.removeItem("user");
         state.token = "";
         state.user = {};
+        state.isAdmin = false;
         axios.defaults.headers.common = {};
       },
     

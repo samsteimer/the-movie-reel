@@ -65,7 +65,8 @@ created() {
 
 #genre-list > ul > li {
     margin-top: 35px;
-    margin-right: 30px;
+    margin-right: 40px;
+    white-space: nowrap;
     font-size: 1.6rem;
     text-shadow: 2px 2px 5px black;
     font-weight: 700;
@@ -76,6 +77,9 @@ created() {
     font-size: 190%;
 }
 
+#genre-list > ul > li: {
+    color: yellow;
+}
 
 
 

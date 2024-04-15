@@ -90,6 +90,23 @@ public class JdbcGenreDao implements GenreDao {
         return listOfGenres;
     }
 
+    @Override
+    public List<Genre> getGenresByUserId(int userId) {
+        List<Genre> listOfGenres = new ArrayList<>();
+
+        String sql = "select * from genres join users_genres using (genre_id) where user_id = ?";
+        try {
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
+
+            while (results.next()) {
+                Genre genre = mapRowToGenre(results);
+                listOfGenres.add(genre);
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        }
+        return listOfGenres;
+    }
 
     public Genre mapRowToGenre(SqlRowSet rowSet) {
         int genreId = rowSet.getInt("genre_id");

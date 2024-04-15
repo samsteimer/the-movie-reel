@@ -9,11 +9,12 @@
 </router-link>
 
       
-      <router-link id="logout-link" v-bind:to="{ name: 'logout' }" v-if="$store.state.token !=''">Logout</router-link>
+      <router-link id="logout-link" v-bind:to="{ name: 'logout' }" v-if="this.$store.state.token !=''">Logout</router-link>
       <router-link id="login-link" v-bind:to="{ name: 'login'}" v-else>Login</router-link>
-      <router-link id="profile-link" v-bind:to="{ name: 'Profile'}" v-if="$store.state.token !=''">My Profile</router-link>
-      <router-link id="watchlist-link" v-bind:to="{ name: 'WatchList'}" v-if="$store.state.token !=''">My Watchlist</router-link>
+      <router-link id="profile-link" v-bind:to="{ name: 'Profile'}" v-if="this.$store.state.token !=''">My Profile</router-link>
+      <router-link id="watchlist-link" v-bind:to="{ name: 'WatchList'}" v-if="this.$store.state.token !=''">My Watchlist</router-link>
       <router-link id="browse-link" v-bind:to="{ name: 'browse'}" >Browse Movies</router-link>  
+      <router-link id="admin-link" v-bind:to="{ name: 'Admin'}" v-if="this.$store.state.isAdmin">Admin</router-link>
     </div>
 
     <router-view />
@@ -30,7 +31,7 @@ add back on to router-links after testing -->
 
 #capstone-app {
   background-image: url('../src/assets/Red Background.png'); 
-  background-attachment: scroll;
+  background-attachment: fixed;
   background-size: cover; 
   
 }
@@ -43,13 +44,13 @@ add back on to router-links after testing -->
   font-size: x-large;
 }
 
-  #logout-link, #profile-link, #watchlist-link, #browse-link, #login-link {
+  #logout-link, #profile-link, #watchlist-link, #browse-link, #login-link, #admin-link {
     color: white;
     margin-top: 40px;
     margin-right: 30px; 
 }
 
-#logout-link:hover, #profile-link:hover, #watchlist-link:hover, #browse-link:hover, #login-link:hover {
+#logout-link:hover, #profile-link:hover, #watchlist-link:hover, #browse-link:hover, #login-link:hover, #admin-link:hover {
   font-size: 110%;
 }
 

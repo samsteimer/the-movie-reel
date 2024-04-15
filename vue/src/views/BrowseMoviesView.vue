@@ -4,8 +4,9 @@
     <h1 id="head-text">Browse All Movies</h1>
     </div>
 
+    <div id="movie-cards">
     <MovieCard />
-
+    </div>
 <!-- <h2>Genres</h2>
 <ul>
     <li v-for="genre in genres" :key="genre.genre_id">{{ genre.genre_name }}</li>
@@ -32,6 +33,7 @@ export default {
         return {
             genres: [],
             comedyMovies: [],
+            newReleasesMovies: [],
         }
     },
 
@@ -51,9 +53,22 @@ export default {
             MovieService.getMoviesByGenreId(comedyGenre.genre_id).then(res => {
                 this.comedyMovies = res.data;
             })
-        })
+        });
     }
 
 }
 </script>
+
+<style>
+
+#browse-title {
+    margin-bottom: 30px;
+}
+
+#movie-cards {
+    display: flex;
+    justify-content: space-around;
+}
+
+</style>
 
