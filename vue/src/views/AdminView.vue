@@ -1,55 +1,70 @@
 <template>
-    
-    <form id="add-movie-form" v-on:submit.prevent="addMovie">
-        <div>
+    <h1>Add Custom Movie</h1>
+    <form id="add-movie-form">
+        <div id="add-title">
+            <label for="title-input">Title</label>
             <input class="title-input" placeholder="Title" type="text" v-model="newMovie.title">
         </div>
-        <div>
+        <div id="add-poster">
+            <label for="poster-input">Poster URL</label>
             <input class="poster-input" placeholder="Poster URL" type="text" v-model="newMovie.poster_path">
         </div>
-        <div>
-            <input class="overview-input" placeholder="Overview" type="text" v-model="newMovie.overview">
-        </div>
-        <div>
-            <input class="overview-input" placeholder="Overview" type="text" v-model="newMovie.overview">
-        </div>
-        <div>
+        <div id="add-release">
+            <label for="release-input">Release Date</label>
             <input class="release-input" placeholder="Release Date" type="text" v-model="newMovie.release_date">
         </div>
-        <div>
-            <label for="genre">Choose a genre</label>
+        <div id="add-overview">
+            <label for="overview-input">Overview</label>
+            <textarea class="overview-input" placeholder="Overview" type="text" v-model="newMovie.overview"></textarea>
+        </div>
+        <div id="add-genre">
+            <label for="genre">Genre</label>
             <select id="genre" name="genre" v-model="selectedGenres">
             <option v-for="genre in genres" :key="genre.genre_id" :value="genre.genre_id">{{ genre.genre_name }}</option>
         </select>
         </div>
+        <div id="add-buttons">
+            <button @click.prevent="addMovie">Save</button>
+        </div>
 
-        
-        
-       
-        
-        <input type="submit" value="Save">
     </form>
    
-    <div>
+    <div id="search-movies">
         <h1>Search for a movie</h1>
-        <input class="search-input" type="text" v-model="searchTitle" @keyup.enter="search()" >
+        <input class="search-input" placeholder="Title" type="text" v-model="searchTitle" @keyup.enter="search()">
     </div>
 
-    <div v-if="searchResults && searchResults.results && searchResults.results.length > 0">
-        <h2>Search Results</h2>
-        <ul>
+    <div id="returned-movies" v-if="searchResults && searchResults.results && searchResults.results.length > 0">
+        
+        <ul id="movie-info-display">
             <li v-for="movie in searchResults.results" :key="movie.id">
-                <h3>{{ movie.title }}</h3>
-                <p>{{ movie.overview }}</p>
-                <p>Release Date: {{ movie.release_date }}</p>
-                <img v-if="movie.poster_path" :src="movie.poster_path" alt="Movie Poster" style="max-width: 200px;">
-                <span v-else>No poster available</span>
-                <label for="genre">Choose a genre</label>
-                <select id="genre" name="genre" v-model="selectedGenres">
-                    <option v-for="genre in genres" :key="genre.genre_id" :value="genre.genre_id">{{ genre.genre_name }}</option>
-                </select>
                 
-                <button @click="addMovieFromApi(movie)">Add Movie</button>
+                <div id="full-movie">
+                
+                    <div id="image">
+                        <img id="poster" v-if="movie.poster_path" :src="movie.poster_path" alt="Movie Poster" style="max-width: 200px;">
+                        <span v-else>No poster available</span>
+                    </div>
+
+                    <div id="movie-details">
+                        <h2>{{ movie.title }}</h2>
+                        <h3>Released: {{ movie.release_date }}</h3>
+                        <h3>Overview</h3>
+                        <p>{{ movie.overview }}</p>
+                    </div>
+                    
+                    <div id="api-genre">
+                        <label for="genre">Select Genre</label>
+                        <select id="genre" name="genre" v-model="selectedGenres">
+                            <option v-for="genre in genres" :key="genre.genre_id" :value="genre.genre_id">{{ genre.genre_name }}</option>
+                        </select>
+                    </div>
+                    <div id="api-add-button">
+                        <button @click="addMovieFromApi(movie)">Add Movie</button>
+                    </div>
+                    
+                </div>
+                
             </li>
         </ul>
     </div>
@@ -169,9 +184,9 @@ h1 {
     pad: 0.35em;
     grid-template-columns: 2fr 3fr;
     grid-template-areas: 
-        "firstname bio"
-        "lastname bio"
-        "genres genres"
+        "title poster"
+        "release overview"
+        "genre overview"
         "buttons buttons";
 }
 
@@ -187,44 +202,35 @@ h1 {
 }
 
 #add-movie-form input[type=text],
-#add-movie-form textarea {
+#add-movie-form textarea,
+#add-movie-form select {
     width: 100%;
     padding: 0.75em;
     border: 2px solid #000;
     border-radius: 0.75em;
 }
 
-#profile-firstname {
-    grid-area: firstname,
+#add-title {
+    grid-area: title,
 }
 
-#profile-lastname {
-    grid-area: lastname;
+#add-poster {
+    grid-area: poster,
 }
 
-#profile-bio {
-    grid-area: bio;
+#add-overview {
+    grid-area: overview;
 }
 
-#profile-bio textarea {
+#add-overview textarea {
     height: 10em;
 }
 
-#profile-genres {
-    grid-area: genres;
+#add-genre {
+    grid-area: genre;
 }
 
-#profile-genres input {
-    margin-right: 0.5em;
-}
-
-#profile-genres span {
-    margin-left: 1em;
-    margin-top: 1em;
-    display: inline-block;
-}
-
-#profile-buttons button {
+#add-buttons button {
     margin: 0.75em 0;
     background-color: #ffb62e;
     border: none;
@@ -233,5 +239,92 @@ h1 {
     font-size: 1.15em;
     cursor: pointer;
 }
+
+#search-movies {
+    margin-left: 130px;
+}
+
+#search-movies input {
+    width: 75%;
+    padding: 0.75em;
+    border: 2px solid #000;
+    border-radius: 0.75em;
+}
+
+#returned-movies {
+    display: flex;
+    flex-direction: column;
+    
+}
+
+#movie-info-display {
+    display: flex;
+    flex-direction: column;
+    margin-top: 35px;
+    margin-left: 75px;
+}
+
+#full-movie {
+    display:grid;
+    margin-bottom: 35px;
+    grid-template-columns: 2fr 3fr;
+    grid-template-areas: 
+        "image movie-details"
+        "api-genre movie-details"
+        "api-add-movie movie-details";
+    
+}
+
+#api-genre {
+    grid-area: api-genre;
+}
+
+#api-add-movie {
+    grid-area: api-add-movie;
+}
+
+#poster {
+    grid-area: image;
+    width: 35rem;
+    max-width: 300px;
+    height: auto;
+    border: 2px solid white;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px black;
+}
+
+#movie-details {
+    grid-area: movie-details;
+    margin-left: 30px;
+    margin-right: 30px;
+    text-shadow: 2px 2px 5px black;
+}
+
+#movie-details > h1 {
+    font-size: 3rem;
+}
+
+#movie-details > h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+#movie-details > h3 {
+    font-size: 1.3rem;
+}
+
+#movie-details > p {
+    font-size: 1.1rem;
+}
+
+#add-button {
+    width: 15rem;
+}
+
+#add-button:hover {
+    cursor: pointer;
+
+}
+
 
 </style>
