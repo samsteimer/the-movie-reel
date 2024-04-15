@@ -6,8 +6,10 @@
 
     <div id="genre-list">
         <ul>
-
-            <li v-for="genre in genres" :key="genre.genre_id" @click="toggleSpotlight($event, genre.genre_id)"><img id="spotlight" src="../assets/YellowSpotlight.png" alt="Spotlight"> {{ genre.genre_name }}</li>
+            <li v-for="genre in genres" :key="genre.genre_id" @click="toggleSpotlight($event, genre.genre_id)">
+                <!-- <img id="spotlight" src="../assets/YellowSpotlight.png" alt="Spotlight">  -->
+                <span>{{ genre.genre_name }}</span>
+            </li>
         </ul>
     </div>
 
@@ -43,27 +45,27 @@ created() {
 </script>
 
 
-<style>
+<style scoped>
 
 li {
     position: relative;
 }
 
-#spotlight {
+/* #spotlight {
     display: none;
-}
+} */
 
-.active #spotlight {
-    display: block;
-}
+/* .active #spotlight {
+} */
 
 
 
 #spotlight {
-    position: absolute;
+    display: block;
+    /* position: absolute;
     top: 50%; 
-    left: 50%; 
-    transform: translate(-50%, -50%); 
+    left: 50%;  */
+    /* transform: translate(-50%, -50%);  */
     width: 125px;
     min-width: 125px; 
 }
@@ -87,15 +89,26 @@ li {
 }
 
 #genre-list > ul {
+    width: 95%;
+    margin: 0 auto;
+    min-width: 500px;
+    text-align: center;
     display: flex;
-    margin-right: 30px;
+    flex-wrap: wrap;
     justify-content: center;
+    align-items: center;
 }
 
 #genre-list > ul > li {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    text-align: center;
+    width: 135px;
+    height: 105px;
     margin-top: 35px;
     margin-right: 40px;
-    white-space: nowrap;
+    /* white-space: nowrap; */
     font-size: 1.6rem;
     text-shadow: 2px 2px 5px black;
     font-weight: 700;
@@ -104,6 +117,10 @@ li {
 #genre-list > ul > li:hover {
     cursor: pointer;
     font-size: 190%;
+    background-image: url('../assets/YellowSpotlight.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
 }
 
 
