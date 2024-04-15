@@ -24,84 +24,84 @@ import BrowseMoviesView from '../views/BrowseMoviesView.vue'
  */
 const routes = [
   {
-    path: '/',
-    name: 'home',
+    path: "/",
+    name: "home",
     component: HomeView,
     meta: {
-      requiresAuth: false
-    }
+      requiresAuth: false,
+    },
   },
   {
     path: "/login",
     name: "login",
     component: LoginView,
     meta: {
-      requiresAuth: false
-    }
+      requiresAuth: false,
+    },
   },
   {
     path: "/logout",
     name: "logout",
     component: LogoutView,
     meta: {
-      requiresAuth: false
-    }
+      requiresAuth: false,
+    },
   },
   {
     path: "/register",
     name: "register",
     component: RegisterView,
     meta: {
-      requiresAuth: false
-    }
+      requiresAuth: false,
+    },
   },
   {
     path: "/genres",
     name: "Genres",
     component: GenreView,
     meta: {
-      requiresAuth: false
-    }
+      requiresAuth: false,
+    },
   },
   {
-    path: "/now_showing",
+    path: "/now_showing/:genreId",
     name: "NowShowing",
     component: NowShowingView,
     meta: {
-      requiresAuth: false
-    }
+      requiresAuth: false,
+    },
   },
   {
     path: "/profile",
     name: "Profile",
     component: ProfileView,
     meta: {
-      requiresAuth: true
-    }
+      requiresAuth: true,
+    },
   },
   {
     path: "/profile/watch_list",
     name: "WatchList",
     component: WatchListView,
     meta: {
-      requiresAuth: true
-    }
+      requiresAuth: true,
+    },
   },
   {
     path: "/admin",
     name: "Admin",
     component: AdminView,
     meta: {
-      requiresAuth: true
-    }
+      requiresAuth: true,
+    },
   },
   {
     path: "/movie_info/:id",
     name: "MovieInfoView",
     component: MovieInfoView,
     meta: {
-      requiresAuth: false
-    }
+      requiresAuth: false,
+    },
   },
 
   {
@@ -109,10 +109,9 @@ const routes = [
     name: "browse",
     component: BrowseMoviesView,
     meta: {
-      requiresAuth: false
-    }
-
-  }
+      requiresAuth: false,
+    },
+  },
 ];
 
 // Create the router
