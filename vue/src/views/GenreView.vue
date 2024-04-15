@@ -77,10 +77,6 @@ created() {
     font-size: 190%;
 }
 
-#genre-list > ul > li: {
-    color: yellow;
-}
-
 
 
 
