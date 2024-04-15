@@ -7,7 +7,7 @@
     <div id="genre-list">
         <ul>
 
-            <li v-for="genre in genres" :key="genre.genre_id" @click="toggleSpotlight($event)"><img id="spotlight" src="../assets/Spotlight.png" alt="Spotlight"> {{ genre.genre_name }}</li>
+            <li v-for="genre in genres" :key="genre.genre_id" @click="toggleSpotlight($event)"><img id="spotlight" src="../assets/YellowSpotlight.png" alt="Spotlight"> {{ genre.genre_name }}</li>
         </ul>
     </div>
 
