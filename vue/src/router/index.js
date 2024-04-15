@@ -112,6 +112,10 @@ const routes = [
       requiresAuth: false,
     },
   },
+  {
+    path: "/:pathMatch(.*)*",
+    redirect: "/"
+  },
 ];
 
 // Create the router

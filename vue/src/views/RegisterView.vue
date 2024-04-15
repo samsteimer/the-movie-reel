@@ -7,15 +7,15 @@
       </div>
       <div class="form-input-group">
         <label for="username">Username</label>
-        <input type="text" id="username" v-model="user.username" required autofocus />
+        <input type="text" id="username" v-model="user.username" placeholder="Username" required autofocus />
       </div>
       <div class="form-input-group">
         <label for="password">Password</label>
-        <input type="password" id="password" v-model="user.password" required />
+        <input type="password" id="password" v-model="user.password" placeholder="Password" required />
       </div>
       <div class="form-input-group">
         <label for="confirmPassword">Confirm Password</label>
-        <input type="password" id="confirmPassword" v-model="user.confirmPassword" required />
+        <input type="password" id="confirmPassword" v-model="user.confirmPassword" placeholder="Confirm Password" required />
       </div>
       <button type="submit">Create Account</button>
       <p><router-link v-bind:to="{ name: 'login' }">Already have an account? Log in.</router-link></p>
@@ -79,4 +79,39 @@ export default {
 label {
   margin-right: 0.5rem;
 }
+#register {
+  width: 40%;
+  min-width: 450px;
+  margin: 2em auto;
+  text-align: center;
+}
+
+#register a {
+  color: white !important;
+}
+
+#register label {
+  display: block;
+  font-weight: 600;
+}
+
+#register input[type=text],
+#register input[type=password] {
+    margin: 0.5em;
+    width: 60%;
+    padding: 0.75em;
+    border: 2px solid #000;
+    border-radius: 0.75em;
+}
+
+#register button {
+    margin: 0.75em 0;
+    padding: 0.35em 3em;
+    background-color: #ffb62e;
+    border: none;
+    border-radius: 1.5em;
+    font-size: 1.15em;
+    cursor: pointer;
+}
+
 </style>
