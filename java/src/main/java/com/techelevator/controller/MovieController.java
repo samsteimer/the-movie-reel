@@ -46,7 +46,6 @@ public class MovieController {
 //            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Service unavailable");
 //        }
     }
-
     @PostMapping("/addgenre")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<Genre> addGenreToMovie(@Valid @RequestBody Movie movie) {
@@ -69,8 +68,6 @@ public class MovieController {
                 int genreId = genre.getGenreId();
                 movieDao.addMovieGenre(genreId, movieId);
             }
-        } else {
-
         }
 
         return fetchedGenres;
@@ -176,7 +173,7 @@ public class MovieController {
 //    }
 
     @GetMapping("/tmdb/{api_movie_id}")
-//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public MovieApiDto getMovieFromApiId(@Valid @PathVariable("api_movie_id") int id) {
         try {
             MovieApiDto movie = movieService.getMovieFromApiId(id);
@@ -191,7 +188,7 @@ public class MovieController {
     }
 
     @GetMapping("/tmdb/search/{input}")
-//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public MovieListApiDto searchMoviesFromApi(@Valid @PathVariable("input") String input) {
         try {
             MovieListApiDto movies = movieService.searchMoviesFromApi(input);

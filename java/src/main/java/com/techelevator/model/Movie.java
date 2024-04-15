@@ -19,6 +19,7 @@ public class Movie {
     private String overview;
     @JsonProperty("release_date")
     private String releaseDate;
+    @JsonProperty("genres")
     private List<Genre> genres;
 
 //    public Movie(int movieId, int apiMovieId, String title, String posterPath, String backdropPath, int imdbId,
