@@ -2,10 +2,16 @@
     <div id="now-showing-header">
     <img id="now-showing" src="../assets/NowShowing.png" alt="Now-Showing">
     </div>
+
+    <div id="movie-card">
+        <MovieCard v-for="movie in movies" :key="movie.movie_id" :movie="movie" />
+
+    </div>
 </template>
 
 <script scoped>
 import MovieService from '../services/MovieService';
+import MovieCard from '../components/MovieCard.vue';
 
 
 export default {
@@ -14,6 +20,10 @@ export default {
         return {
             movies: []
         }
+    },
+
+    components: {
+        MovieCard
     },
 
     created() {
@@ -44,6 +54,12 @@ export default {
 #now-showing {
     display: flex;
     width: 35em;
+    margin-bottom: 50px;
+}
+
+#movie-card {
+    display: flex;
+    justify-content: space-around;
 }
 
 
