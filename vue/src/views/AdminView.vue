@@ -24,7 +24,7 @@
         </select>
         </div>
         <div id="add-buttons">
-            <button @click.prevent="addMovie">Save</button>
+            <button class="button-style" @click.prevent="addMovie">Save</button>
         </div>
 
     </form>
@@ -59,8 +59,8 @@
                             <option v-for="genre in genres" :key="genre.genre_id" :value="genre.genre_id">{{ genre.genre_name }}</option>
                         </select>
                     </div>
-                    <div id="api-add-button">
-                        <button @click="addMovieFromApi(movie)">Add Movie</button>
+                    <div id="add-button">
+                        <button class="button-style" @click="addMovieFromApi(movie)">Add Movie</button>
                     </div>
                     
                 </div>
@@ -169,7 +169,7 @@ export default {
 <style scoped>
 
 h1 {
-    margin-left: 155px;
+    margin-left: px;
     margin-bottom: 10px;
     color: white;
     text-shadow: 2px 2px 5px black;
@@ -203,7 +203,8 @@ h1 {
 
 #add-movie-form input[type=text],
 #add-movie-form textarea,
-#add-movie-form select {
+#add-movie-form select,
+#full-movie select {
     width: 100%;
     padding: 0.75em;
     border: 2px solid #000;
@@ -280,7 +281,7 @@ h1 {
 }
 
 #api-add-movie {
-    grid-area: api-add-movie;
+    grid-area: api-add-movie; 
 }
 
 #poster {

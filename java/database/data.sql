@@ -7,8 +7,6 @@ INSERT INTO users (username,password_hash,role) VALUES ('admin','$2a$08$UkVvwpUL
 
 -- movies
 
-INSERT INTO movies (api_movie_id,title,overview) VALUES ('99999','Gill Bill Vol. 2', 'Gill is back and you better watch out');
-
 INSERT INTO movies (api_movie_id, title, poster_path, overview, release_date)
     VALUES ('346364', 'It', 'https://image.tmdb.org/t/p/w200/9E2y5Q7WlCVNEhP5GiVTjhEhx1o.jpg',
      'In a small town in Maine, seven children known as The Losers Club come face to face with life problems, bullies and a monster that takes the shape of a clown called Pennywise.',
@@ -56,16 +54,16 @@ INSERT INTO movies (api_movie_id, title, poster_path, overview, release_date)
 
 -- movie genres
 
+
 INSERT INTO movies_genres (movie_id, genre_id) VALUES (1, 1);
-INSERT INTO movies_genres (movie_id, genre_id) VALUES (2, 1);
-INSERT INTO movies_genres (movie_id, genre_id) VALUES (3, 2);
-INSERT INTO movies_genres (movie_id, genre_id) VALUES (4, 3);
-INSERT INTO movies_genres (movie_id, genre_id) VALUES (5, 4);
-INSERT INTO movies_genres (movie_id, genre_id) VALUES (6, 5);
-INSERT INTO movies_genres (movie_id, genre_id) VALUES (7, 6);
-INSERT INTO movies_genres (movie_id, genre_id) VALUES (8, 7);
-INSERT INTO movies_genres (movie_id, genre_id) VALUES (9, 8);
-INSERT INTO movies_genres (movie_id, genre_id) VALUES (10, 9);
+INSERT INTO movies_genres (movie_id, genre_id) VALUES (2, 2);
+INSERT INTO movies_genres (movie_id, genre_id) VALUES (3, 3);
+INSERT INTO movies_genres (movie_id, genre_id) VALUES (4, 4);
+INSERT INTO movies_genres (movie_id, genre_id) VALUES (5, 5);
+INSERT INTO movies_genres (movie_id, genre_id) VALUES (6, 6);
+INSERT INTO movies_genres (movie_id, genre_id) VALUES (7, 7);
+INSERT INTO movies_genres (movie_id, genre_id) VALUES (8, 8);
+INSERT INTO movies_genres (movie_id, genre_id) VALUES (9, 9);
 
 -- movie lists
 
