@@ -14,7 +14,7 @@
       <router-link id="profile-link" v-bind:to="{ name: 'Profile'}" v-if="this.$store.state.token !=''">My Profile</router-link>
       <router-link id="watchlist-link" v-bind:to="{ name: 'WatchList'}" v-if="this.$store.state.token !=''">My Watchlist</router-link>
       <router-link id="browse-link" v-bind:to="{ name: 'browse'}" >Browse Movies</router-link>  
-      <router-link id="admin-link" v-bind:to="{ name: 'Admin'}" v-if="this.$store.getters.isAdmin">Admin</router-link>
+      <router-link id="admin-link" v-bind:to="{ name: 'Admin'}" v-if="this.$store.state.isAdmin">Admin</router-link>
     </div>
 
     <router-view />
