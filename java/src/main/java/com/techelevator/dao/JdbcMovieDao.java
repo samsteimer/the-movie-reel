@@ -175,12 +175,12 @@ public class JdbcMovieDao implements MovieDao {
 
             movie.setMovieId(movieId);
 
-//            List<Genre> genres = movie.getGenres();
-//            if (genres != null) {
-//                for (Genre genre : genres) {
-//                    addMovieGenre(genre.getGenreId(), movie.getMovieId());
-//                }
-//            }
+            List<Genre> genres = movie.getGenres();
+            if (genres != null) {
+                for (Genre genre : genres) {
+                    addMovieGenre(genre.getGenreId(), movie.getMovieId());
+                }
+            }
             return getMovieByMovieId(movieId);
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Could not connect.", e);
