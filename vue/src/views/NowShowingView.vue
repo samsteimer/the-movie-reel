@@ -1,6 +1,6 @@
 <template>
     <div id="now-showing-header">
-    <img id="now-showing" src="../assets/now-showing.svg" alt="Now-Showing">
+    <img id="now-showing" src="../assets/NowShowing.png" alt="Now-Showing">
     </div>
 </template>
 
@@ -14,9 +14,7 @@
 
 #now-showing {
     display: flex;
-    width: 40em;
-    box-shadow: 2px 2px 5px black;
-
+    width: 35em;
 }
 
 

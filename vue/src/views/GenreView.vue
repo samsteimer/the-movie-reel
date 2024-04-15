@@ -6,7 +6,8 @@
 
     <div id="genre-list">
         <ul>
-            <li v-for="genre in genres" :key="genre.genre_id">{{ genre.genre_name }}</li>
+
+            <li v-for="genre in genres" :key="genre.genre_id" @click="toggleSpotlight($event)"><img id="spotlight" src="../assets/Spotlight.png" alt="Spotlight"> {{ genre.genre_name }}</li>
         </ul>
     </div>
 
@@ -25,6 +26,10 @@ data() {
 
 methods: {
 
+    toggleSpotlight(event) {
+        event.currentTarget.classList.toggle('active');
+    }
+
 },
 
 created() {
@@ -38,6 +43,29 @@ created() {
 
 
 <style>
+
+li {
+    position: relative;
+}
+
+#spotlight {
+    display: none;
+}
+
+.active #spotlight {
+    display: block;
+}
+
+
+
+#spotlight {
+    position: absolute;
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    width: 125px;
+    min-width: 125px; 
+}
 
 #genre-header {
   display: flex;
