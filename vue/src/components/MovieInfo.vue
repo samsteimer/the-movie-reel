@@ -14,7 +14,7 @@
             <img id="add-button" src="../assets/AddToWatchlistButton.png">
 
             <h2 id="Review-label">Reviews</h2>
-            <Review></Review>
+            <Review v-for="review in reviews" v-bind:key="review.reviewId" v-bind:review="review"></Review>
 
 
         </div>
@@ -67,6 +67,7 @@ export default {
         const movieIdForReview = this.$route.params.id
         MovieReviewService.getMovieReviewByMovieId(movieIdForReview).then(res=> {
             this.reviews = res.data;
+            //console.log(res.data);
         })
     }
 }
@@ -122,13 +123,13 @@ export default {
 }
 
 h2#Review-label{
-    font-size: 70px;
+    font-size: 65px;
     font-weight: bold;
     color: yellow;
 }
 
 #movie-details > img.star-rating{
-    height: 50px;
+    height: 40px;
     max-width: 100%;
 
 }

@@ -5,14 +5,14 @@ export default {
 
 
   getMovieReviewByMovieId(movieId) {
-    return axios.get("/" + movieId + "/reviews");
+    return axios.get("/movies/" + movieId + "/reviews");
   }, // /<movieId>/reviews
 
   getMovieReviewById(reviewId) {
-    return axios.get("/review/" + reviewId);
+    return axios.get("/movies/review/" + reviewId);
   }, // /movies/<reviewId>
 
   createMovieReview(movieId) {
-    return axios.post("/reviews");
+    return axios.post("/movies/reviews");
   }, // POST /reviews
 };

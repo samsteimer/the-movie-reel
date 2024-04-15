@@ -43,14 +43,29 @@ public class MovieReviewController {
     }
 
     //TODO turn this into a request param since you are getting all of the items.
-    @GetMapping("/{movieId}/reviews")
-    public MovieReview getMovieReviewByMovieId(@PathVariable("movieId") Integer movieId) {
+    @GetMapping("/{movieId}/MovieReview")
+    public MovieReview getMovieReviewForEditByMovieId(@PathVariable("movieId") Integer movieId) {
         try {
             MovieReview movieReview = movieReviewDao.getMovieReviewByMovieId(movieId);
             if (movieReview == null) {
                 throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie review not found");
             } else {
                 return movieReview;
+            }
+        } catch (DaoException e) {
+            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Service not available");
+        }
+    }
+
+//TODO continue setting this up for returning multiple movies.
+    @GetMapping("/{movieId}/reviews")
+    public List<MovieReview> getMovieReviewsByMovieId(@PathVariable("movieId") Integer movieId) {
+        try {
+            List<MovieReview> movieReviews = movieReviewDao.getMovieReviewsByMovieId(movieId);
+            if (movieReviews == null) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie review not found");
+            } else {
+                return movieReviews;
             }
         } catch (DaoException e) {
             throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Service not available");
