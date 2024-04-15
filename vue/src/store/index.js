@@ -8,13 +8,13 @@ export function createStore(currentToken, currentUser) {
       user: currentUser || {}
     },
     getters: {
-      isAdmin() {
-        return (
-          this.$store.state.currentUser?.authorities?.some(
-            (role) => role.name === "ROLE_ADMIN"
-          ) || false
-        );
-      },
+      // isAdmin() {
+      //   return (
+      //     this.$store.state.currentUser?.authorities?.some(
+      //       (role) => role.name === "ROLE_ADMIN"
+      //     ) || false
+      //   );
+      // },
     },
     mutations: {
       SET_AUTH_TOKEN(state, token) {

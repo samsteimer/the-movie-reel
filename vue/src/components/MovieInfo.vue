@@ -11,7 +11,7 @@
             <h2>(Released: {{ movie.release_date }})</h2>
             <h3>Overview</h3>
             <p>{{ movie.overview }}</p>
-            <img id="add-button" src="../assets/AddToWatchlistButton.png">
+            <button class="button-style">Add To WatchList</button>
         </div>
 
         
@@ -97,13 +97,9 @@ export default {
 }
 
 #add-button {
-    width: 15rem;
+    margin-top: 15px;
 }
 
-#add-button:hover {
-    cursor: pointer;
-
-}
 
 
 </style>

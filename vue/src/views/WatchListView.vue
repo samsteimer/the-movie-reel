@@ -2,19 +2,19 @@
     <div v-if="favoriteMovies.length">
         <h1>My Favorites</h1>
         <div id="list-movies">
-            <MovieCard2 v-for="movie in favoriteMovies" :key="movie.movie_id" :movie="movie">
-                <button @click="() => removeFavoriteMovie(movie.movie_id)">Remove</button>
-            </MovieCard2>
+            <MovieCard v-for="movie in favoriteMovies" :key="movie.movie_id" :movie="movie">
+                <button class="button-style" @click="() => removeFavoriteMovie(movie.movie_id)">Remove</button>
+            </MovieCard>
         </div>
     </div>
 
     <div v-if="filteredSuggestedMovies.length">
         <h1>Recommended Movies</h1>
         <div id="list-movies">
-            <MovieCard2 v-for="movie in filteredSuggestedMovies" 
+            <MovieCard v-for="movie in filteredSuggestedMovies" 
                 :key="movie.movie_id" :movie="movie">
-                    <button @click="() => addFavoriteMovie(movie.movie_id)">Add</button>
-            </MovieCard2>
+                    <button class="button-style" @click="() => addFavoriteMovie(movie.movie_id)">Add To </button>
+            </MovieCard>
         </div>
     </div>
 
@@ -24,7 +24,7 @@
 import UserService from '../services/UserService';
 import MovieListService from '../services/MovieListService';
 
-import MovieCard2 from '../components/MovieCard2.vue';
+import MovieCard from '../components/MovieCard.vue';
 import MovieService from '../services/MovieService';
 
 export default {
@@ -75,12 +75,12 @@ export default {
 
             
     },
-    components: { MovieCard2 }
+    components: { MovieCard }
 }
 
 </script>
 
-<style scoped>
+<style >
 h1 {
     margin-bottom: 0.5em;
     color: white;
@@ -96,5 +96,8 @@ h1 {
     justify-content: center;
 
 }
+
+
+
 
 </style>
