@@ -11,8 +11,10 @@
             <h2>(Released: {{ movie.release_date }})</h2>
             <h3>Overview</h3>
             <p>{{ movie.overview }}</p>
+            <div v-if="$store.state.token != ''">
             <button class="button-style" v-if="!favoriteMovieIds.includes(movie.movie_id)" @click.prevent="addFavoriteMovie(movie.movie_id)">Add to WatchList</button>
             <button class="button-style" v-else @click.prevent="removeFavoriteMovie(movie.movie_id)">Remove from WatchList</button>
+            </div>
         </div>        
     </div>
 

@@ -59,6 +59,7 @@ export default {
 
 #movie-card {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
 }
 
