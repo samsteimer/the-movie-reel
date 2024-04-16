@@ -108,10 +108,15 @@ label {
     margin: 0.75em 0;
     padding: 0.35em 3em;
     background-color: #ffb62e;
+    box-shadow: 2px 2px 5px black;
     border: none;
     border-radius: 1.5em;
     font-size: 1.15em;
     cursor: pointer;
+}
+
+#register button:active {
+  transform: scale(.98);
 }
 
 </style>
