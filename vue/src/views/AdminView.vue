@@ -32,8 +32,8 @@
 
     </form>
    
+    <h1>Search for a movie</h1>
     <div id="search-movies">
-        <h1>Search for a movie</h1>
         <input class="search-input" placeholder="Title" type="text" v-model="searchTitle" @keyup.enter="search()">
     </div>
 
@@ -57,11 +57,13 @@
                     </div>
                     
                     <div id="api-genre">
-                        <label for="genre-checkbox">Genres</label>
+                        <h2>Select Genres:</h2>
+                        <label class="checkbox" for="genre-checkbox">
                         <span v-for="genre in genres" :key="genre.genre_id" >
                             <input name="genre" type="checkbox" :value="{ genre_id: genre.genre_id, genre_name: genre.genre_name}" v-model="selectedGenres">
                             {{ genre.genre_name }}
-                    </span>
+                        </span>
+                        </label>
                     </div>
                     <div id="add-button">
                         <button class="button-style" @click="addMovieFromApi(movie)">Add Movie</button>
@@ -138,11 +140,29 @@ export default {
                                 release_date: ''  
                             };
                             this.selectedGenres = [];
+
+                            alert('Movie added to database.');
                       
                 })
                 .catch(error => {
                     console.error('Error creating movie:', error);
+                    // Reset newMovie after error
+                    this.newMovie = {
+                                title: '',
+                                overview: '',
+                                genres: [],
+                                poster_path: '',
+                                release_date: ''  
+                            };
+                            this.selectedGenres = [];
+                    
+                    alert('Error creating movie. Please try again.');
+
                 });
+            
+            
+
+
         },
 
         addMovieFromApi(movie) {
@@ -188,9 +208,10 @@ h1 {
     pad: 0.35em;
     grid-template-columns: 2fr 3fr;
     grid-template-areas: 
-        "title poster"
+        "title overview"
+        "poster overview"
         "release overview"
-        "genre overview"
+        "genre genre"
         "buttons buttons";
 }
 
@@ -247,6 +268,7 @@ h1 {
 
 #search-movies {
     margin-left: 130px;
+    padding-bottom: 20px;
 }
 
 #search-movies input {
@@ -329,6 +351,18 @@ h1 {
 #add-button:hover {
     cursor: pointer;
 
+}
+
+#add-genre span {
+    margin-left: 1em;
+    margin-top: 1em;
+    display: inline-block;
+}
+
+#api-genre span {
+    margin-left: 1em;
+    margin-top: 1em;
+    display: inline-block;
 }
 
 

@@ -93,13 +93,7 @@ h1 {
 #list-movies {
     display: flex;
     flex-wrap: wrap;
-<<<<<<< HEAD
-    justify-content: space-around;
-
-
-=======
     justify-content: center;
->>>>>>> 99bfa52c737141cdba4b1984d53e1d924d69f473
 }
 
 
