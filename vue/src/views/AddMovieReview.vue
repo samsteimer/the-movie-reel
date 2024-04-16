@@ -53,10 +53,10 @@ export default {
     created() {
         //TODO ask MT what the below item is for.
         // update state object with user
-        let {id, username, first_name, last_name, bio, genres} = {...this.$store.state.user};
-        this.user = {id, username, first_name, last_name, bio, genres: genres.map(g => g.genre_id)};
+        // let {id, username, first_name, last_name, bio, genres} = {...this.$store.state.user};
+        // this.user = {id, username, first_name, last_name, bio, genres: genres.map(g => g.genre_id)};
 
-        GenreService.getGenres().then(res => this.genres = res.data);
+        // GenreService.getGenres().then(res => this.genres = res.data);
     },
 
     components: {
