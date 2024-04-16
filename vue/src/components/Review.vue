@@ -24,3 +24,11 @@ export default {
 }
 
 </script>
+
+<style scoped>
+
+.star-rating {
+    
+}
+
+</style>

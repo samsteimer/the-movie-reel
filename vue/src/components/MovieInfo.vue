@@ -4,9 +4,7 @@
         <div>
             <img id="poster" v-bind:src="movie.poster_path" alt="">
         </div>
-
         <div id="movie-details">
-            
             <h1>{{ movie.title }}</h1>
             <h2>(Released: {{ movie.release_date }})</h2>
             <h3>Overview</h3>
@@ -16,6 +14,23 @@
             <button class="button-style" v-else @click.prevent="removeFavoriteMovie(movie.movie_id)">Remove from WatchList</button>
             <h2 id="Review-label">Reviews</h2>
             <Review v-for="review in reviews" v-bind:key="review.reviewId" v-bind:review="review"></Review>
+            <br>
+            <br>
+            <div>
+                <button>Add a review</button>
+            </div>
+    <form id="review-add-form">
+        <!-- <div id="review-text"> -->
+            <label for="input-review-text">Enter Review:</label>
+        <textarea  name="movie-review-text" id="review-text" cols="100" rows="5" value = "Add your review" onfocus="this.value=''"> </textarea>
+
+        <div class="star-selector">
+            <StarSelector></StarSelector>
+        </div>
+        <div id="review-button">
+            <button v-on:click="getMoreInfo" @click.prevent="submitUpdate">Save</button>
+        </div>
+    </form>
         </div>        
     </div>
     </div>
@@ -28,6 +43,8 @@ import MovieService from '../services/MovieService';
 import UserService from '../services/UserService';
 import Review from '../components/Review.vue';
 import MovieReviewService from '../services/MovieReviewService';
+import StarSelector from '../components/StarSelector.vue'
+
 
 
 export default {
@@ -41,7 +58,12 @@ export default {
                 release_date: ''
             },
             favoriteMovieIds: [],
-            reviews:[]
+            reviews:[],
+            mockData: {
+                field: "Five Stars",
+                field2: "World"
+            },
+   
         }
     },
 
@@ -64,7 +86,8 @@ export default {
     },
 
     components: {
-        Review
+        Review, StarSelector
+        
     },
 
     created() {
@@ -152,7 +175,27 @@ h2#Review-label{
 #movie-details > img.star-rating{
     height: 40px;
     max-width: 100%;
+}
 
+.mock {
+    width: 300px;
+    margin: 1em 0;
+    padding: 1em;
+    border: 2px solid black;
+    border-radius: 2em;
+}
+
+#review-text{
+    /* width: 100%; */
+  height: 150px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  font-size: 16px;
+  resize: none;
+  box-shadow: none;
 }
 
 </style>
