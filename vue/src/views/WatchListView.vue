@@ -13,7 +13,7 @@
         <div id="list-movies">
             <MovieCard v-for="movie in filteredSuggestedMovies" 
                 :key="movie.movie_id" :movie="movie">
-                    <button class="button-style" @click="() => addFavoriteMovie(movie.movie_id)">Add To </button>
+                    <button class="button-style" @click="() => addFavoriteMovie(movie.movie_id)">Add To Favorites</button>
             </MovieCard>
         </div>
     </div>
@@ -93,7 +93,8 @@ h1 {
 #list-movies {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-around;
+
 
 }
 
