@@ -13,6 +13,8 @@
             <p>{{ movie.overview }}</p>
             <button class="button-style" v-if="!favoriteMovieIds.includes(movie.movie_id)" @click.prevent="addFavoriteMovie(movie.movie_id)">Add to WatchList</button>
             <button class="button-style" v-else @click.prevent="removeFavoriteMovie(movie.movie_id)">Remove from WatchList</button>
+            <h2 id="Review-label">Reviews</h2>
+            <Review v-for="review in reviews" v-bind:key="review.reviewId" v-bind:review="review"></Review>
         </div>        
     </div>
 
@@ -22,6 +24,9 @@
 <script>
 import MovieService from '../services/MovieService';
 import UserService from '../services/UserService';
+import Review from '../components/Review.vue';
+import MovieReviewService from '../services/MovieReviewService';
+
 
 export default {
     data() {
@@ -33,12 +38,10 @@ export default {
                 poster_path: '',
                 release_date: ''
             },
-            favoriteMovieIds: []
+            favoriteMovieIds: [],
+            reviews:[]
         }
     },
-
-
-
 
     methods: {
         addFavoriteMovie(movieId) {
@@ -58,6 +61,10 @@ export default {
 
     },
 
+    components: {
+        Review
+    },
+
     created() {
         const movieId = this.$route.params.id
         MovieService.getMovieByMovieId(movieId).then (res => {
@@ -67,8 +74,14 @@ export default {
         UserService.getFavoriteMovies().then(res => {
             if (res.data) {
                 this.favoriteMovieIds = res.data?.map(f => f.movie_id);
-            }   
-        })
+            }
+        });
+
+        const movieIdForReview = this.$route.params.id;
+        MovieReviewService.getMovieReviewByMovieId(movieIdForReview).then(res=> {
+            this.reviews = res.data;
+            //console.log(res.data);
+        });
     }
 }
 
@@ -126,6 +139,18 @@ export default {
     padding: 0.35em 1em;
     font-size: 1.15em;
     cursor: pointer;
+}
+
+h2#Review-label{
+    font-size: 65px;
+    font-weight: bold;
+    color: yellow;
+}
+
+#movie-details > img.star-rating{
+    height: 40px;
+    max-width: 100%;
+
 }
 
 </style>
