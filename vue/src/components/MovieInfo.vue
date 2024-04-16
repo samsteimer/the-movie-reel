@@ -17,7 +17,7 @@
             <br>
             <br>
             <div>
-                <button>Add a review</button>
+                <button class="button-style">Add a review</button>
             </div>
     <form id="review-add-form">
         <!-- <div id="review-text"> -->
@@ -155,24 +155,11 @@ export default {
     margin-top: 15px;
 }
 
-
-#movie-details button {
-    margin: 0.75em 0;
-    background-color: #ffb62e;
-    border: none;
-    border-radius: 1.5em;
-    padding: 0.35em 1em;
-    font-size: 1.15em;
-    cursor: pointer;
-}
-
 h2#Review-label{
     font-size: 65px;
     font-weight: bold;
     color: yellow;
 }
-
-   
 
 .mock {
     width: 300px;

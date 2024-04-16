@@ -256,15 +256,6 @@ h1 {
     grid-area: genre;
 }
 
-#add-buttons button {
-    margin: 0.75em 0;
-    background-color: #ffb62e;
-    border: none;
-    border-radius: 1.5em;
-    padding: 0.35em 1em;
-    font-size: 1.15em;
-    cursor: pointer;
-}
 
 #search-movies {
     margin-left: 130px;
