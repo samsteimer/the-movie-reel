@@ -18,10 +18,13 @@
             <textarea class="overview-input" placeholder="Overview" type="text" v-model="newMovie.overview"></textarea>
         </div>
         <div id="add-genre">
-            <label for="genre">Genre</label>
-            <select id="genre" name="genre" v-model="selectedGenres">
-            <option v-for="genre in genres" :key="genre.genre_id" :value="genre.genre_id">{{ genre.genre_name }}</option>
-        </select>
+            <label for="genre-checkbox">Genres</label>
+            <span v-for="genre in genres" :key="genre.genre_id" >
+                <input name="genre" type="checkbox" :value="{ genre_id: genre.genre_id, genre_name: genre.genre_name}" v-model="selectedGenres">
+                {{ genre.genre_name }}
+            </span>
+           
+
         </div>
         <div id="add-buttons">
             <button class="button-style" @click.prevent="addMovie">Save</button>
@@ -54,10 +57,11 @@
                     </div>
                     
                     <div id="api-genre">
-                        <label for="genre">Select Genre</label>
-                        <select id="genre" name="genre" v-model="selectedGenres">
-                            <option v-for="genre in genres" :key="genre.genre_id" :value="genre.genre_id">{{ genre.genre_name }}</option>
-                        </select>
+                        <label for="genre-checkbox">Genres</label>
+                        <span v-for="genre in genres" :key="genre.genre_id" >
+                            <input name="genre" type="checkbox" :value="{ genre_id: genre.genre_id, genre_name: genre.genre_name}" v-model="selectedGenres">
+                            {{ genre.genre_name }}
+                    </span>
                     </div>
                     <div id="add-button">
                         <button class="button-style" @click="addMovieFromApi(movie)">Add Movie</button>
@@ -114,10 +118,10 @@ export default {
 
             console.log("Selected Genres:", this.selectedGenres);
             console.log('Genres:', JSON.stringify(this.genres) );
-            this.newMovie.genres.push({
-                genre_id: this.selectedGenres,
-                genre_name: this.genres.find(genre => genre.genre_id === this.selectedGenres).genre_name
-            });
+
+            for (let i = 0; i < this.selectedGenres.length; i++) {
+               this.newMovie.genres.push(this.selectedGenres[i]);
+            }
 
             console.log('New Movie:', this.newMovie);
 
