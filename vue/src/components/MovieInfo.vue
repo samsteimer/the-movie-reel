@@ -54,7 +54,7 @@ import MovieService from '../services/MovieService';
 import UserService from '../services/UserService';
 import Review from '../components/Review.vue';
 import MovieReviewService from '../services/MovieReviewService';
-//import StarSelector from '../components/StarSelector.vue'
+
 
 
 
@@ -100,7 +100,7 @@ export default {
                 }
             })
         },
-        addMovieReviewVue(movieId, reviewText, starRating){
+        addMovieReview(movieId, reviewText, starRating){
             MovieReviewService.createMovieReview(movieId).then(res =>{
                 if (res.status == 200) {
                     //TBD
@@ -195,7 +195,7 @@ export default {
 }
 
 h2#Review-label {
-    font-size: 65px;
+    font-size: 55px;
     font-weight: bold;
     color: yellow;
 }
