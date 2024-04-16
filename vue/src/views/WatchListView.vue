@@ -3,7 +3,7 @@
         <h1>My Favorites</h1>
         <div id="list-movies">
             <MovieCard v-for="movie in favoriteMovies" :key="movie.movie_id" :movie="movie">
-                <button class="button-style" @click="() => removeFavoriteMovie(movie.movie_id)">Remove</button>
+                <button class="button-style" @click="() => removeFavoriteMovie(movie.movie_id)">Remove From WatchList</button>
             </MovieCard>
         </div>
     </div>
@@ -94,8 +94,11 @@ h1 {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-
 }
+
+
+
+
 
 
 

@@ -46,6 +46,7 @@ add back on to router-links after testing -->
 
   #logout-link, #profile-link, #watchlist-link, #browse-link, #login-link, #admin-link {
     color: white;
+    white-space: nowrap;
     margin-top: 40px;
     margin-right: 30px; 
 }

@@ -21,7 +21,7 @@
             </span>
         </div>
         <div id="profile-buttons">
-            <button @click.prevent="submitUpdate">Save</button>
+            <button class="button-style" @click.prevent="submitUpdate">Save</button>
         </div>
     </form>
 </template>
