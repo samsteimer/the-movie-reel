@@ -21,7 +21,7 @@
             </span>
         </div>
         <div id="profile-buttons">
-            <button @click.prevent="submitUpdate">Save</button>
+            <button class="button-style" @click.prevent="submitUpdate">Save</button>
         </div>
     </form>
 </template>
@@ -139,14 +139,6 @@ h1 {
     display: inline-block;
 }
 
-#profile-buttons button {
-    margin: 0.75em 0;
-    background-color: #ffb62e;
-    border: none;
-    border-radius: 1.5em;
-    padding: 0.35em 1em;
-    font-size: 1.15em;
-    cursor: pointer;
-}
+
 
 </style>
