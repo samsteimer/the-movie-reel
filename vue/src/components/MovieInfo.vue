@@ -1,5 +1,4 @@
 <template>
-
     <div id="movie-info-display">
         <div>
             <img id="poster" v-bind:src="movie.poster_path" alt="">
@@ -10,31 +9,43 @@
             <h3>Overview</h3>
             <p>{{ movie.overview }}</p>
             <div v-if="$store.state.token != ''">
-            <button class="button-style" v-if="!favoriteMovieIds.includes(movie.movie_id)" @click.prevent="addFavoriteMovie(movie.movie_id)">Add to WatchList</button>
-            <button class="button-style" v-else @click.prevent="removeFavoriteMovie(movie.movie_id)">Remove from WatchList</button>
-            <h2 id="Review-label">Reviews</h2>
-            <Review v-for="review in reviews" v-bind:key="review.reviewId" v-bind:review="review"></Review>
-            <br>
-            <br>
-            <div>
-                <button>Add a review</button>
+                <button class="button-style" v-if="!favoriteMovieIds.includes(movie.movie_id)"
+                    @click.prevent="addFavoriteMovie(movie.movie_id)">Add to WatchList</button>
+                <button class="button-style" v-else @click.prevent="removeFavoriteMovie(movie.movie_id)">Remove from
+                    WatchList</button>
+                <h2 id="Review-label">Reviews</h2>
+                <Review v-for="review in reviews" v-bind:key="review.reviewId" v-bind:review="review"></Review>
+                <br>
+                <br>
+                <div>
+                    <button id="add-review-btn">Add a review</button>
+                </div>
+                <form id="review-add-form" v-show="true">
+                    <label for="input-review-text">Enter Review:</label>
+                    <textarea name="movie-review-text" id="review-text" cols="100" rows="5" value="Add your review"
+                        onfocus="this.value=''"> </textarea>
+                    <div class="star-selector">
+                        <br>
+                        <div class="stars">
+                            <img v-for="(star, index) in 5" :src="star <= selectedRating ? filledStar : emptyStar"
+                                :key="index" alt="star">
+                        </div>
+                        <div class="star-selector">
+                            <select v-model="selectedRating">
+                                <option v-for="rating in ratings" :value="rating.value" :key="rating.value">
+                                    {{ rating.label }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="review-button">
+                        <button v-on:click="getMoreInfo"  id="submit-review-btn">Save</button>
+                    </div> 
+                    <!-- @click.prevent="submitUpdate" -->
+                </form>
             </div>
-    <form id="review-add-form">
-        <!-- <div id="review-text"> -->
-            <label for="input-review-text">Enter Review:</label>
-        <textarea  name="movie-review-text" id="review-text" cols="100" rows="5" value = "Add your review" onfocus="this.value=''"> </textarea>
-
-        <div class="star-selector">
-            <StarSelector></StarSelector>
         </div>
-        <div id="review-button">
-            <button v-on:click="getMoreInfo" @click.prevent="submitUpdate">Save</button>
-        </div>
-    </form>
-        </div>        
     </div>
-    </div>
-
 </template>
 
 
@@ -43,13 +54,16 @@ import MovieService from '../services/MovieService';
 import UserService from '../services/UserService';
 import Review from '../components/Review.vue';
 import MovieReviewService from '../services/MovieReviewService';
-import StarSelector from '../components/StarSelector.vue'
+//import StarSelector from '../components/StarSelector.vue'
 
 
 
 export default {
     data() {
         return {
+            selectedRating: 1,
+            filledStar: '/src/assets/star.png',
+            emptyStar: '/src/assets/emptyStar.png',
             movie: {
                 title: '',
                 overview: '',
@@ -58,12 +72,15 @@ export default {
                 release_date: ''
             },
             favoriteMovieIds: [],
-            reviews:[],
-            mockData: {
-                field: "Five Stars",
-                field2: "World"
-            },
-   
+            reviews: [],
+            ratings: [
+                { value: 1, label: '1 Star' },
+                { value: 2, label: '2 Stars' },
+                { value: 3, label: '3 Stars' },
+                { value: 4, label: '4 Stars' },
+                { value: 5, label: '5 Stars' }
+            ]
+
         }
     },
 
@@ -81,18 +98,26 @@ export default {
                     this.favoriteMovieIds = this.favoriteMovieIds.filter(m => m != movieId);
                 }
             })
+        },
+        addMovieReviewVue(movieId, reviewText, starRating){
+            MovieReviewService.createMovieReview(movieId).then(res =>{
+                if (res.status == 200) {
+                    //TBD
+                }
+            })
         }
+
 
     },
 
     components: {
-        Review, StarSelector
-        
+        Review
+
     },
 
     created() {
         const movieId = this.$route.params.id
-        MovieService.getMovieByMovieId(movieId).then (res => {
+        MovieService.getMovieByMovieId(movieId).then(res => {
             this.movie = res.data;
         });
 
@@ -103,9 +128,8 @@ export default {
         });
 
         const movieIdForReview = this.$route.params.id;
-        MovieReviewService.getMovieReviewByMovieId(movieIdForReview).then(res=> {
+        MovieReviewService.getMovieReviewByMovieId(movieIdForReview).then(res => {
             this.reviews = res.data;
-            //console.log(res.data);
         });
     }
 }
@@ -134,20 +158,20 @@ export default {
     text-shadow: 2px 2px 5px black;
 }
 
-#movie-details > h1 {
+#movie-details>h1 {
     font-size: 3rem;
 }
 
-#movie-details > h2 {
+#movie-details>h2 {
     font-size: 1.5rem;
     margin-bottom: 20px;
 }
 
-#movie-details > h3 {
+#movie-details>h3 {
     font-size: 1.3rem;
 }
 
-#movie-details > p {
+#movie-details>p {
     font-size: 1.1rem;
 }
 
@@ -166,13 +190,13 @@ export default {
     cursor: pointer;
 }
 
-h2#Review-label{
+h2#Review-label {
     font-size: 65px;
     font-weight: bold;
     color: yellow;
 }
 
-   
+
 
 .mock {
     width: 300px;
@@ -182,17 +206,49 @@ h2#Review-label{
     border-radius: 2em;
 }
 
-#review-text{
-    /* width: 100%; */
-  height: 150px;
-  padding: 12px 20px;
-  box-sizing: border-box;
-  border: 2px solid #ccc;
-  border-radius: 4px;
-  background-color: #f8f8f8;
-  font-size: 16px;
-  resize: none;
-  box-shadow: none;
+#review-text {
+    height: 150px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    font-size: 16px;
+    resize: none;
+    box-shadow: none;
 }
 
+.star-selector {
+    display: flex;
+    align-items: center;
+}
+
+.stars img {
+    width: 30px;
+    height: 30px;
+}
+
+#add-review-btn {
+    margin: 0.75em 0;
+    background-color: #ffb62e;
+    box-shadow: 2px 2px 5px black;
+    border-radius: 1.5em;
+    padding: 0.35em 1em;
+    font-size: 1.15em;
+    cursor: pointer;
+    color: white;
+    text-shadow: 2px 2px 5px black;
+}
+
+#submit-review-btn{
+    margin: 0.75em 0;
+    background-color: #ffb62e;
+    box-shadow: 2px 2px 5px black;
+    border-radius: 1.5em;
+    padding: 0.35em 1em;
+    font-size: 1.15em;
+    cursor: pointer;
+    color: white;
+    text-shadow: 2px 2px 5px black; 
+}
 </style>
