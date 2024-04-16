@@ -18,6 +18,7 @@
             <Review v-for="review in reviews" v-bind:key="review.reviewId" v-bind:review="review"></Review>
         </div>        
     </div>
+    </div>
 
 </template>
 
