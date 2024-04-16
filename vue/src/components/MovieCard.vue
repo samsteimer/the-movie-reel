@@ -31,6 +31,8 @@ export default {
     display: flex;
     flex-direction: column;
     width: 200px;
+    margin-right: 20px;
+    margin-left: 20px;
 }
 #movie-card > h2 {
     align-items: center;
@@ -39,6 +41,10 @@ export default {
 #movie-card > img {
     border: 2px solid white;
     border-radius: 5px;
+}
+
+#movie-image:active {
+    transform: scale(.98)
 }
 
 

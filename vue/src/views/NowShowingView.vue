@@ -59,8 +59,9 @@ export default {
 
 #movie-card {
     display: flex;
-    justify-content: space-around;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 
-</style>
+</style>np

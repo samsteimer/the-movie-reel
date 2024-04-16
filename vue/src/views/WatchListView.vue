@@ -3,7 +3,7 @@
         <h1>My Favorites</h1>
         <div id="list-movies">
             <MovieCard v-for="movie in favoriteMovies" :key="movie.movie_id" :movie="movie">
-                <button class="button-style" @click="() => removeFavoriteMovie(movie.movie_id)">Remove</button>
+                <button class="button-style" @click="() => removeFavoriteMovie(movie.movie_id)">Remove From WatchList</button>
             </MovieCard>
         </div>
     </div>
@@ -13,7 +13,7 @@
         <div id="list-movies">
             <MovieCard v-for="movie in filteredSuggestedMovies" 
                 :key="movie.movie_id" :movie="movie">
-                    <button class="button-style" @click="() => addFavoriteMovie(movie.movie_id)">Add To Favorites</button>
+                    <button class="button-style" @click="() => addFavoriteMovie(movie.movie_id)">Add To WatchList</button>
             </MovieCard>
         </div>
     </div>
@@ -93,10 +93,18 @@ h1 {
 #list-movies {
     display: flex;
     flex-wrap: wrap;
+<<<<<<< HEAD
     justify-content: space-around;
 
 
+=======
+    justify-content: center;
+>>>>>>> 99bfa52c737141cdba4b1984d53e1d924d69f473
 }
+
+
+
+
 
 
 

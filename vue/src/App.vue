@@ -46,6 +46,7 @@ add back on to router-links after testing -->
 
   #logout-link, #profile-link, #watchlist-link, #browse-link, #login-link, #admin-link {
     color: white;
+    white-space: nowrap;
     margin-top: 40px;
     margin-right: 30px; 
 }
@@ -53,6 +54,11 @@ add back on to router-links after testing -->
 #logout-link:hover, #profile-link:hover, #watchlist-link:hover, #browse-link:hover, #login-link:hover, #admin-link:hover {
   font-size: 110%;
 }
+
+#logout-link:active, #profile-link:active, #watchlist-link:active, #browse-link:active, #login-link:active, #admin-link:active {
+  transform: scale(.98);
+}
+
 
 #header-logo {
     height: 125px;
