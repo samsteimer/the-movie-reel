@@ -18,9 +18,9 @@
                 <br>
                 <br>
                 <div>
-                    <button id="add-review-btn">Add a review</button>
+                    <button id="add-review-btn" @click="showForm = !showForm">Add a review</button>
                 </div>
-                <form id="review-add-form" v-show="true">
+                <form id="review-add-form" v-show="showForm">
                     <label for="input-review-text">Enter Review:</label>
                     <textarea name="movie-review-text" id="review-text" cols="100" rows="5" value="Add your review"
                         onfocus="this.value=''"> </textarea>
@@ -61,6 +61,7 @@ import MovieReviewService from '../services/MovieReviewService';
 export default {
     data() {
         return {
+            showForm: false,
             selectedRating: 1,
             filledStar: '/src/assets/star.png',
             emptyStar: '/src/assets/emptyStar.png',
@@ -105,7 +106,10 @@ export default {
                     //TBD
                 }
             })
-        }
+        },
+        clearText(event) {
+      event.target.value = '';
+    }
 
 
     },
