@@ -12,6 +12,7 @@ export default {
   }, // /movies/<reviewId>
 
   createMovieReview(movieReview) {
-    return axios.post("/movies/reviews");
+    return axios.post("/movies/reviews", movieReview);
   }, // POST /reviews
+
 };
