@@ -43,6 +43,10 @@ export default {
     border-radius: 5px;
 }
 
+#movie-image:active {
+    transform: scale(.98)
+}
+
 
 #movie-card > button:hover {
     cursor: pointer;

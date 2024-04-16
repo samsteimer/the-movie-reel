@@ -123,6 +123,10 @@ li {
     background-size: contain;
 }
 
+#genre-list > ul > li:active {
+    transform: scale(.98);
+}
+
 
 
 

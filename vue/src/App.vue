@@ -55,6 +55,11 @@ add back on to router-links after testing -->
   font-size: 110%;
 }
 
+#logout-link:active, #profile-link:active, #watchlist-link:active, #browse-link:active, #login-link:active, #admin-link:active {
+  transform: scale(.98);
+}
+
+
 #header-logo {
     height: 125px;
     margin-right: 30px;  
