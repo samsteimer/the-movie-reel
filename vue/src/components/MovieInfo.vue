@@ -9,42 +9,29 @@
             <h3>Overview</h3>
             <p>{{ movie.overview }}</p>
             <div v-if="$store.state.token != ''">
-                <button class="button-style" v-if="!favoriteMovieIds.includes(movie.movie_id)"
-                    @click.prevent="addFavoriteMovie(movie.movie_id)">Add to WatchList</button>
-                <button class="button-style" v-else @click.prevent="removeFavoriteMovie(movie.movie_id)">Remove from
-                    WatchList</button>
-                <h2 id="Review-label">Reviews</h2>
-                <Review v-for="review in reviews" v-bind:key="review.reviewId" v-bind:review="review"></Review>
-                <br>
-                <br>
-                <div>
-                    <button id="add-review-btn" @click="showForm = !showForm">Add a review</button>
-                </div>
-                <form id="review-add-form" v-show="showForm">
-                    <label for="input-review-text">Enter Review:</label>
-                    <textarea name="movie-review-text" id="review-text" cols="100" rows="5" value="Add your review"
-                        onfocus="this.value=''"> </textarea>
-                    <div class="star-selector">
-                        <br>
-                        <div class="stars">
-                            <img v-for="(star, index) in 5" :src="star <= selectedRating ? filledStar : emptyStar"
-                                :key="index" alt="star">
-                        </div>
-                        <div class="star-selector">
-                            <select v-model="selectedRating">
-                                <option v-for="rating in ratings" :value="rating.value" :key="rating.value">
-                                    {{ rating.label }}
-                                </option>
-                            </select>
-                        </div>
-                    </div>
-                    <div id="review-button">
-                        <button v-on:click="getMoreInfo"  id="submit-review-btn">Save</button>
-                    </div> 
-                    <!-- @click.prevent="submitUpdate" -->
-                </form>
+            <button class="button-style" v-if="!favoriteMovieIds.includes(movie.movie_id)" @click.prevent="addFavoriteMovie(movie.movie_id)">Add to WatchList</button>
+            <button class="button-style" v-else @click.prevent="removeFavoriteMovie(movie.movie_id)">Remove from WatchList</button>
+            <h2 id="Review-label">Reviews</h2>
+            <Review v-for="review in reviews" v-bind:key="review.reviewId" v-bind:review="review"></Review>
+            <br>
+            <br>
+            <div>
+                <button>Add a review</button>
             </div>
+    <form id="review-add-form">
+        <!-- <div id="review-text"> -->
+            <label for="input-review-text">Enter Review:</label>
+        <textarea  name="movie-review-text" id="review-text" cols="100" rows="5" value = "Add your review" onfocus="this.value=''"> </textarea>
+
+        <div class="star-selector">
+            <StarSelector></StarSelector>
         </div>
+        <div id="review-button">
+            <button v-on:click="getMoreInfo" @click.prevent="submitUpdate">Save</button>
+        </div>
+    </form>
+        </div>        
+    </div>
     </div>
 </template>
 
@@ -194,13 +181,13 @@ export default {
     cursor: pointer;
 }
 
-h2#Review-label {
-    font-size: 55px;
+h2#Review-label{
+    font-size: 65px;
     font-weight: bold;
     color: yellow;
 }
 
-
+   
 
 .mock {
     width: 300px;

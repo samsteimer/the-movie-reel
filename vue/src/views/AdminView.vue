@@ -18,10 +18,13 @@
             <textarea class="overview-input" placeholder="Overview" type="text" v-model="newMovie.overview"></textarea>
         </div>
         <div id="add-genre">
-            <label for="genre">Genre</label>
-            <select id="genre" name="genre" v-model="selectedGenres">
-            <option v-for="genre in genres" :key="genre.genre_id" :value="genre.genre_id">{{ genre.genre_name }}</option>
-        </select>
+            <label for="genre-checkbox">Genres</label>
+            <span v-for="genre in genres" :key="genre.genre_id" >
+                <input name="genre" type="checkbox" :value="{ genre_id: genre.genre_id, genre_name: genre.genre_name}" v-model="selectedGenres">
+                {{ genre.genre_name }}
+            </span>
+           
+
         </div>
         <div id="add-buttons">
             <button class="button-style" @click.prevent="addMovie">Save</button>
@@ -29,8 +32,8 @@
 
     </form>
    
+    <h1>Search for a movie</h1>
     <div id="search-movies">
-        <h1>Search for a movie</h1>
         <input class="search-input" placeholder="Title" type="text" v-model="searchTitle" @keyup.enter="search()">
     </div>
 
@@ -54,10 +57,13 @@
                     </div>
                     
                     <div id="api-genre">
-                        <label for="genre">Select Genre</label>
-                        <select id="genre" name="genre" v-model="selectedGenres">
-                            <option v-for="genre in genres" :key="genre.genre_id" :value="genre.genre_id">{{ genre.genre_name }}</option>
-                        </select>
+                        <h2>Select Genres:</h2>
+                        <label class="checkbox" for="genre-checkbox">
+                        <span v-for="genre in genres" :key="genre.genre_id" >
+                            <input name="genre" type="checkbox" :value="{ genre_id: genre.genre_id, genre_name: genre.genre_name}" v-model="selectedGenres">
+                            {{ genre.genre_name }}
+                        </span>
+                        </label>
                     </div>
                     <div id="add-button">
                         <button class="button-style" @click="addMovieFromApi(movie)">Add Movie</button>
@@ -114,10 +120,10 @@ export default {
 
             console.log("Selected Genres:", this.selectedGenres);
             console.log('Genres:', JSON.stringify(this.genres) );
-            this.newMovie.genres.push({
-                genre_id: this.selectedGenres,
-                genre_name: this.genres.find(genre => genre.genre_id === this.selectedGenres).genre_name
-            });
+
+            for (let i = 0; i < this.selectedGenres.length; i++) {
+               this.newMovie.genres.push(this.selectedGenres[i]);
+            }
 
             console.log('New Movie:', this.newMovie);
 
@@ -134,11 +140,29 @@ export default {
                                 release_date: ''  
                             };
                             this.selectedGenres = [];
+
+                            alert('Movie added to database.');
                       
                 })
                 .catch(error => {
                     console.error('Error creating movie:', error);
+                    // Reset newMovie after error
+                    this.newMovie = {
+                                title: '',
+                                overview: '',
+                                genres: [],
+                                poster_path: '',
+                                release_date: ''  
+                            };
+                            this.selectedGenres = [];
+                    
+                    alert('Error creating movie. Please try again.');
+
                 });
+            
+            
+
+
         },
 
         addMovieFromApi(movie) {
@@ -184,9 +208,10 @@ h1 {
     pad: 0.35em;
     grid-template-columns: 2fr 3fr;
     grid-template-areas: 
-        "title poster"
+        "title overview"
+        "poster overview"
         "release overview"
-        "genre overview"
+        "genre genre"
         "buttons buttons";
 }
 
@@ -231,18 +256,10 @@ h1 {
     grid-area: genre;
 }
 
-#add-buttons button {
-    margin: 0.75em 0;
-    background-color: #ffb62e;
-    border: none;
-    border-radius: 1.5em;
-    padding: 0.35em 1em;
-    font-size: 1.15em;
-    cursor: pointer;
-}
 
 #search-movies {
     margin-left: 130px;
+    padding-bottom: 20px;
 }
 
 #search-movies input {
@@ -325,6 +342,18 @@ h1 {
 #add-button:hover {
     cursor: pointer;
 
+}
+
+#add-genre span {
+    margin-left: 1em;
+    margin-top: 1em;
+    display: inline-block;
+}
+
+#api-genre span {
+    margin-left: 1em;
+    margin-top: 1em;
+    display: inline-block;
 }
 
 
