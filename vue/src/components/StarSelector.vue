@@ -1,13 +1,15 @@
 <template>
+  <br>
+      <div class="stars">
+      <img v-for="(star, index) in 5" :src="star <= selectedRating ? filledStar : emptyStar" :key="index" alt="star">
+    </div>
   <div class="star-selector">
     <select v-model="selectedRating">
       <option v-for="rating in ratings" :value="rating.value" :key="rating.value">
         {{ rating.label }}
       </option>
     </select>
-    <div class="stars">
-      <img v-for="(star, index) in 5" :src="star <= selectedRating ? filledStar : emptyStar" :key="index" alt="star">
-    </div>
+
   </div>
 </template>
 

@@ -28,7 +28,9 @@ export default {
 <style scoped>
 
 .star-rating {
-    
+    height: 40px;
+    max-width: 100%;
 }
+
 
 </style>
