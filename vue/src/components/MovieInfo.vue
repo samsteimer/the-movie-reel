@@ -172,10 +172,7 @@ h2#Review-label{
     color: yellow;
 }
 
-#movie-details > img.star-rating{
-    height: 40px;
-    max-width: 100%;
-}
+   
 
 .mock {
     width: 300px;
