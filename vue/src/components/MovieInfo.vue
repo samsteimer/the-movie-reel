@@ -9,30 +9,43 @@
             <h3>Overview</h3>
             <p>{{ movie.overview }}</p>
             <div v-if="$store.state.token != ''">
-            <button class="button-style" v-if="!favoriteMovieIds.includes(movie.movie_id)" @click.prevent="addFavoriteMovie(movie.movie_id)">Add to WatchList</button>
+                <button class="button-style" v-if="!favoriteMovieIds.includes(movie.movie_id)" @click.prevent="addFavoriteMovie(movie.movie_id)">Add to WatchList</button>
             <button class="button-style" v-else @click.prevent="removeFavoriteMovie(movie.movie_id)">Remove from WatchList</button>
             <button class="button-style" v-if="$store.state.isAdmin" @click.prevent="deleteMovie">Delete Movie</button>
-            <h2 id="Review-label">Reviews</h2>
-            <Review v-for="review in reviews" v-bind:key="review.reviewId" v-bind:review="review"></Review>
-            <br>
-            <br>
-            <div>
-                <button>Add a review</button>
+                <h2 id="Review-label">Reviews</h2>
+                <Review v-for="review in reviews" v-bind:key="review.reviewId" v-bind:review="review"></Review>
+                <br>
+                <br>
+                <div>
+                    <button id="add-review-btn" @click="showForm = !showForm">Add a review</button>
+                </div>
+                <form id="review-add-form" v-show="showForm">
+                    <label for="movie-review-text">Enter Review:</label>
+                    <textarea v-model="review.movieReview" name="movie-review-text" id="review-text" cols="100" rows="5" ></textarea>
+                    <div class="star-selector">
+                        <div class="stars">
+                            <img v-for="(star, index) in 5" 
+                                @click="setStarRating(star)" 
+                                :src="star <= review.starRating ? filledStar : emptyStar"
+                                :key="index" alt="star">
+                       <br>
+                            </div>
+                        <br>
+                    </div>
+                    <div class="star-selector">
+                            <select v-model="review.starRating">
+                                <option v-for="rating in ratings" :value="rating.value" :key="rating.value">
+                                    {{ rating.label }}
+                                </option>
+                            </select>
+                        </div>
+                        <br>
+                    <div id="review-button">
+                        <button v-on:click.prevent="addMovieReview"  id="submit-review-btn" @click="showForm = !showForm" ]>Save</button>
+                    </div> 
+                </form>
             </div>
-    <form id="review-add-form">
-        <!-- <div id="review-text"> -->
-            <label for="input-review-text">Enter Review:</label>
-        <textarea  name="movie-review-text" id="review-text" cols="100" rows="5" value = "Add your review" onfocus="this.value=''"> </textarea>
-
-        <div class="star-selector">
-            <!-- <StarSelector></StarSelector> -->
         </div>
-        <div id="review-button">
-            <button v-on:click="getMoreInfo" @click.prevent="submitUpdate">Save</button>
-        </div>
-    </form>
-        </div>        
-    </div>
     </div>
 </template>
 
@@ -44,11 +57,12 @@ import Review from '../components/Review.vue';
 import MovieReviewService from '../services/MovieReviewService';
 
 
+
 export default {
     data() {
         return {
             showForm: false,
-            selectedRating: 1,
+            //textBoxValue: "",
             filledStar: '/src/assets/star.png',
             emptyStar: '/src/assets/emptyStar.png',
             movie: {
@@ -66,12 +80,21 @@ export default {
                 { value: 3, label: '3 Stars' },
                 { value: 4, label: '4 Stars' },
                 { value: 5, label: '5 Stars' }
-            ]
-
+            ],
+            review: {
+                movieReview: "",
+                starRating: 5,
+                movieId: 0,
+                userId: 0
+            }
         }
     },
 
     methods: {
+        setStarRating(star) {
+            this.review.starRating = star;
+        },
+
         addFavoriteMovie(movieId) {
             UserService.addFavoriteMovie(movieId).then(res => {
                 if (res.status == 200) {
@@ -86,13 +109,14 @@ export default {
                 }
             })
         },
-        addMovieReview(movieId, reviewText, starRating){
-            MovieReviewService.createMovieReview(movieId).then(res =>{
+        addMovieReview(){
+            MovieReviewService.createMovieReview(this.review).then(res =>{
                 if (res.status == 200) {
-                    //TBD
+                    this.reviews.push(res.data);
                 }
             })
         },
+
         deleteMovie() {
             MovieService.deleteMovieById(this.movie.movie_id).then(res => {
                 if (res.status == 200) this.$router.push({name: 'home'});
@@ -109,7 +133,11 @@ export default {
     },
 
     created() {
-        const movieId = this.$route.params.id
+        const movieId = this.$route.params.id;
+        
+        this.review.userId = this.$store.state.user.id;
+        this.review.movieId = parseInt(movieId);
+
         MovieService.getMovieByMovieId(movieId).then(res => {
             this.movie = res.data;
         });
@@ -183,13 +211,13 @@ export default {
     cursor: pointer;
 }
 
-h2#Review-label{
+h2#Review-label {
     font-size: 65px;
     font-weight: bold;
     color: yellow;
 }
 
-   
+
 
 .mock {
     width: 300px;
