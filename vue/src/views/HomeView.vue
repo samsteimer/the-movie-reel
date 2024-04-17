@@ -9,7 +9,7 @@
 
     <h2 id="featured">Featured Movies</h2>
     <ul id="home-movies">
-    <li v-for="movie in newReleasesMovies" :key="movie.movie_id"><img id="movie-image" v-bind:src="movie.poster_path"></li>
+      <MovieCard v-for="movie in newReleasesMovies" :key="movie.movie_id" :movie="movie" />
     </ul>
     <!-- <ul>
     <li v-for="movie in nowShowingMovies" :key="movie.movie_id">{{ movie.title }}</li>
@@ -24,7 +24,13 @@
 
 <script>
 import MovieListService from '../services/MovieListService';
+import MovieCard from '../components/MovieCard.vue';
 export default {
+
+  components: {
+    MovieCard
+  },
+
   data() {
     return {
       nowShowingMovies: [],
