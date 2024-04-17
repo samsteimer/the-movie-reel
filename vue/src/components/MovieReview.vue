@@ -33,7 +33,7 @@ export default {
         },
 
         getStarRating(movie_id) {
-            return genres.map(genre => genre.genre_name)
+            // return genres.map(genre => genre.genre_name)
         }
 
 

@@ -16,12 +16,16 @@ CREATE TABLE users (
 CREATE TABLE movies (
 	movie_id SERIAL primary key,
 	api_movie_id int,
-	title varchar(100) UNIQUE NOT NULL,
+	title varchar(100) NOT NULL,
 	poster_path varchar(200),
 	overview varchar(1000),
 	release_date varchar(10),
-	is_deleted boolean default false not null,
+	is_deleted boolean default false not null
 );
+
+CREATE UNIQUE INDEX idx_movies_is_deleted
+ON movies (title)
+WHERE is_deleted = false;
 
 CREATE TABLE genres (
 	genre_id int primary key,
@@ -78,7 +82,6 @@ INSERT INTO genres (genre_id, genre_name) VALUES (6, 'Documentary');
 INSERT INTO genres (genre_id, genre_name) VALUES (7, 'Romance');
 INSERT INTO genres (genre_id, genre_name) VALUES (8, 'Animated');
 INSERT INTO genres (genre_id, genre_name) VALUES (9, 'Family');
-
 
 
 COMMIT TRANSACTION;
