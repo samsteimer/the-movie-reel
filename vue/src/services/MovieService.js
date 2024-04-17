@@ -29,12 +29,15 @@ export default {
     return axios.post("/movie_info", movie);
   },
 
+  deleteMovieById(movieId) {
+    return axios.delete("/movie_info/" + movieId);
+  }, // DELETE "/movie_info/{movieId}"
+
   getMovies() {
     return axios.get("/movie");
   },
-  
-  addGenreToMovie(movie) {
-    return axios.post("/movie_info/addgenre", movie)
-  }
 
+  addGenreToMovie(movie) {
+    return axios.post("/movie_info/addgenre", movie);
+  },
 };

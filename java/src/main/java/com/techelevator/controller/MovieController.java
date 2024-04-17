@@ -41,11 +41,12 @@ public class MovieController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Movie createMovie(@Valid @RequestBody Movie movie) {
 //        try {
-            return movieDao.createMovie(movie);
+        return movieDao.createMovie(movie);
 //        } catch (DaoException e) {
 //            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Service unavailable");
 //        }
     }
+
     @PostMapping("/addgenre")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<Genre> addGenreToMovie(@Valid @RequestBody Movie movie) {
@@ -85,6 +86,20 @@ public class MovieController {
 //            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Service unavailable");
 //        }
 //    }
+
+    @DeleteMapping("/{movieId}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public void deleteMovie(@PathVariable int movieId) {
+        Movie movie = movieDao.getMovieByMovieId(movieId);
+        if (movie == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie not found");
+        }
+        try {
+            movieDao.deleteMovieById(movieId);
+        } catch (DaoException e) {
+            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Service unavailable");
+        }
+    }
 
     @GetMapping("/{id}")
     public Movie getMovieByMovieId(@Valid @PathVariable("id") Integer movieId) {
@@ -152,6 +167,7 @@ public class MovieController {
             throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Service not Available");
         }
     }
+
     @GetMapping("/lists/{list_id}")
     public List<Movie> getMoviesByListId(@Valid @PathVariable("list_id") int listId) {
         try {

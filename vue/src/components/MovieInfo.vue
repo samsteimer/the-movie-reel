@@ -11,6 +11,7 @@
             <div v-if="$store.state.token != ''">
             <button class="button-style" v-if="!favoriteMovieIds.includes(movie.movie_id)" @click.prevent="addFavoriteMovie(movie.movie_id)">Add to WatchList</button>
             <button class="button-style" v-else @click.prevent="removeFavoriteMovie(movie.movie_id)">Remove from WatchList</button>
+            <button class="button-style" v-if="$store.state.isAdmin" @click.prevent="deleteMovie">Delete Movie</button>
             <h2 id="Review-label">Reviews</h2>
             <Review v-for="review in reviews" v-bind:key="review.reviewId" v-bind:review="review"></Review>
             <br>
@@ -24,7 +25,7 @@
         <textarea  name="movie-review-text" id="review-text" cols="100" rows="5" value = "Add your review" onfocus="this.value=''"> </textarea>
 
         <div class="star-selector">
-            <StarSelector></StarSelector>
+            <!-- <StarSelector></StarSelector> -->
         </div>
         <div id="review-button">
             <button v-on:click="getMoreInfo" @click.prevent="submitUpdate">Save</button>
@@ -41,8 +42,6 @@ import MovieService from '../services/MovieService';
 import UserService from '../services/UserService';
 import Review from '../components/Review.vue';
 import MovieReviewService from '../services/MovieReviewService';
-
-
 
 
 export default {
@@ -94,11 +93,14 @@ export default {
                 }
             })
         },
+        deleteMovie() {
+            MovieService.deleteMovieById(this.movie.movie_id).then(res => {
+                if (res.status == 200) this.$router.push({name: 'home'});
+            });
+        },
         clearText(event) {
-      event.target.value = '';
-    }
-
-
+            event.target.value = '';
+        }
     },
 
     components: {

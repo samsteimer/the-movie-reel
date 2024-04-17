@@ -1,5 +1,6 @@
 package com.techelevator.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.NotNull;
@@ -21,6 +22,8 @@ public class Movie {
     private String releaseDate;
     @JsonProperty("genres")
     private List<Genre> genres;
+    @JsonIgnore
+    private boolean isDeleted;
 
 //    public Movie(int movieId, int apiMovieId, String title, String posterPath, String backdropPath, int imdbId,
 //                 String homepage, String overview, LocalDate releaseDate, int runtime, List<Genre> genres) {
@@ -99,5 +102,17 @@ public class Movie {
 
     public void setGenres(List<Genre> genres) {
         this.genres = genres;
+    }
+
+    public void setMovieId(int movieId) {
+        this.movieId = movieId;
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
     }
 }
