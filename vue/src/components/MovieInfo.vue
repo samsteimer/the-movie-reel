@@ -19,7 +19,8 @@
                 <Review id="reviews" v-for="review in reviews" v-bind:key="review.reviewId" v-bind:review="review"></Review>
                 
                 <div>
-                    <button class="button-style" id="add-review-btn" @click="toggleShowForm">Add a review</button>
+                    <button v-if="$store.state.token != ''" class="button-style" id="add-review-btn" @click="toggleShowForm">Add a review</button>
+                    <button v-else @click="$router.push({ name: 'login'})" class="button-style ">Login to Leave A Review</button>
                 </div>
                 <form id="review-add-form" v-show="showForm">
                     <div id="review-head">

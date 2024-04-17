@@ -58,7 +58,7 @@
                     
                     <div id="api-genre">
                         <h2>Select Genres:</h2>
-                        <label class="checkbox" for="genre-checkbox">
+                        <label for="genre-checkbox">
                         <span v-for="genre in genres" :key="genre.genre_id" >
                             <input name="genre" type="checkbox" :value="{ genre_id: genre.genre_id, genre_name: genre.genre_name}" v-model="selectedGenres">
                             {{ genre.genre_name }}
