@@ -16,9 +16,8 @@
                 </div>
                 <button id="delete-button" class="button-style" v-if="$store.state.isAdmin" @click.prevent="deleteMovie">Delete Movie</button>
                 <h2 id="Review-label">Reviews</h2>
-                <Review v-for="review in reviews" v-bind:key="review.reviewId" v-bind:review="review"></Review>
-                <br>
-                <br>
+                <Review id="reviews" v-for="review in reviews" v-bind:key="review.reviewId" v-bind:review="review"></Review>
+                
                 <div>
                     <button class="button-style" id="add-review-btn" @click="toggleShowForm">Add a review</button>
                 </div>
@@ -171,6 +170,10 @@ export default {
 
 <style>
 
+#reviews {
+    margin-bottom: 20px;
+}
+
 #review-head {
     display: flex;
     flex-direction: column;
@@ -231,9 +234,10 @@ export default {
 }
 
 h2#Review-label{
-    font-size: 65px;
+    font-size: 55px;
+    font-family: 'League Spartan', sans-serif;
     font-weight: bold;
-    color: yellow;
+    color: #ffb300;
 }
 
 .mock {
