@@ -9,7 +9,9 @@
             <h2>(Released: {{ movie.release_date }})</h2>
             <h3>Overview</h3>
             <p>{{ movie.overview }}</p>
-            <div v-if="$store.state.token != ''">
+            <button id="back-btn" @click="$router.go(-1)" class="button-style" >Back To List</button>
+            
+            <div id="rev-container" v-if="$store.state.token != ''">
             <button class="button-style" v-if="!favoriteMovieIds.includes(movie.movie_id)" @click.prevent="addFavoriteMovie(movie.movie_id)">Add to WatchList</button>
             <button class="button-style" v-else @click.prevent="removeFavoriteMovie(movie.movie_id)">Remove from WatchList</button>
             <h2 id="Review-label">Reviews</h2>
@@ -113,6 +115,14 @@ export default {
 </script>
 
 <style>
+#rev-container {
+    margin-top: 15px;
+}
+
+#back-btn {
+    margin-top: 15px;
+}
+
 #movie-info-display {
     display: flex;
     margin-top: 75px;
