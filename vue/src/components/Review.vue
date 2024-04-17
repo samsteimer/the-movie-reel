@@ -11,13 +11,7 @@ export default {
     props: ['review'],
     data() {
         return {
-            // review: {
-            //     "movieReview": "Its Star Wars.... say no more",
-            //     "starRating": 4,
-            //     "movieId": 2,
-            //     "userId": 1,
-            //     "reviewId": 4
-            // }
+
         }
     }
     

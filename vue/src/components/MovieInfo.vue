@@ -1,5 +1,4 @@
 <template>
-
     <div id="movie-info-display">
         <div>
             <img id="poster" v-bind:src="movie.poster_path" alt="">
@@ -17,7 +16,7 @@
             <br>
             <br>
             <div>
-                <button class="button-style">Add a review</button>
+                <button>Add a review</button>
             </div>
     <form id="review-add-form">
         <!-- <div id="review-text"> -->
@@ -34,7 +33,6 @@
         </div>        
     </div>
     </div>
-
 </template>
 
 
@@ -43,13 +41,17 @@ import MovieService from '../services/MovieService';
 import UserService from '../services/UserService';
 import Review from '../components/Review.vue';
 import MovieReviewService from '../services/MovieReviewService';
-import StarSelector from '../components/StarSelector.vue'
+
 
 
 
 export default {
     data() {
         return {
+            showForm: false,
+            selectedRating: 1,
+            filledStar: '/src/assets/star.png',
+            emptyStar: '/src/assets/emptyStar.png',
             movie: {
                 title: '',
                 overview: '',
@@ -58,12 +60,15 @@ export default {
                 release_date: ''
             },
             favoriteMovieIds: [],
-            reviews:[],
-            mockData: {
-                field: "Five Stars",
-                field2: "World"
-            },
-   
+            reviews: [],
+            ratings: [
+                { value: 1, label: '1 Star' },
+                { value: 2, label: '2 Stars' },
+                { value: 3, label: '3 Stars' },
+                { value: 4, label: '4 Stars' },
+                { value: 5, label: '5 Stars' }
+            ]
+
         }
     },
 
@@ -81,18 +86,29 @@ export default {
                     this.favoriteMovieIds = this.favoriteMovieIds.filter(m => m != movieId);
                 }
             })
-        }
+        },
+        addMovieReview(movieId, reviewText, starRating){
+            MovieReviewService.createMovieReview(movieId).then(res =>{
+                if (res.status == 200) {
+                    //TBD
+                }
+            })
+        },
+        clearText(event) {
+      event.target.value = '';
+    }
+
 
     },
 
     components: {
-        Review, StarSelector
-        
+        Review
+
     },
 
     created() {
         const movieId = this.$route.params.id
-        MovieService.getMovieByMovieId(movieId).then (res => {
+        MovieService.getMovieByMovieId(movieId).then(res => {
             this.movie = res.data;
         });
 
@@ -103,9 +119,8 @@ export default {
         });
 
         const movieIdForReview = this.$route.params.id;
-        MovieReviewService.getMovieReviewByMovieId(movieIdForReview).then(res=> {
+        MovieReviewService.getMovieReviewByMovieId(movieIdForReview).then(res => {
             this.reviews = res.data;
-            //console.log(res.data);
         });
     }
 }
@@ -134,20 +149,20 @@ export default {
     text-shadow: 2px 2px 5px black;
 }
 
-#movie-details > h1 {
+#movie-details>h1 {
     font-size: 3rem;
 }
 
-#movie-details > h2 {
+#movie-details>h2 {
     font-size: 1.5rem;
     margin-bottom: 20px;
 }
 
-#movie-details > h3 {
+#movie-details>h3 {
     font-size: 1.3rem;
 }
 
-#movie-details > p {
+#movie-details>p {
     font-size: 1.1rem;
 }
 
@@ -155,11 +170,24 @@ export default {
     margin-top: 15px;
 }
 
+
+#movie-details button {
+    margin: 0.75em 0;
+    background-color: #ffb62e;
+    border: none;
+    border-radius: 1.5em;
+    padding: 0.35em 1em;
+    font-size: 1.15em;
+    cursor: pointer;
+}
+
 h2#Review-label{
     font-size: 65px;
     font-weight: bold;
     color: yellow;
 }
+
+   
 
 .mock {
     width: 300px;
@@ -169,17 +197,49 @@ h2#Review-label{
     border-radius: 2em;
 }
 
-#review-text{
-    /* width: 100%; */
-  height: 150px;
-  padding: 12px 20px;
-  box-sizing: border-box;
-  border: 2px solid #ccc;
-  border-radius: 4px;
-  background-color: #f8f8f8;
-  font-size: 16px;
-  resize: none;
-  box-shadow: none;
+#review-text {
+    height: 150px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    font-size: 16px;
+    resize: none;
+    box-shadow: none;
 }
 
+.star-selector {
+    display: flex;
+    align-items: center;
+}
+
+.stars img {
+    width: 30px;
+    height: 30px;
+}
+
+#add-review-btn {
+    margin: 0.75em 0;
+    background-color: #ffb62e;
+    box-shadow: 2px 2px 5px black;
+    border-radius: 1.5em;
+    padding: 0.35em 1em;
+    font-size: 1.15em;
+    cursor: pointer;
+    color: white;
+    text-shadow: 2px 2px 5px black;
+}
+
+#submit-review-btn{
+    margin: 0.75em 0;
+    background-color: #ffb62e;
+    box-shadow: 2px 2px 5px black;
+    border-radius: 1.5em;
+    padding: 0.35em 1em;
+    font-size: 1.15em;
+    cursor: pointer;
+    color: white;
+    text-shadow: 2px 2px 5px black; 
+}
 </style>

@@ -1,5 +1,4 @@
 import axios from "axios";
-//import MovieReviewService from "./MovieReviewService";
 
 export default {
 
@@ -12,7 +11,7 @@ export default {
     return axios.get("/movies/review/" + reviewId);
   }, // /movies/<reviewId>
 
-  createMovieReview(movieId) {
+  createMovieReview(movieReview) {
     return axios.post("/movies/reviews");
   }, // POST /reviews
 };
