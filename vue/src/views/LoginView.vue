@@ -48,7 +48,7 @@ export default {
             // this.$store.commit("SET_USER", response.data.user);
             userService.getUser().then(res => {
               this.$store.commit("SET_USER", res.data);
-              this.$router.push("/");
+              this.$router.go(-1);
             })
           }
         })
