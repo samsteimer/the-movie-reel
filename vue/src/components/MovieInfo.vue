@@ -16,15 +16,16 @@
                 </div>
                 <button id="delete-button" class="button-style" v-if="$store.state.isAdmin" @click.prevent="deleteMovie">Delete Movie</button>
                 <h2 id="Review-label">Reviews</h2>
-                <Review v-for="review in reviews" v-bind:key="review.reviewId" v-bind:review="review"></Review>
-                <br>
-                <br>
+                <Review id="reviews" v-for="review in reviews" v-bind:key="review.reviewId" v-bind:review="review"></Review>
+                
                 <div>
                     <button class="button-style" id="add-review-btn" @click="toggleShowForm">Add a review</button>
                 </div>
                 <form id="review-add-form" v-show="showForm">
+                    <div id="review-head">
                     <label for="movie-review-text">Enter Review:</label>
                     <textarea v-model="review.movieReview" name="movie-review-text" id="review-text" cols="100" rows="5" ></textarea>
+                    </div>
                     <div class="star-selector">
                         <div class="stars">
                             <img v-for="(star, index) in 5" 
@@ -34,7 +35,7 @@
                         </div>
                     </div>
                     <div class="star-selector">
-                        <select v-model="review.starRating">
+                        <select id="selector" v-model="review.starRating">
                             <option v-for="rating in ratings" :value="rating.value" :key="rating.value">
                                 {{ rating.label }}
                             </option>
@@ -168,8 +169,22 @@ export default {
 </script>
 
 <style>
+
+#reviews {
+    margin-bottom: 20px;
+}
+
+#review-head {
+    display: flex;
+    flex-direction: column;
+    font-weight: 500;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
 #rev-container {
     margin-top: 15px;
+    margin-bottom: 30px;
 }
 
 #back-btn {
@@ -219,9 +234,10 @@ export default {
 }
 
 h2#Review-label{
-    font-size: 65px;
+    font-size: 55px;
+    font-family: 'League Spartan', sans-serif;
     font-weight: bold;
-    color: yellow;
+    color: #ffb300;
 }
 
 .mock {
@@ -244,9 +260,16 @@ h2#Review-label{
     box-shadow: none;
 }
 
+#selector {
+    font-size: 1.4rem;
+    font-family: 'League Spartan', sans-serif;
+    color: black;
+    background-color: white;
+}
 .star-selector {
     display: flex;
     align-items: center;
+    margin-bottom: 15px;
 }
 
 .stars img {
