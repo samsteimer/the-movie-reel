@@ -15,8 +15,8 @@
         </div>
         <div id="profile-genres">
             <label for="input-genres">Favorite Genres</label>
-            <span v-for="genre in genres" :key="genre.genre_id" >
-                <input name="input-genres" type="checkbox" :value="genre.genre_id" v-model="user.genres" />
+            <span  v-for="genre in genres" :key="genre.genre_id" >
+                <input name="input-genres" type="checkbox" :value="genre.genre_id" v-model="user.genres" /><i ></i>
                 {{ genre.genre_name }}
             </span>
         </div>
@@ -67,6 +67,7 @@ export default {
 </script>
 
 <style scoped>
+
 
 h1 {
     margin-left: 155px;

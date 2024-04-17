@@ -33,7 +33,7 @@ public class JdbcMovieDao implements MovieDao {
     public Movie getMovieByMovieId(Integer movieId) {
         Movie movie = null;
 
-        String sql = "select * from movies where movie_id = ?;";
+        String sql = "select * from movies where movie_id = ? and is_deleted = false;";
 
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, movieId);
 
@@ -46,7 +46,7 @@ public class JdbcMovieDao implements MovieDao {
     @Override
     public Movie getMovieByTitle(String title) {
         Movie movie = null;
-        String sql = "select * from movies where title = ?;";
+        String sql = "select * from movies where title = ? and is_deleted = false;";
 
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, title);
 
@@ -61,7 +61,7 @@ public class JdbcMovieDao implements MovieDao {
     public List<Movie> getMoviesByGenreId(int genreId) {
         List<Movie> moviesInGenre = new ArrayList<>();
 
-        String sql = "select * from movies join movies_genres using (movie_id) where genre_id = ?;";
+        String sql = "select * from movies join movies_genres using (movie_id) where genre_id = ? and is_deleted = false;";
         try {
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, genreId);
 
@@ -79,7 +79,7 @@ public class JdbcMovieDao implements MovieDao {
     public List<Movie> getMoviesByListId(int listId) {
         List<Movie> moviesInList = new ArrayList<>();
 
-        String sql = "select * from movies join movies_lists using (movie_id) where list_id = ?;";
+        String sql = "select * from movies join movies_lists using (movie_id) where list_id = ? and is_deleted = false;";
         try {
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, listId);
 
@@ -97,7 +97,7 @@ public class JdbcMovieDao implements MovieDao {
     public List<Movie> getMoviesByUserId(int userId) {
         List<Movie> moviesInUserFav = new ArrayList<>();
 
-        String sql = "select * from movies join users_movies using (movie_id) where user_id = ?;";
+        String sql = "select * from movies join users_movies using (movie_id) where user_id = ? and is_deleted = false;";
         try {
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
 
@@ -114,7 +114,7 @@ public class JdbcMovieDao implements MovieDao {
     public List<Movie> getMoviesByListId(List<Integer> listIds) {
         List<Movie> moviesInList = new ArrayList<>();
 
-        String sql = "select * from movies join users_movies using (movie_id) where user_id in (?);";
+        String sql = "select * from movies join users_movies using (movie_id) where user_id in (?) and is_deleted = false;";
         try {
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, listIds);
 
@@ -132,7 +132,7 @@ public class JdbcMovieDao implements MovieDao {
         List<Movie> moviesInGenre = new ArrayList<>();
 
         String inSql = String.join(",", Collections.nCopies(genreIds.size(), "?"));
-        String sql = "select * from movies join movies_genres using (movie_id) where genre_id in (" + inSql + ");";
+        String sql = "select * from movies join movies_genres using (movie_id) where genre_id in (" + inSql + ") and is_deleted = false;";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, genreIds.toArray());
 
@@ -221,6 +221,17 @@ public class JdbcMovieDao implements MovieDao {
     }
 
     @Override
+    public void deleteMovieById(int movieId) {
+        String sql = "update movies set is_deleted = true where movie_id = ?";
+        try {
+            jdbcTemplate.update(sql, movieId);
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Could not connect.", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        }    }
+
+    @Override
     public void addMovieGenre(int genreId, int movieId) {
         String sql = "insert into movies_genres (genre_id, movie_id) values (?, ?)";
         try {
@@ -281,6 +292,8 @@ public class JdbcMovieDao implements MovieDao {
         if (releaseDate != null) {
             movie.setReleaseDate(releaseDate);
         }
+
+        movie.setDeleted(rowSet.getBoolean("is_deleted"));
 
         movie.setGenres(genreDao.getGenresByMovieId(movie.getMovieId()));
 

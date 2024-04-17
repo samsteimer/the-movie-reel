@@ -9,6 +9,7 @@
             <h3>Overview</h3>
             <p>{{ movie.overview }}</p>
             <div v-if="$store.state.token != ''">
+<<<<<<< HEAD
                 <button class="button-style" v-if="!favoriteMovieIds.includes(movie.movie_id)" @click.prevent="addFavoriteMovie(movie.movie_id)">Add to WatchList</button>
                 <button class="button-style" v-else @click.prevent="removeFavoriteMovie(movie.movie_id)">Remove from
                     WatchList</button>
@@ -45,6 +46,25 @@
                     </div> 
                 </form>
             </div>
+=======
+            <button class="button-style" v-if="!favoriteMovieIds.includes(movie.movie_id)" @click.prevent="addFavoriteMovie(movie.movie_id)">Add to WatchList</button>
+            <button class="button-style" v-else @click.prevent="removeFavoriteMovie(movie.movie_id)">Remove from WatchList</button>
+            <button class="button-style" v-if="$store.state.isAdmin" @click.prevent="deleteMovie">Delete Movie</button>
+            <h2 id="Review-label">Reviews</h2>
+            <Review v-for="review in reviews" v-bind:key="review.reviewId" v-bind:review="review"></Review>
+            <br>
+            <br>
+            <div>
+                <button>Add a review</button>
+            </div>
+    <form id="review-add-form">
+        <!-- <div id="review-text"> -->
+            <label for="input-review-text">Enter Review:</label>
+        <textarea  name="movie-review-text" id="review-text" cols="100" rows="5" value = "Add your review" onfocus="this.value=''"> </textarea>
+
+        <div class="star-selector">
+            <!-- <StarSelector></StarSelector> -->
+>>>>>>> b6d07d73d3eee486e12cd5d8d7225c840e81169c
         </div>
     </div>
 </template>
@@ -57,7 +77,10 @@ import Review from '../components/Review.vue';
 import MovieReviewService from '../services/MovieReviewService';
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> b6d07d73d3eee486e12cd5d8d7225c840e81169c
 export default {
     data() {
         return {
@@ -116,8 +139,19 @@ export default {
                 }
             })
         },
+<<<<<<< HEAD
 
 
+=======
+        deleteMovie() {
+            MovieService.deleteMovieById(this.movie.movie_id).then(res => {
+                if (res.status == 200) this.$router.push({name: 'home'});
+            });
+        },
+        clearText(event) {
+            event.target.value = '';
+        }
+>>>>>>> b6d07d73d3eee486e12cd5d8d7225c840e81169c
     },
 
     components: {

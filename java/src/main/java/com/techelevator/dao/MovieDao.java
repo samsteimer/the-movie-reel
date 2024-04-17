@@ -24,6 +24,8 @@ public interface MovieDao {
 
     Movie updateMovie(Movie movie);
 
+    void deleteMovieById(int movieId);
+
     void addMovieGenre(int movieId, int genreId);
 
     void removeMovieGenre(int movieId, int genreId);
