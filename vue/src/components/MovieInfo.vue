@@ -17,7 +17,7 @@
                 <br>
                 <br>
                 <div>
-                    <button id="add-review-btn" @click="showForm = !showForm">Add a review</button>
+                    <button id="add-review-btn" @click="toggleShowForm">Add a review</button>
                 </div>
                 <form id="review-add-form" v-show="showForm">
                     <label for="movie-review-text">Enter Review:</label>
@@ -41,7 +41,7 @@
                         </div>
                         <br>
                     <div id="review-button">
-                        <button v-on:click.prevent="addMovieReview"  id="submit-review-btn" @click="showForm = !showForm" ]>Save</button>
+                        <button v-on:click.prevent="addMovieReview"  id="submit-review-btn">Save</button>
                     </div> 
                 </form>
             </div>
@@ -55,7 +55,6 @@ import MovieService from '../services/MovieService';
 import UserService from '../services/UserService';
 import Review from '../components/Review.vue';
 import MovieReviewService from '../services/MovieReviewService';
-
 
 
 export default {
@@ -95,6 +94,10 @@ export default {
             this.review.starRating = star;
         },
 
+        toggleShowForm() {
+            this.showForm = !this.showForm
+        },
+
         addFavoriteMovie(movieId) {
             UserService.addFavoriteMovie(movieId).then(res => {
                 if (res.status == 200) {
@@ -113,6 +116,13 @@ export default {
             MovieReviewService.createMovieReview(this.review).then(res =>{
                 if (res.status == 200) {
                     this.reviews.push(res.data);
+                    this.showForm = false;
+                    this.review = {
+                        movieReview: "",
+                        starRating: 5,
+                        movieId: 0,
+                        userId: 0
+                    }
                 }
             })
         },
