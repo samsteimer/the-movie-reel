@@ -119,11 +119,12 @@ if (currentToken) {
 }
 ​
 // src/store/index.js
-export function createStore(currentToken, currentUser) {
+export function createStore(currentToken, currentUser, currentIsAdmin) {
   let store = _createStore({
     state: {
       token: currentToken || '',
-      user: currentUser || {}
+      user: currentUser || {},
+      isAdmin: currentIsAdmin || false
     },
     // ...
   });

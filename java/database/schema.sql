@@ -19,7 +19,8 @@ CREATE TABLE movies (
 	title varchar(100) UNIQUE NOT NULL,
 	poster_path varchar(200),
 	overview varchar(1000),
-	release_date varchar(10)
+	release_date varchar(10),
+	is_deleted boolean default false not null,
 );
 
 CREATE TABLE genres (
