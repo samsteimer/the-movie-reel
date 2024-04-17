@@ -11,6 +11,7 @@
     <ul id="home-movies">
       <MovieCard v-for="movie in newReleasesMovies" :key="movie.movie_id" :movie="movie" />
     </ul>
+  
     <!-- <ul>
     <li v-for="movie in nowShowingMovies" :key="movie.movie_id">{{ movie.title }}</li>
     </ul> -->
@@ -69,6 +70,7 @@ export default {
   align-items: center;
 }
 
+
 #head-text {
   display: flex;
   color: white;
@@ -103,7 +105,6 @@ export default {
   text-shadow: 2px 2px 5px black;
   font-weight: 700;
   font-size: 2.5rem;
-  margin-bottom: 5px;
   margin-left: 40px;
 }
 
