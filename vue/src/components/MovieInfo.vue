@@ -12,7 +12,7 @@
             <div id="rev-container">
                 <button class="button-style" v-if="!favoriteMovieIds.includes(movie.movie_id)" @click.prevent="addFavoriteMovie(movie.movie_id)">Add to WatchList</button>
                 <button class="button-style" v-else @click.prevent="removeFavoriteMovie(movie.movie_id)">Remove from WatchList</button>
-                <button class="button-style" v-if="$store.state.isAdmin" @click.prevent="deleteMovie">Delete Movie</button>
+                <button id="delete-button" class="button-style" v-if="$store.state.isAdmin" @click.prevent="deleteMovie">Delete Movie</button>
                 <h2 id="Review-label">Reviews</h2>
                 <Review v-for="review in reviews" v-bind:key="review.reviewId" v-bind:review="review"></Review>
                 <br>
@@ -174,6 +174,10 @@ export default {
     margin-top: 15px;
 }
 
+#delete-button {
+    margin-left: 15px;
+}
+
 #movie-info-display {
     display: flex;
     margin-top: 75px;
@@ -248,27 +252,4 @@ h2#Review-label{
     height: 30px;
 }
 
-#add-review-btn {
-    margin: 0.75em 0;
-    background-color: #ffb62e;
-    box-shadow: 2px 2px 5px black;
-    border-radius: 1.5em;
-    padding: 0.35em 1em;
-    font-size: 1.15em;
-    cursor: pointer;
-    color: white;
-    text-shadow: 2px 2px 5px black;
-}
-
-#submit-review-btn{
-    margin: 0.75em 0;
-    background-color: #ffb62e;
-    box-shadow: 2px 2px 5px black;
-    border-radius: 1.5em;
-    padding: 0.35em 1em;
-    font-size: 1.15em;
-    cursor: pointer;
-    color: white;
-    text-shadow: 2px 2px 5px black; 
-}
 </style>
