@@ -4,8 +4,8 @@
             <img id="poster" v-bind:src="movie.poster_path" alt="">
         </div>
         <div id="movie-details">
-            <h1>{{ movie.title }}</h1>
-            <h2>(Released: {{ movie.release_date }})</h2>
+            <h2 id="movie-title">{{ movie.title }}</h2>
+            <h3>(Released: {{ movie.release_date }})</h3>
             <h3>Overview</h3>
             <p>{{ movie.overview }}</p>
             <div v-if="$store.state.token != ''">
@@ -17,7 +17,7 @@
             <br>
             <br>
             <div>
-                <button>Add a review</button>
+                <button class="button-style">Add a review</button>
             </div>
     <form id="review-add-form">
         <!-- <div id="review-text"> -->
@@ -28,7 +28,7 @@
             <!-- <StarSelector></StarSelector> -->
         </div>
         <div id="review-button">
-            <button v-on:click="getMoreInfo" @click.prevent="submitUpdate">Save</button>
+            <button  class="button-style" v-on:click="getMoreInfo" @click.prevent="submitUpdate">Save</button>
         </div>
     </form>
         </div>        
@@ -151,12 +151,8 @@ export default {
     text-shadow: 2px 2px 5px black;
 }
 
-#movie-details>h1 {
-    font-size: 3rem;
-}
-
 #movie-details>h2 {
-    font-size: 1.5rem;
+    font-size: 3rem;
     margin-bottom: 20px;
 }
 
@@ -172,24 +168,11 @@ export default {
     margin-top: 15px;
 }
 
-
-#movie-details button {
-    margin: 0.75em 0;
-    background-color: #ffb62e;
-    border: none;
-    border-radius: 1.5em;
-    padding: 0.35em 1em;
-    font-size: 1.15em;
-    cursor: pointer;
-}
-
 h2#Review-label{
     font-size: 65px;
     font-weight: bold;
     color: yellow;
 }
-
-   
 
 .mock {
     width: 300px;
