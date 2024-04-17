@@ -82,9 +82,9 @@ SELECT
     movie_id
 FROM movies ORDER BY random() LIMIT 5;
 
-INSERT INTO reviews  (review, star_rating, movie_id, user_id) VALUES ('Its Star Wars.... say no more','5','3','1');
-INSERT INTO reviews  (review, star_rating, movie_id, user_id) VALUES ('Can I please... get my 2hrs back','1','1','1');
-INSERT INTO reviews  (review, star_rating, movie_id, user_id) VALUES ('Ill have great dreams tonight!','5','2','1');
+INSERT INTO reviews  (review, star_rating, movie_id, user_id) VALUES ('Say hello to my little kitty! Another great gangster movie','5','3','1');
+INSERT INTO reviews  (review, star_rating, movie_id, user_id) VALUES ('Ill have great dreams tonight!','1','1','1');
+INSERT INTO reviews  (review, star_rating, movie_id, user_id) VALUES ('May the force be with you!','5','2','1');
 
 INSERT INTO reviews  (review, star_rating, movie_id, user_id) VALUES (' Lorem ipsum dolor sit amet, at illud salutatus deterruisset duo. Sit alia nulla maiestatis et. Quo eu summo accusamus. Modo adipiscing ea vis, ut has zril consulatu theophrastus. Eu eam sanctus accommodare complectitur, an mei eius soleat sapientem.','4','2','2');
 INSERT INTO reviews  (review, star_rating, movie_id, user_id) VALUES (' Lorem ipsum dolor sit amet, at illud salutatus deterruisset duo. Sit alia nulla maiestatis et. Quo eu summo accusamus. Modo adipiscing ea vis, ut has zril consulatu theophrastus. Eu eam sanctus accommodare complectitur, an mei eius soleat sapientem.','5','4','2');
