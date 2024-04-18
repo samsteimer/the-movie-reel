@@ -32,11 +32,13 @@
 
     </form>
    
-    <h1>Search for a movie</h1>
+    <h1>Search for a Movie by Title</h1>
+    
     <div id="search-movies">
         <input class="search-input" placeholder="Title" type="text" v-model="searchTitle" @keyup.enter="search()">
+        <h2>Results ordered by popularity</h2>
     </div>
-
+    
     <div id="returned-movies" v-if="searchResults && searchResults.results && searchResults.results.length > 0">
         
         <ul id="movie-info-display">
